@@ -87,4 +87,51 @@ public class CatalogVariantsController : BaseController
         }
     }
 
+    [HttpGet("GetById")]
+    public async Task<IActionResult> GetPricesById(int id)
+    {
+        var requestUrl = "https://api.printful.com/v2/catalog-variants/{id}/prices";
+
+        try
+        {
+            var data = await _printfulServiceAdapter.GetAsync(requestUrl);
+            return Ok(data);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpGet("{id}/images")]
+    public async Task<IActionResult> GetImagesById(int id)
+    {
+        var requestUrl = "https://api.printful.com/v2/catalog-variants/{id}/images";
+
+        try
+        {
+            var data = await _printfulServiceAdapter.GetAsync(requestUrl);
+            return Ok(data);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpGet("{id}/availability")]
+    public async Task<IActionResult> GetAvailabilityById(int id)
+    {
+        var requestUrl = "https://api.printful.com/v2/catalog-variants/{id}/availability";
+
+        try
+        {
+            var data = await _printfulServiceAdapter.GetAsync(requestUrl);
+            return Ok(data);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
 }

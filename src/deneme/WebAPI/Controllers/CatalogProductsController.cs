@@ -21,8 +21,6 @@ public class CatalogProductsController : BaseController
     {
         var requestUrl = $"https://api.printful.com/v2/catalog-products/{id}?selling_region_name={sellingRegionName}";
 
-
-
         try
         {
             var data = await _printfulServiceAdapter.GetAsync(requestUrl);
@@ -95,6 +93,118 @@ public class CatalogProductsController : BaseController
     {
         var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/catalog-variants";
 
+
+        try
+        {
+            var data = await _printfulServiceAdapter.GetAsync(requestUrl);
+            return Ok(data);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpGet("{id}/catalog-categories")]
+    public async Task<IActionResult> GetProductCategoriesById(int id)
+    {
+        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/catalog-categories";
+
+        try
+        {
+            var data = await _printfulServiceAdapter.GetAsync(requestUrl);
+            return Ok(data);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpGet("{id}/sizes")]
+    public async Task<IActionResult> GetSizesById(int id)
+    {
+        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/sizes";
+
+        try
+        {
+            var data = await _printfulServiceAdapter.GetAsync(requestUrl);
+            return Ok(data);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpGet("{id}/prices")]
+    public async Task<IActionResult> GetPricesById(int id)
+    {
+        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/prices";
+
+        try
+        {
+            var data = await _printfulServiceAdapter.GetAsync(requestUrl);
+            return Ok(data);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpGet("{id}/images")]
+    public async Task<IActionResult> GetImagesById(int id)
+    {
+        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/images";
+
+        try
+        {
+            var data = await _printfulServiceAdapter.GetAsync(requestUrl);
+            return Ok(data);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpGet("{id}/mockup-styles")]
+    public async Task<IActionResult> GetMockUpStylesById(int id)
+    {
+        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/mockup-styles";
+
+        try
+        {
+            var data = await _printfulServiceAdapter.GetAsync(requestUrl);
+            return Ok(data);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpGet("{id}/mockup-templates")]
+    public async Task<IActionResult> GetMockUpTemplatesById(int id)
+    {
+        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/mockup-templates";
+
+        try
+        {
+            var data = await _printfulServiceAdapter.GetAsync(requestUrl);
+            return Ok(data);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpGet("{id}/availability")]
+    public async Task<IActionResult> GetAvailabilityById(int id)
+    {
+        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/availability";
 
         try
         {
