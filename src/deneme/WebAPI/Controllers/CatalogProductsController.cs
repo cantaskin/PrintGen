@@ -122,9 +122,14 @@ public class CatalogProductsController : BaseController
     }
 
     [HttpGet("{id}/sizes")]
-    public async Task<IActionResult> GetSizesById(int id)
+    public async Task<IActionResult> GetSizesById(int id, string unit)
     {
         var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/sizes";
+
+        if (!string.IsNullOrEmpty(unit))
+        {
+            requestUrl += $"?unit={unit}";
+        }
 
         try
         {
@@ -138,9 +143,25 @@ public class CatalogProductsController : BaseController
     }
 
     [HttpGet("{id}/prices")]
-    public async Task<IActionResult> GetPricesById(int id)
+    public async Task<IActionResult> GetPricesById(int id, string? sellingRegionName, string? currency)
     {
         var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/prices";
+        var queryParameters = new List<string>();
+
+        if (!string.IsNullOrEmpty(sellingRegionName))
+        {
+            queryParameters.Add($"selling_region_name={sellingRegionName}");
+        }
+
+        if (!string.IsNullOrEmpty(currency))
+        {
+            queryParameters.Add($"currency={currency}");
+        }
+
+        if (queryParameters.Count > 0)
+        {
+            requestUrl += "?" + string.Join("&", queryParameters);
+        }
 
         try
         {
@@ -154,9 +175,31 @@ public class CatalogProductsController : BaseController
     }
 
     [HttpGet("{id}/images")]
-    public async Task<IActionResult> GetImagesById(int id)
+    public async Task<IActionResult> GetImagesById(int id, List<int>? mockupStyleIds, string? colors, string? placement)
     {
         var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/images";
+
+        var queryParameters = new List<string>();
+
+        if (mockupStyleIds != null && mockupStyleIds.Count > 0)
+        {
+            queryParameters.Add($"mockup_style_ids={string.Join(",", mockupStyleIds)}");
+        }
+
+        if (!string.IsNullOrEmpty(colors))
+        {
+            queryParameters.Add($"colors={colors}");
+        }
+
+        if (!string.IsNullOrEmpty(placement))
+        {
+            queryParameters.Add($"placement={placement}");
+        }
+
+        if (queryParameters.Count > 0)
+        {
+            requestUrl += "?" + string.Join("&", queryParameters);
+        }
 
         try
         {
@@ -170,9 +213,36 @@ public class CatalogProductsController : BaseController
     }
 
     [HttpGet("{id}/mockup-styles")]
-    public async Task<IActionResult> GetMockUpStylesById(int id)
+    public async Task<IActionResult> GetMockUpStylesById(int id, List<string>? placements, string? sellingRegionName, int offset, int limit)
     {
         var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/mockup-styles";
+
+        var queryParameters = new List<string>();
+
+        if (placements != null && placements.Count > 0)
+        {
+            queryParameters.Add($"placements={string.Join(",", placements)}");
+        }
+
+        if (!string.IsNullOrEmpty(sellingRegionName))
+        {
+            queryParameters.Add($"selling_region_name={sellingRegionName}");
+        }
+
+        if (offset > 0)
+        {
+            queryParameters.Add($"offset={offset}");
+        }
+
+        if (limit > 0)
+        {
+            queryParameters.Add($"limit={limit}");
+        }
+
+        if (queryParameters.Count > 0)
+        {
+            requestUrl += "?" + string.Join("&", queryParameters);
+        }
 
         try
         {
@@ -186,9 +256,37 @@ public class CatalogProductsController : BaseController
     }
 
     [HttpGet("{id}/mockup-templates")]
-    public async Task<IActionResult> GetMockUpTemplatesById(int id)
+    public async Task<IActionResult> GetMockUpTemplatesById(int id, List<string>? placements, string? sellingRegionName, int limit, int offset)
     {
         var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/mockup-templates";
+
+        var queryParameters = new List<string>();
+
+        if (placements != null && placements.Count > 0)
+        {
+            queryParameters.Add($"placements={string.Join(",", placements)}");
+        }
+
+        if (!string.IsNullOrEmpty(sellingRegionName))
+        {
+            queryParameters.Add($"selling_region_name={sellingRegionName}");
+        }
+
+        if (limit > 0)
+        {
+            queryParameters.Add($"limit={limit}");
+        }
+
+        if (offset > 0)
+        {
+            queryParameters.Add($"offset={offset}");
+        }
+
+        if (queryParameters.Count > 0)
+        {
+            requestUrl += "?" + string.Join("&", queryParameters);
+        }
+
 
         try
         {
@@ -202,9 +300,36 @@ public class CatalogProductsController : BaseController
     }
 
     [HttpGet("{id}/availability")]
-    public async Task<IActionResult> GetAvailabilityById(int id)
+    public async Task<IActionResult> GetAvailabilityById(int id, List<string>? techniques, string? sellingRegionName, int limit, int offset)
     {
         var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/availability";
+
+        var queryParameters = new List<string>();
+
+        if (techniques != null && techniques.Count > 0)
+        {
+            queryParameters.Add($"techniques={string.Join(",", techniques)}");
+        }
+
+        if (!string.IsNullOrEmpty(sellingRegionName))
+        {
+            queryParameters.Add($"selling_region_name={sellingRegionName}");
+        }
+
+        if (limit > 0)
+        {
+            queryParameters.Add($"limit={limit}");
+        }
+
+        if (offset >= 0)
+        {
+            queryParameters.Add($"offset={offset}");
+        }
+
+        if (queryParameters.Count > 0)
+        {
+            requestUrl += "?" + string.Join("&", queryParameters);
+        }
 
         try
         {

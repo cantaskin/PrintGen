@@ -24,7 +24,7 @@ public class CatalogCategoriesController : BaseController
     [HttpGet("GetById")]
     public async Task<ActionResult<GetByIdCategoryResponse>> GetById(int id)
     {
-        var requestUrl = "https://api.printful.com/v2/catalog-categories/{id}";
+       var requestUrl = "https://api.printful.com/v2/catalog-categories/{id}";
 
         try
         {
@@ -41,7 +41,7 @@ public class CatalogCategoriesController : BaseController
     public async Task<ActionResult<GetListCategoryQuery>> GetList([FromQuery] PageRequest pageRequest)
     {
         var requestUrl = "https://api.printful.com/v2/catalog-categories";
-        
+
         try
         {
             var data = await _printfulServiceAdapter.GetAsync(requestUrl);
