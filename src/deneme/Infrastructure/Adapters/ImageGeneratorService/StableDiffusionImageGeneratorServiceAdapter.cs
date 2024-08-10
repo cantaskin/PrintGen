@@ -12,7 +12,7 @@ namespace Infrastructure.Adapters.ImageGeneratorService
 {
     public class StableDiffusionImageGeneratorServiceAdapter : ImageGeneratorServiceBase
     {
-        private readonly string apikey = "sk-piCvJlowKFco5LjifNwA3uiqW6EcgTJm4sOjL3A5rzjeQM70";
+        private readonly string apikey = "sk-NT4WgC7IcO7MIwAhM6mVPHokxJVgmfO1GvGrjUxNSPBl4RSs";
         private readonly string baseurl = "https://api.stability.ai/v2beta/stable-image";
         private readonly ImageServiceBase ImageServiceAdapter;
 

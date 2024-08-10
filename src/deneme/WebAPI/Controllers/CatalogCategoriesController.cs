@@ -1,8 +1,3 @@
-using Application.Features.Categories.Commands.Create;
-using Application.Features.Categories.Commands.Delete;
-using Application.Features.Categories.Commands.Update;
-using Application.Features.Categories.Queries.GetById;
-using Application.Features.Categories.Queries.GetList;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +5,7 @@ using Infrastructure.Adapters.PrintfulService;
 
 namespace WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("Deneme/[controller]")]
 [ApiController]
 public class CatalogCategoriesController : BaseController
 {
@@ -21,10 +16,11 @@ public class CatalogCategoriesController : BaseController
         _printfulServiceAdapter = printfulServiceAdapte;
     }
 
-    [HttpGet("GetById")]
-    public async Task<ActionResult<GetByIdCategoryResponse>> GetById(int id)
+    [HttpGet("{id}")]
+
+    public async Task<ActionResult> GetById(int id)
     {
-       var requestUrl = "https://api.printful.com/v2/catalog-categories/{id}";
+       var requestUrl = $"https://api.printful.com/v2/catalog-categories/{id}";
 
         try
         {
@@ -37,8 +33,8 @@ public class CatalogCategoriesController : BaseController
         }
     }
 
-    [HttpGet("GetAll")]
-    public async Task<ActionResult<GetListCategoryQuery>> GetList([FromQuery] PageRequest pageRequest)
+    [HttpGet()]
+    public async Task<ActionResult> GetList([FromQuery] PageRequest pageRequest)
     {
         var requestUrl = "https://api.printful.com/v2/catalog-categories";
 

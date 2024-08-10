@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 
 namespace WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("Deneme/[controller]")]
 [ApiController]
 public class CatalogProductsController : BaseController
 {
@@ -16,7 +16,7 @@ public class CatalogProductsController : BaseController
         _printfulServiceAdapter = printfulServiceAdapte;
     }
 
-    [HttpGet("GetById")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id, [FromQuery] string sellingRegionName = "worldwide")
     {
         var requestUrl = $"https://api.printful.com/v2/catalog-products/{id}?selling_region_name={sellingRegionName}";
@@ -34,7 +34,7 @@ public class CatalogProductsController : BaseController
 
 
 
-    [HttpGet("GetAll")]
+    [HttpGet("")]
     public async Task<IActionResult> GetList(
         [FromQuery] List<int> category_ids,
         [FromQuery] string? colors,
@@ -91,7 +91,7 @@ public class CatalogProductsController : BaseController
     [HttpGet("{id}/catalog-variants")]
     public async Task<IActionResult> GetProductVariantsById(int id)
     {
-        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/catalog-variants";
+        var requestUrl = $"https://api.printful.com/v2/catalog-products/{id}/catalog-variants";
 
 
         try
@@ -108,7 +108,7 @@ public class CatalogProductsController : BaseController
     [HttpGet("{id}/catalog-categories")]
     public async Task<IActionResult> GetProductCategoriesById(int id)
     {
-        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/catalog-categories";
+        var requestUrl = $"https://api.printful.com/v2/catalog-products/{id}/catalog-categories";
 
         try
         {
@@ -124,7 +124,7 @@ public class CatalogProductsController : BaseController
     [HttpGet("{id}/sizes")]
     public async Task<IActionResult> GetSizesById(int id, string unit)
     {
-        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/sizes";
+        var requestUrl = $"https://api.printful.com/v2/catalog-products/{id}/sizes";
 
         if (!string.IsNullOrEmpty(unit))
         {
@@ -145,7 +145,7 @@ public class CatalogProductsController : BaseController
     [HttpGet("{id}/prices")]
     public async Task<IActionResult> GetPricesById(int id, string? sellingRegionName, string? currency)
     {
-        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/prices";
+        var requestUrl = $"https://api.printful.com/v2/catalog-products/{id}/prices";
         var queryParameters = new List<string>();
 
         if (!string.IsNullOrEmpty(sellingRegionName))
@@ -177,7 +177,7 @@ public class CatalogProductsController : BaseController
     [HttpGet("{id}/images")]
     public async Task<IActionResult> GetImagesById(int id, List<int>? mockupStyleIds, string? colors, string? placement)
     {
-        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/images";
+        var requestUrl = $"https://api.printful.com/v2/catalog-products/{id}/images";
 
         var queryParameters = new List<string>();
 
@@ -215,7 +215,7 @@ public class CatalogProductsController : BaseController
     [HttpGet("{id}/mockup-styles")]
     public async Task<IActionResult> GetMockUpStylesById(int id, List<string>? placements, string? sellingRegionName, int offset, int limit)
     {
-        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/mockup-styles";
+        var requestUrl = $"https://api.printful.com/v2/catalog-products/{id}/mockup-styles";
 
         var queryParameters = new List<string>();
 
@@ -258,7 +258,7 @@ public class CatalogProductsController : BaseController
     [HttpGet("{id}/mockup-templates")]
     public async Task<IActionResult> GetMockUpTemplatesById(int id, List<string>? placements, string? sellingRegionName, int limit, int offset)
     {
-        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/mockup-templates";
+        var requestUrl = $"https://api.printful.com/v2/catalog-products/{id}/mockup-templates";
 
         var queryParameters = new List<string>();
 
@@ -302,7 +302,7 @@ public class CatalogProductsController : BaseController
     [HttpGet("{id}/availability")]
     public async Task<IActionResult> GetAvailabilityById(int id, List<string>? techniques, string? sellingRegionName, int limit, int offset)
     {
-        var requestUrl = "https://api.printful.com/v2/catalog-products/{id}/availability";
+        var requestUrl = $"https://api.printful.com/v2/catalog-products/{id}/availability";
 
         var queryParameters = new List<string>();
 

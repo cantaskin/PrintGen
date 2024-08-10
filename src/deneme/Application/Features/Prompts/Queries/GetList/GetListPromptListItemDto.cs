@@ -7,5 +7,4 @@ public class GetListPromptListItemDto : IDto
 {
     public Guid Id { get; set; }
     public string PromptString { get; set; }
-    public CustomizedImage? CustomizedImage { get; set; }
 }

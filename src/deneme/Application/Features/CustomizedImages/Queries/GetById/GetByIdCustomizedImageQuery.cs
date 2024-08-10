@@ -1,19 +1,14 @@
-using Application.Features.CustomizedImages.Constants;
 using Application.Features.CustomizedImages.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
-using static Application.Features.CustomizedImages.Constants.CustomizedImagesOperationClaims;
 
 namespace Application.Features.CustomizedImages.Queries.GetById;
 
-public class GetByIdCustomizedImageQuery : IRequest<GetByIdCustomizedImageResponse>, ISecuredRequest
+public class GetByIdCustomizedImageQuery : IRequest<GetByIdCustomizedImageResponse>
 {
     public Guid Id { get; set; }
-
-    public string[] Roles => [Admin, Read];
 
     public class GetByIdCustomizedImageQueryHandler : IRequestHandler<GetByIdCustomizedImageQuery, GetByIdCustomizedImageResponse>
     {

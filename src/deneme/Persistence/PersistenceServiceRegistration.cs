@@ -22,20 +22,9 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
 
-        services.AddScoped<IProductRepository, ProductRepository>();
-        services.AddScoped<ICategoryRepository, CategoryRepository>();
-        services.AddScoped<IColorRepository, ColorRepository>();
-        services.AddScoped<IProductImageRepository, ProductImageRepository>();
-        services.AddScoped<IProductImageRepository, ProductImageRepository>();
-        services.AddScoped<IPrintAreaRepository, PrintAreaRepository>();
-        services.AddScoped<IPrintAreaNameRepository, PrintAreaNameRepository>();
-        services.AddScoped<ICustomizedImageRepository, CustomizedImageRepository>();
-        services.AddScoped<ICustomizedProductRepository, CustomizedProductRepository>();
-        services.AddScoped<IAddressRepository, AddressRepository>();
-        services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
-        services.AddScoped<IOrderRepository, OrderRepository>();
-        services.AddScoped<IOrderTransportRepository, OrderTransportRepository>();
+
         services.AddScoped<IPromptRepository, PromptRepository>();
+        services.AddScoped<ICustomizedImageRepository, CustomizedImageRepository>();
         return services;
     }
 }

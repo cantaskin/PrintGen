@@ -11,16 +11,17 @@ public class CustomizedImageConfiguration : IEntityTypeConfiguration<CustomizedI
         builder.ToTable("CustomizedImages").HasKey(ci => ci.Id);
 
         builder.Property(ci => ci.Id).HasColumnName("Id").IsRequired();
-        builder.Property(ci => ci.ImageUrl).HasColumnName("ImageUrl").IsRequired();
-        builder.Property(ci => ci.PrintAreaId).HasColumnName("PrintAreaId").IsRequired();
+        builder.Property(ci => ci.ImageUrl).HasColumnName("ImageUrl");
         builder.Property(ci => ci.PromptId).HasColumnName("PromptId").IsRequired();
-        builder.Property(ci => ci.X).HasColumnName("x").IsRequired();
-        builder.Property(ci => ci.Y).HasColumnName("y").IsRequired();
         builder.Property(ci => ci.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(ci => ci.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(ci => ci.DeletedDate).HasColumnName("DeletedDate");
 
-        builder.HasOne(ci => ci.PrintArea).WithOne(pa => pa.CustomizedImage).HasForeignKey<CustomizedImage>(ci => ci.PrintAreaId);
+
+        builder.
+            HasOne(ci => ci.ImagePrompt).
+            WithOne(p => p.Image).
+            HasForeignKey<Prompt>(p => p.ImageId);
         builder.HasQueryFilter(ci => !ci.DeletedDate.HasValue);
     }
 }

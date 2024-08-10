@@ -1,4 +1,6 @@
+using Application.Features.CustomizedImages.Commands.Create;
 using Application.Features.Prompts.Rules;
+using Application.Services.CustomizedImages;
 using Application.Services.ImageGeneratorService;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -11,54 +13,51 @@ namespace Application.Features.Prompts.Commands.Create;
 public class CreatePromptCommand : MediatR.IRequest<CreatedPromptResponse>
 {
     public required string PromptString { get; set; }
-    public required Guid PrintAreaId { get; set; }
+    public required string PromptCategory { get; set; }
 
     public class CreatePromptCommandHandler : IRequestHandler<CreatePromptCommand, CreatedPromptResponse>
     {
         private readonly IPromptRepository _promptRepository;
-        private readonly ICustomizedImageRepository _customizedImageRepository;
         private readonly ImageGeneratorServiceBase _imageGeneratorService;
-        private readonly PromptBusinessRules _bussinesRules;
+        private readonly PromptBusinessRules _bussinesRules; 
+        private readonly ICustomizedImageService _customizedImageService;
+
         private readonly IMapper _mapper;
+
+
 
         public CreatePromptCommandHandler(
             IPromptRepository promptRepository,
             PromptBusinessRules businessRules,
-            ICustomizedImageRepository customizedImageRepository,
-            ImageGeneratorServiceBase imageGeneratorService,
+            ImageGeneratorServiceBase imageGeneratorService, ICustomizedImageService customizedImageService,
             IMapper mapper)
         {
             _promptRepository = promptRepository;
-            _customizedImageRepository = customizedImageRepository;
             _imageGeneratorService = imageGeneratorService;
             _bussinesRules = businessRules;
             _mapper = mapper;
+            _customizedImageService = customizedImageService;
         }
 
         public async Task<CreatedPromptResponse> Handle(CreatePromptCommand request, CancellationToken cancellationToken)
-        {
-                Prompt prompt = _mapper.Map<Prompt>(request);
-                prompt.PromptString = request.PromptString;
+        { 
+            Prompt prompt = _mapper.Map<Prompt>(request);
 
-                await _promptRepository.AddAsync(prompt);
+            await _promptRepository.AddAsync(prompt);
+            string imageUrl = await _imageGeneratorService.CreateAsync(prompt.PromptString);
 
-                string imageUrl = await _imageGeneratorService.CreateAsync(prompt.PromptString);
+            CustomizedImage Image = new CustomizedImage();
+            Image.ImageUrl = imageUrl;
+            Image.PromptId = prompt.Id;
+            await _customizedImageService.AddAsync(Image);
 
-                var customizedImage = new CustomizedImage
-                {
-                    ImageUrl = imageUrl,
-                    PrintAreaId = request.PrintAreaId, // Assuming this comes from the request
-                    X = 100, // Assuming this comes from the request
-                    Y = 100, // Assuming this comes from the request
-                    PromptId = prompt.Id
-                };
 
-                await _customizedImageRepository.AddAsync(customizedImage);
+            prompt.ImageId = Image.Id;
+            await _promptRepository.UpdateAsync(prompt);
 
-                CreatedPromptResponse response = _mapper.Map<CreatedPromptResponse>(prompt);
-                response.ImageId = customizedImage.Id;
-
-                return response;
+            CreatedPromptResponse response = _mapper.Map<CreatedPromptResponse>(prompt);
+            response.ImageUrl = imageUrl;
+            return response;
         }
     }
 

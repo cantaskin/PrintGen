@@ -1,27 +1,15 @@
 using Application.Features.CustomizedImages.Constants;
-using Application.Features.CustomizedImages.Constants;
 using Application.Features.CustomizedImages.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Authorization;
-using NArchitecture.Core.Application.Pipelines.Caching;
-using NArchitecture.Core.Application.Pipelines.Logging;
-using NArchitecture.Core.Application.Pipelines.Transaction;
 using MediatR;
-using static Application.Features.CustomizedImages.Constants.CustomizedImagesOperationClaims;
 
 namespace Application.Features.CustomizedImages.Commands.Delete;
 
-public class DeleteCustomizedImageCommand : IRequest<DeletedCustomizedImageResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class DeleteCustomizedImageCommand : IRequest<DeletedCustomizedImageResponse>
 {
     public Guid Id { get; set; }
-
-    public string[] Roles => [Admin, Write, CustomizedImagesOperationClaims.Delete];
-
-    public bool BypassCache { get; }
-    public string? CacheKey { get; }
-    public string[]? CacheGroupKey => ["GetCustomizedImages"];
 
     public class DeleteCustomizedImageCommandHandler : IRequestHandler<DeleteCustomizedImageCommand, DeletedCustomizedImageResponse>
     {

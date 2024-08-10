@@ -10,7 +10,7 @@ using NArchitecture.Core.Application.Responses;
 
 namespace WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("Deneme/[controller]")]
 [ApiController]
 public class UsersController : BaseController
 {

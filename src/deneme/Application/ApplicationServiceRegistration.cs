@@ -20,19 +20,9 @@ using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using NArchitecture.Core.Security.JWT;
-using Application.Services.Categories;
-using Application.Services.Colors;
-using Application.Services.ProductImages;
-using Application.Services.PrintAreas;
-using Application.Services.PrintAreaNames;
-using Application.Services.CustomizedImages;
-using Application.Services.CustomizedProducts;
-using Application.Services.Addresses;
-using Application.Services.OrderDetails;
-using Application.Services.Orders;
-using Application.Services.OrderTransports;
 using Application.Services.Prompts;
 using Application.Services.ImageGeneratorService;
+using Application.Services.CustomizedImages;
 
 namespace Application;
 
@@ -73,20 +63,8 @@ public static class ApplicationServiceRegistration
         services.AddYamlResourceLocalization();
 
         services.AddSecurityServices<Guid, int, Guid>(tokenOptions);
-
-        services.AddScoped<ICategoryService, CategoryManager>();
-        services.AddScoped<IColorService, ColorManager>();
-        services.AddScoped<IProductImageService, ProductImageManager>();
-        services.AddScoped<IProductImageService, ProductImageManager>();
-        services.AddScoped<IPrintAreaService, PrintAreaManager>();
-        services.AddScoped<IPrintAreaNameService, PrintAreaNameManager>();
-        services.AddScoped<ICustomizedImageService, CustomizedImageManager>();
-        services.AddScoped<ICustomizedProductService, CustomizedProductManager>();
-        services.AddScoped<IAddressService, AddressManager>();
-        services.AddScoped<IOrderDetailService, OrderDetailManager>();
-        services.AddScoped<IOrderService, OrderManager>();
-        services.AddScoped<IOrderTransportService, OrderTransportManager>();
         services.AddScoped<IPromptService, PromptManager>();
+        services.AddScoped<ICustomizedImageService, CustomizedImageManager>();
         return services;
     }
 

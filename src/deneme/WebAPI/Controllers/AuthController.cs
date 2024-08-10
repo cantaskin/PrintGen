@@ -13,7 +13,7 @@ using NArchitecture.Core.Application.Dtos;
 
 namespace WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("Deneme/[controller]")]
 [ApiController]
 public class AuthController : BaseController
 {

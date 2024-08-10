@@ -5,7 +5,7 @@ using WebAPI.Controllers;
 
 namespace WebAPI;
 
-[Route("api/[controller]")]
+[Route("Deneme/[controller]")]
 [ApiController]
 public class CatalogVariantsController : BaseController
 {

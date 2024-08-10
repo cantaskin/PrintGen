@@ -1,6 +1,5 @@
 using Application.Features.Prompts.Commands.Create;
 using Application.Features.Prompts.Commands.Delete;
-using Application.Features.Prompts.Commands.Update;
 using Application.Features.Prompts.Queries.GetById;
 using Application.Features.Prompts.Queries.GetList;
 using NArchitecture.Core.Application.Requests;
@@ -9,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("Deneme/[controller]")]
 [ApiController]
 public class PromptsController : BaseController
 {
@@ -19,14 +18,6 @@ public class PromptsController : BaseController
         CreatedPromptResponse response = await Mediator.Send(command);
 
         return CreatedAtAction(nameof(GetById), new { response.Id }, response);
-    }
-
-    [HttpPut]
-    public async Task<ActionResult<UpdatedPromptResponse>> Update([FromBody] UpdatePromptCommand command)
-    {
-        UpdatedPromptResponse response = await Mediator.Send(command);
-
-        return Ok(response);
     }
 
     [HttpDelete("{id}")]

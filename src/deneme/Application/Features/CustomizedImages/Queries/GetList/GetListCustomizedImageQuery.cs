@@ -1,27 +1,16 @@
-using Application.Features.CustomizedImages.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Authorization;
-using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 using MediatR;
-using static Application.Features.CustomizedImages.Constants.CustomizedImagesOperationClaims;
 
 namespace Application.Features.CustomizedImages.Queries.GetList;
 
-public class GetListCustomizedImageQuery : IRequest<GetListResponse<GetListCustomizedImageListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListCustomizedImageQuery : IRequest<GetListResponse<GetListCustomizedImageListItemDto>>
 {
     public PageRequest PageRequest { get; set; }
-
-    public string[] Roles => [Admin, Read];
-
-    public bool BypassCache { get; }
-    public string? CacheKey => $"GetListCustomizedImages({PageRequest.PageIndex},{PageRequest.PageSize})";
-    public string? CacheGroupKey => "GetCustomizedImages";
-    public TimeSpan? SlidingExpiration { get; }
 
     public class GetListCustomizedImageQueryHandler : IRequestHandler<GetListCustomizedImageQuery, GetListResponse<GetListCustomizedImageListItemDto>>
     {

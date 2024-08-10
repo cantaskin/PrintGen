@@ -11,24 +11,17 @@ namespace Domain.Entities;
 public class CustomizedImage : Entity<Guid>
 {
     public string? ImageUrl { get; set; }
-    public Guid PrintAreaId { get; set; }
-    public Guid PromptId { get; set; }
-    public int X { get; set; }
-    public int Y { get; set; }
-    public virtual PrintArea PrintArea { get; set; }
-    public virtual Prompt ImagePrompt { get; set; }
+    public Guid? PromptId { get; set; }
+    public Prompt? ImagePrompt { get; set; }
 
     public CustomizedImage()
     {
         Id = Guid.NewGuid();
     }
 
-    public CustomizedImage(string ımageUrl, Guid printAreaId, int x, int y, Guid promptId) : this()
+    public CustomizedImage(string ımageUrl, Guid promptId) : this()
     {
         ImageUrl = ımageUrl;
-        PrintAreaId = printAreaId;
         PromptId = promptId;
-        X = x;
-        Y = y;
     }
 }

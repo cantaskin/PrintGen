@@ -6,17 +6,7 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
-using Application.Features.Categories.Constants;
-using Application.Features.Colors.Constants;
-using Application.Features.ProductImages.Constants;
-using Application.Features.PrintAreas.Constants;
-using Application.Features.PrintAreaNames.Constants;
 using Application.Features.CustomizedImages.Constants;
-using Application.Features.CustomizedProducts.Constants;
-using Application.Features.Addresses.Constants;
-using Application.Features.OrderDetails.Constants;
-using Application.Features.Orders.Constants;
-using Application.Features.OrderTransports.Constants;
 using Application.Features.Prompts.Constants;
 namespace Persistence.EntityConfigurations;
 
@@ -109,88 +99,15 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         #endregion
 
         
-
-        #region Categories CRUD
+        #region Prompts CRUD
         featureOperationClaims.AddRange(
             [
-                new() { Id = ++lastId, Name = CategoriesOperationClaims.Admin },
-                new() { Id = ++lastId, Name = CategoriesOperationClaims.Read },
-                new() { Id = ++lastId, Name = CategoriesOperationClaims.Write },
-                new() { Id = ++lastId, Name = CategoriesOperationClaims.Create },
-                new() { Id = ++lastId, Name = CategoriesOperationClaims.Update },
-                new() { Id = ++lastId, Name = CategoriesOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        #region Colors CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = ColorsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = ColorsOperationClaims.Read },
-                new() { Id = ++lastId, Name = ColorsOperationClaims.Write },
-                new() { Id = ++lastId, Name = ColorsOperationClaims.Create },
-                new() { Id = ++lastId, Name = ColorsOperationClaims.Update },
-                new() { Id = ++lastId, Name = ColorsOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        
-        
-        #region ProductImages CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = ProductImagesOperationClaims.Admin },
-                new() { Id = ++lastId, Name = ProductImagesOperationClaims.Read },
-                new() { Id = ++lastId, Name = ProductImagesOperationClaims.Write },
-                new() { Id = ++lastId, Name = ProductImagesOperationClaims.Create },
-                new() { Id = ++lastId, Name = ProductImagesOperationClaims.Update },
-                new() { Id = ++lastId, Name = ProductImagesOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        #region ProductImages CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = ProductImagesOperationClaims.Admin },
-                new() { Id = ++lastId, Name = ProductImagesOperationClaims.Read },
-                new() { Id = ++lastId, Name = ProductImagesOperationClaims.Write },
-                new() { Id = ++lastId, Name = ProductImagesOperationClaims.Create },
-                new() { Id = ++lastId, Name = ProductImagesOperationClaims.Update },
-                new() { Id = ++lastId, Name = ProductImagesOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        #region PrintAreas CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = PrintAreasOperationClaims.Admin },
-                new() { Id = ++lastId, Name = PrintAreasOperationClaims.Read },
-                new() { Id = ++lastId, Name = PrintAreasOperationClaims.Write },
-                new() { Id = ++lastId, Name = PrintAreasOperationClaims.Create },
-                new() { Id = ++lastId, Name = PrintAreasOperationClaims.Update },
-                new() { Id = ++lastId, Name = PrintAreasOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        #region PrintAreaNames CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = PrintAreaNamesOperationClaims.Admin },
-                new() { Id = ++lastId, Name = PrintAreaNamesOperationClaims.Read },
-                new() { Id = ++lastId, Name = PrintAreaNamesOperationClaims.Write },
-                new() { Id = ++lastId, Name = PrintAreaNamesOperationClaims.Create },
-                new() { Id = ++lastId, Name = PrintAreaNamesOperationClaims.Update },
-                new() { Id = ++lastId, Name = PrintAreaNamesOperationClaims.Delete },
+                new() { Id = ++lastId, Name = PromptsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = PromptsOperationClaims.Read },
+                new() { Id = ++lastId, Name = PromptsOperationClaims.Write },
+                new() { Id = ++lastId, Name = PromptsOperationClaims.Create },
+                new() { Id = ++lastId, Name = PromptsOperationClaims.Update },
+                new() { Id = ++lastId, Name = PromptsOperationClaims.Delete },
             ]
         );
         #endregion
@@ -205,106 +122,6 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new() { Id = ++lastId, Name = CustomizedImagesOperationClaims.Create },
                 new() { Id = ++lastId, Name = CustomizedImagesOperationClaims.Update },
                 new() { Id = ++lastId, Name = CustomizedImagesOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        #region CustomizedProducts CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = CustomizedProductsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = CustomizedProductsOperationClaims.Read },
-                new() { Id = ++lastId, Name = CustomizedProductsOperationClaims.Write },
-                new() { Id = ++lastId, Name = CustomizedProductsOperationClaims.Create },
-                new() { Id = ++lastId, Name = CustomizedProductsOperationClaims.Update },
-                new() { Id = ++lastId, Name = CustomizedProductsOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        #region Addresses CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = AddressesOperationClaims.Admin },
-                new() { Id = ++lastId, Name = AddressesOperationClaims.Read },
-                new() { Id = ++lastId, Name = AddressesOperationClaims.Write },
-                new() { Id = ++lastId, Name = AddressesOperationClaims.Create },
-                new() { Id = ++lastId, Name = AddressesOperationClaims.Update },
-                new() { Id = ++lastId, Name = AddressesOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        
-        #region OrderDetails CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = OrderDetailsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = OrderDetailsOperationClaims.Read },
-                new() { Id = ++lastId, Name = OrderDetailsOperationClaims.Write },
-                new() { Id = ++lastId, Name = OrderDetailsOperationClaims.Create },
-                new() { Id = ++lastId, Name = OrderDetailsOperationClaims.Update },
-                new() { Id = ++lastId, Name = OrderDetailsOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        #region Orders CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = OrdersOperationClaims.Admin },
-                new() { Id = ++lastId, Name = OrdersOperationClaims.Read },
-                new() { Id = ++lastId, Name = OrdersOperationClaims.Write },
-                new() { Id = ++lastId, Name = OrdersOperationClaims.Create },
-                new() { Id = ++lastId, Name = OrdersOperationClaims.Update },
-                new() { Id = ++lastId, Name = OrdersOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        
-        #region OrderTransports CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = OrderTransportsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = OrderTransportsOperationClaims.Read },
-                new() { Id = ++lastId, Name = OrderTransportsOperationClaims.Write },
-                new() { Id = ++lastId, Name = OrderTransportsOperationClaims.Create },
-                new() { Id = ++lastId, Name = OrderTransportsOperationClaims.Update },
-                new() { Id = ++lastId, Name = OrderTransportsOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        #region Prompts CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = PromptsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = PromptsOperationClaims.Read },
-                new() { Id = ++lastId, Name = PromptsOperationClaims.Write },
-                new() { Id = ++lastId, Name = PromptsOperationClaims.Create },
-                new() { Id = ++lastId, Name = PromptsOperationClaims.Update },
-                new() { Id = ++lastId, Name = PromptsOperationClaims.Delete },
-            ]
-        );
-        #endregion
-        
-        
-        #region Prompts CRUD
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = PromptsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = PromptsOperationClaims.Read },
-                new() { Id = ++lastId, Name = PromptsOperationClaims.Write },
-                new() { Id = ++lastId, Name = PromptsOperationClaims.Create },
-                new() { Id = ++lastId, Name = PromptsOperationClaims.Update },
-                new() { Id = ++lastId, Name = PromptsOperationClaims.Delete },
             ]
         );
         #endregion

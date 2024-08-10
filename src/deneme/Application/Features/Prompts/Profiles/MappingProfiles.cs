@@ -1,6 +1,5 @@
 using Application.Features.Prompts.Commands.Create;
 using Application.Features.Prompts.Commands.Delete;
-using Application.Features.Prompts.Commands.Update;
 using Application.Features.Prompts.Queries.GetById;
 using Application.Features.Prompts.Queries.GetList;
 using AutoMapper;
@@ -16,9 +15,6 @@ public class MappingProfiles : Profile
     {
         CreateMap<CreatePromptCommand, Prompt>();
         CreateMap<Prompt, CreatedPromptResponse>();
-
-        CreateMap<UpdatePromptCommand, Prompt>();
-        CreateMap<Prompt, UpdatedPromptResponse>();
 
         CreateMap<DeletePromptCommand, Prompt>();
         CreateMap<Prompt, DeletedPromptResponse>();

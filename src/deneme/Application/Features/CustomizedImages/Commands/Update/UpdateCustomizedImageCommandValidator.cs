@@ -7,9 +7,6 @@ public class UpdateCustomizedImageCommandValidator : AbstractValidator<UpdateCus
     public UpdateCustomizedImageCommandValidator()
     {
         RuleFor(c => c.Id).NotEmpty();
-        RuleFor(c => c.PrintAreaId).NotEmpty();
-        RuleFor(c => c.Prompt).NotEmpty();
-        RuleFor(c => c.X).GreaterThan(0);
-        RuleFor(c => c.Y).GreaterThan(0);
+        RuleFor(c => c.PromptId).NotEmpty();
     }
 }
