@@ -10,5 +10,5 @@ namespace Application.Services.ImageGeneratorService;
 public abstract class ImageGeneratorServiceBase
 {
     public abstract Task<string> CreateAsync(string prompt);
-
+    public abstract Task<string> RemoveBackgroundAsync(string url);
 }

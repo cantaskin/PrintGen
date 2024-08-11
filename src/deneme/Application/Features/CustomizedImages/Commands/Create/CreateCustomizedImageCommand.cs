@@ -1,4 +1,5 @@
 using Application.Features.CustomizedImages.Rules;
+using Application.Services.ImageGeneratorService;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
@@ -8,7 +9,7 @@ namespace Application.Features.CustomizedImages.Commands.Create;
 
 public class CreateCustomizedImageCommand : IRequest<CreatedCustomizedImageResponse>
 {
-    public string? ImageUrl { get; set; }
+    public required string ImageUrl { get; set; }
     public required Guid PromptId { get; set; }
 
     public class CreateCustomizedImageCommandHandler : IRequestHandler<CreateCustomizedImageCommand, CreatedCustomizedImageResponse>
@@ -27,7 +28,9 @@ public class CreateCustomizedImageCommand : IRequest<CreatedCustomizedImageRespo
 
         public async Task<CreatedCustomizedImageResponse> Handle(CreateCustomizedImageCommand request, CancellationToken cancellationToken)
         {
+
             CustomizedImage customizedImage = _mapper.Map<CustomizedImage>(request);
+
 
             await _customizedImageRepository.AddAsync(customizedImage);
 

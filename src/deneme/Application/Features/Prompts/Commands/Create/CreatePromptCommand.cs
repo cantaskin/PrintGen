@@ -53,8 +53,6 @@ public class CreatePromptCommand : MediatR.IRequest<CreatedPromptResponse>
             await _customizedImageService.AddAsync(Image);
 
 
-            prompt.ImageId = Image.Id;
-            await _promptRepository.UpdateAsync(prompt);
 
             CreatedPromptResponse response = _mapper.Map<CreatedPromptResponse>(prompt);
             response.ImageUrl = imageUrl;

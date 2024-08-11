@@ -37,5 +37,8 @@ public class DalleImageGeneratorServiceAdapter : ImageGeneratorServiceBase
            
     }
 
-    
+    public override Task<string> RemoveBackgroundAsync(string url)
+    {
+        throw new NotImplementedException();
+    }
 }

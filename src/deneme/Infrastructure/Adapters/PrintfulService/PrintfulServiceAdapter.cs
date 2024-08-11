@@ -21,7 +21,7 @@ namespace Infrastructure.Adapters.PrintfulService
             _urlBase = configuration["Url:UrlBase"];
         }
 
-        public async Task<string> GetAsync(string requestUrl)
+        public async Task<string> GetAsync(string requestUrl,string key = null)
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
@@ -34,7 +34,23 @@ namespace Infrastructure.Adapters.PrintfulService
             }
 
             var content = await response.Content.ReadAsStringAsync();
-            return ModifyResponseContent(content);
+            return ExtractContent(ModifyResponseContent(content),key);
+        }
+        private string ExtractContent(string content,string Key)
+        {
+            if (Key == null)
+            {
+                return content;
+            }
+            var json = JObject.Parse(content);
+
+            var data = json["data"] as JObject;
+            if (data == null)
+                throw new Exception("JSON'da 'data' alanı bulunamadı.");
+
+            var Value = data[Key]?.ToString();
+            
+            return Value;
         }
 
         private string ModifyResponseContent(string content)

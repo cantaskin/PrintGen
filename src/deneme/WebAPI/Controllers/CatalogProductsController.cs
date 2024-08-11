@@ -32,6 +32,53 @@ public class CatalogProductsController : BaseController
         }
     }
 
+    [HttpGet("{id}/onlyimage")]
+    public async Task<IActionResult> GetByIdOnlyImage(int id, [FromQuery] string sellingRegionName = "worldwide")
+    {
+        var requestUrl = $"https://api.printful.com/v2/catalog-products/{id}?selling_region_name={sellingRegionName}";
+
+        try
+        {
+            var data = await _printfulServiceAdapter.GetAsync(requestUrl,"image");
+            return Ok(data);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpGet("{id}/onlysizes")]
+    public async Task<IActionResult> GetByIdOnlySizes(int id, [FromQuery] string sellingRegionName = "worldwide")
+    {
+        var requestUrl = $"https://api.printful.com/v2/catalog-products/{id}?selling_region_name={sellingRegionName}";
+
+        try
+        {
+            var data = await _printfulServiceAdapter.GetAsync(requestUrl, "sizes");
+            return Ok(data);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpGet("{id}/onlycolors")]
+    public async Task<IActionResult> GetByIdOnlyColors(int id, [FromQuery] string sellingRegionName = "worldwide")
+    {
+        var requestUrl = $"https://api.printful.com/v2/catalog-products/{id}?selling_region_name={sellingRegionName}";
+
+        try
+        {
+            var data = await _printfulServiceAdapter.GetAsync(requestUrl, "colors");
+            return Ok(data);
+        }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
 
 
     [HttpGet("")]

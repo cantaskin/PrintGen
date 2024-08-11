@@ -20,8 +20,7 @@ public class CustomizedImageConfiguration : IEntityTypeConfiguration<CustomizedI
 
         builder.
             HasOne(ci => ci.ImagePrompt).
-            WithOne(p => p.Image).
-            HasForeignKey<Prompt>(p => p.ImageId);
+            WithMany(p => p.Images);
         builder.HasQueryFilter(ci => !ci.DeletedDate.HasValue);
     }
 }

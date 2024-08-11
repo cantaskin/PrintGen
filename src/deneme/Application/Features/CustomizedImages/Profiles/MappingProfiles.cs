@@ -17,6 +17,9 @@ public class MappingProfiles : Profile
         CreateMap<CreateCustomizedImageCommand, CustomizedImage>();
         CreateMap<CustomizedImage, CreatedCustomizedImageResponse>();
 
+        CreateMap<CreateCustomizedImageRemoveBackgroundCommand, CustomizedImage>();
+        CreateMap<CustomizedImage, CreatedCustomizedImageRemoveBackgroundResponse>();
+
         CreateMap<UpdateCustomizedImageCommand, CustomizedImage>();
         CreateMap<CustomizedImage, UpdatedCustomizedImageResponse>();
 

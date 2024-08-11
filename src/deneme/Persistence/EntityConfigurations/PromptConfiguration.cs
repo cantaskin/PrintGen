@@ -16,9 +16,8 @@ public class PromptConfiguration : IEntityTypeConfiguration<Prompt>
         builder.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(p => p.DeletedDate).HasColumnName("DeletedDate");
 
-        builder.HasOne(p => p.Image).
-            WithOne(ci => ci.ImagePrompt).
-            HasForeignKey<CustomizedImage>(c => c.PromptId);
+        builder.HasMany(p => p.Images).
+            WithOne(ci => ci.ImagePrompt);
         builder.HasQueryFilter(p => !p.DeletedDate.HasValue);
     }
 }
