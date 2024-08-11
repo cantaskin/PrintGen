@@ -41,6 +41,7 @@ public class CreatePromptCommand : MediatR.IRequest<CreatedPromptResponse>
 
         public async Task<CreatedPromptResponse> Handle(CreatePromptCommand request, CancellationToken cancellationToken)
         { 
+
             Prompt prompt = _mapper.Map<Prompt>(request);
 
             await _promptRepository.AddAsync(prompt);

@@ -12,7 +12,7 @@ namespace Infrastructure.Adapters.ImageGeneratorService
 {
     public class StableDiffusionImageGeneratorServiceAdapter : ImageGeneratorServiceBase
     {
-        private readonly string apikey = "sk-NT4WgC7IcO7MIwAhM6mVPHokxJVgmfO1GvGrjUxNSPBl4RSs";
+        private readonly string apikey = "sk-qVjwutCvOleeTaIzMD0wgO1B3lskWW9WvQQr3uFTZsxLrejz";
         private readonly string baseurl = "https://api.stability.ai/v2beta/stable-image";
         private readonly ImageServiceBase ImageServiceAdapter;
 
@@ -41,7 +41,7 @@ namespace Infrastructure.Adapters.ImageGeneratorService
 
                 try
                 {
-                    var response = await client.PostAsync($"{baseurl}/generate/ultra", content);
+                    var response = await client.PostAsync($"{baseurl}/generate/core", content);
 
                     if (response.IsSuccessStatusCode)
                     {

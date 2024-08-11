@@ -16,10 +16,10 @@ public class CatalogVariantsController : BaseController
         _printfulServiceAdapter = printfulServiceAdapte;
     }
 
-    [HttpGet("GetById")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var requestUrl = "https://api.printful.com/v2/catalog-variants/{id}";
+        var requestUrl = $"https://api.printful.com/v2/catalog-variants/{id}";
 
         try
         {
@@ -34,7 +34,7 @@ public class CatalogVariantsController : BaseController
 
 
 
-    [HttpGet("GetAll")]
+    [HttpGet("")]
     public async Task<IActionResult> GetList(
        [FromQuery] List<int> category_ids,
        [FromQuery] string? colors,
@@ -90,7 +90,7 @@ public class CatalogVariantsController : BaseController
     [HttpGet("{id}/prices")]
     public async Task<IActionResult> GetPricesById(int id, string? sellingRegionName, string? currency)
     {
-        var requestUrl = "https://api.printful.com/v2/catalog-variants/{id}/prices";
+        var requestUrl = $"https://api.printful.com/v2/catalog-variants/{id}/prices";
 
         var queryParameters = new List<string>();
 
@@ -123,7 +123,7 @@ public class CatalogVariantsController : BaseController
     [HttpGet("{id}/images")]
     public async Task<IActionResult> GetImagesById(int id, List<int>? mockupStyleIds, string? placement)
     {
-        var requestUrl = "https://api.printful.com/v2/catalog-variants/{id}/images";
+        var requestUrl = $"https://api.printful.com/v2/catalog-variants/{id}/images";
 
         var queryParameters = new List<string>();
 
@@ -156,7 +156,7 @@ public class CatalogVariantsController : BaseController
     [HttpGet("{id}/availability")]
     public async Task<IActionResult> GetAvailabilityById(int id, List<string>? techniques, string? sellingRegionName)
     {
-        var requestUrl = "https://api.printful.com/v2/catalog-variants/{id}/availability";
+        var requestUrl = $"https://api.printful.com/v2/catalog-variants/{id}/availability";
 
         var queryParameters = new List<string>();
 
