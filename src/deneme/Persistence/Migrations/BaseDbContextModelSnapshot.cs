@@ -335,6 +335,42 @@ namespace Persistence.Migrations
                             Id = 35,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "CustomizedImages.Delete"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PromptCategories.Admin"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PromptCategories.Read"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PromptCategories.Write"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PromptCategories.Create"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PromptCategories.Update"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PromptCategories.Delete"
                         });
                 });
 
@@ -392,8 +428,8 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<string>("PromptCategory")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("PromptCategoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PromptString")
                         .IsRequired()
@@ -406,7 +442,43 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PromptCategoryId");
+
                     b.ToTable("Prompts", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.PromptCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Name");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PromptCategories", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.RefreshToken", b =>
@@ -514,12 +586,12 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2b1a2487-0902-4dce-9e5a-c5b832eda282"),
+                            Id = new Guid("36891825-6087-45e7-ba3c-612e2bbcb990"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "myCrazyip@proton.me",
-                            PasswordHash = new byte[] { 113, 57, 148, 67, 208, 170, 65, 204, 219, 29, 33, 195, 159, 45, 228, 212, 99, 137, 153, 13, 13, 242, 173, 85, 237, 164, 73, 96, 113, 45, 46, 242, 98, 201, 151, 81, 129, 22, 132, 95, 191, 250, 109, 139, 46, 191, 159, 118, 207, 240, 196, 18, 225, 66, 136, 16, 200, 105, 17, 46, 147, 120, 179, 232 },
-                            PasswordSalt = new byte[] { 67, 117, 87, 143, 10, 136, 14, 196, 78, 49, 129, 115, 75, 164, 223, 213, 254, 13, 135, 222, 26, 224, 223, 218, 216, 219, 95, 184, 125, 114, 109, 121, 21, 222, 26, 117, 103, 235, 52, 107, 48, 245, 187, 21, 111, 87, 197, 139, 155, 150, 37, 196, 38, 178, 130, 47, 54, 142, 179, 4, 105, 205, 58, 58, 31, 206, 241, 127, 1, 251, 185, 250, 149, 237, 143, 60, 198, 35, 45, 204, 204, 142, 246, 5, 28, 252, 134, 19, 139, 119, 121, 87, 74, 41, 138, 240, 242, 55, 218, 198, 176, 27, 90, 26, 242, 243, 186, 18, 57, 248, 14, 86, 205, 190, 132, 28, 129, 161, 175, 162, 35, 138, 137, 167, 16, 79, 81, 216 }
+                            PasswordHash = new byte[] { 142, 0, 135, 184, 16, 117, 45, 106, 36, 139, 3, 9, 57, 230, 82, 152, 142, 234, 226, 214, 42, 14, 103, 150, 222, 26, 150, 138, 146, 171, 190, 53, 95, 99, 67, 197, 116, 10, 112, 90, 231, 98, 249, 242, 186, 211, 17, 230, 67, 114, 190, 45, 205, 194, 215, 53, 215, 185, 230, 240, 0, 8, 161, 47 },
+                            PasswordSalt = new byte[] { 202, 51, 206, 187, 174, 44, 86, 55, 144, 214, 24, 190, 95, 163, 131, 177, 110, 204, 154, 140, 196, 147, 250, 124, 194, 144, 125, 126, 146, 44, 227, 57, 241, 111, 222, 88, 37, 182, 237, 103, 16, 11, 218, 44, 244, 79, 207, 3, 231, 239, 187, 44, 84, 127, 227, 250, 107, 231, 83, 162, 105, 156, 214, 164, 128, 178, 140, 126, 239, 5, 23, 61, 45, 207, 102, 202, 7, 84, 166, 37, 154, 140, 56, 140, 149, 142, 188, 17, 234, 72, 144, 156, 40, 122, 226, 13, 78, 174, 215, 172, 144, 182, 28, 88, 89, 167, 50, 95, 14, 56, 17, 119, 85, 147, 133, 2, 124, 41, 205, 97, 243, 253, 255, 209, 182, 204, 1, 142 }
                         });
                 });
 
@@ -561,10 +633,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("25af81fb-43ae-47fd-8ce0-2069fe9f6194"),
+                            Id = new Guid("34730009-e0f3-4d86-9032-c991bf0e8cfa"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
-                            UserId = new Guid("2b1a2487-0902-4dce-9e5a-c5b832eda282")
+                            UserId = new Guid("36891825-6087-45e7-ba3c-612e2bbcb990")
                         });
                 });
 
@@ -601,6 +673,17 @@ namespace Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Prompt", b =>
+                {
+                    b.HasOne("Domain.Entities.PromptCategory", "PromptCategory")
+                        .WithMany("Prompts")
+                        .HasForeignKey("PromptCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PromptCategory");
+                });
+
             modelBuilder.Entity("Domain.Entities.RefreshToken", b =>
                 {
                     b.HasOne("Domain.Entities.User", "User")
@@ -634,6 +717,11 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Prompt", b =>
                 {
                     b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("Domain.Entities.PromptCategory", b =>
+                {
+                    b.Navigation("Prompts");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>

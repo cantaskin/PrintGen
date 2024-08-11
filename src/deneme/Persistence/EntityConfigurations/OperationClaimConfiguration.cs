@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
 using Application.Features.CustomizedImages.Constants;
 using Application.Features.Prompts.Constants;
+using Application.Features.PromptCategories.Constants;
 namespace Persistence.EntityConfigurations;
 
 public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationClaim>
@@ -122,6 +123,20 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new() { Id = ++lastId, Name = CustomizedImagesOperationClaims.Create },
                 new() { Id = ++lastId, Name = CustomizedImagesOperationClaims.Update },
                 new() { Id = ++lastId, Name = CustomizedImagesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region PromptCategories CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = PromptCategoriesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = PromptCategoriesOperationClaims.Read },
+                new() { Id = ++lastId, Name = PromptCategoriesOperationClaims.Write },
+                new() { Id = ++lastId, Name = PromptCategoriesOperationClaims.Create },
+                new() { Id = ++lastId, Name = PromptCategoriesOperationClaims.Update },
+                new() { Id = ++lastId, Name = PromptCategoriesOperationClaims.Delete },
             ]
         );
         #endregion

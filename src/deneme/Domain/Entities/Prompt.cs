@@ -9,8 +9,10 @@ namespace Domain.Entities;
 public class Prompt : Entity<Guid>
 {
     public string PromptString { get; set; }
-    public string? PromptCategory { get; set; }
+
+    public Guid PromptCategoryId { get; set; }
     public List<CustomizedImage> Images { get; set; }
+    public PromptCategory PromptCategory { get; set; }
     public Prompt() 
     {
         Id = Guid.NewGuid();

@@ -23,6 +23,7 @@ using NArchitecture.Core.Security.JWT;
 using Application.Services.Prompts;
 using Application.Services.ImageGeneratorService;
 using Application.Services.CustomizedImages;
+using Application.Services.PromptCategories;
 
 namespace Application;
 
@@ -65,6 +66,7 @@ public static class ApplicationServiceRegistration
         services.AddSecurityServices<Guid, int, Guid>(tokenOptions);
         services.AddScoped<IPromptService, PromptManager>();
         services.AddScoped<ICustomizedImageService, CustomizedImageManager>();
+        services.AddScoped<IPromptCategoryService, PromptCategoryManager>();
         return services;
     }
 

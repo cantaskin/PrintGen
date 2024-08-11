@@ -18,6 +18,12 @@ public class PromptConfiguration : IEntityTypeConfiguration<Prompt>
 
         builder.HasMany(p => p.Images).
             WithOne(ci => ci.ImagePrompt);
+
+        builder.HasOne(p => p.PromptCategory).
+            WithMany(pc => pc.Prompts)
+            .HasForeignKey(p => p.PromptCategoryId)
+            .OnDelete(DeleteBehavior.Cascade); ;
+
         builder.HasQueryFilter(p => !p.DeletedDate.HasValue);
     }
 }

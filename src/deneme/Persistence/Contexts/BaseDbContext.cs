@@ -16,6 +16,7 @@ public class BaseDbContext : DbContext
     public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
     public DbSet<Prompt> Prompts { get; set; }
     public DbSet<CustomizedImage> CustomizedImages { get; set; }
+    public DbSet<PromptCategory> PromptCategories { get; set; }
  
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

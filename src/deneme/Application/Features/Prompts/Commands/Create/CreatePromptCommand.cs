@@ -13,7 +13,7 @@ namespace Application.Features.Prompts.Commands.Create;
 public class CreatePromptCommand : MediatR.IRequest<CreatedPromptResponse>
 {
     public required string PromptString { get; set; }
-    public required string PromptCategory { get; set; }
+    public required Guid PromptCategoryId { get; set; }
 
     public class CreatePromptCommandHandler : IRequestHandler<CreatePromptCommand, CreatedPromptResponse>
     {
@@ -45,6 +45,7 @@ public class CreatePromptCommand : MediatR.IRequest<CreatedPromptResponse>
             Prompt prompt = _mapper.Map<Prompt>(request);
 
             await _promptRepository.AddAsync(prompt);
+            // burada bir yerde getbyid ile promptcategory çekilip stringe eklenecek;
             string imageUrl = await _imageGeneratorService.CreateAsync(prompt.PromptString);
 
             CustomizedImage Image = new CustomizedImage();

@@ -25,6 +25,7 @@ public static class PersistenceServiceRegistration
 
         services.AddScoped<IPromptRepository, PromptRepository>();
         services.AddScoped<ICustomizedImageRepository, CustomizedImageRepository>();
+        services.AddScoped<IPromptCategoryRepository, PromptCategoryRepository>();
         return services;
     }
 }
