@@ -9,6 +9,16 @@ using NArchitecture.Core.Security.Constants;
 using Application.Features.CustomizedImages.Constants;
 using Application.Features.Prompts.Constants;
 using Application.Features.PromptCategories.Constants;
+using Application.Features.Addresses.Constants;
+using Application.Features.Gifts.Constants;
+using Application.Features.Layers.Constants;
+using Application.Features.Orders.Constants;
+using Application.Features.OrderItems.Constants;
+using Application.Features.PackingSlips.Constants;
+using Application.Features.Placements.Constants;
+using Application.Features.Positions.Constants;
+using Application.Features.RetailCosts.Constants;
+using Application.Features.Customizations.Constants;
 namespace Persistence.EntityConfigurations;
 
 public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationClaim>
@@ -141,6 +151,150 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
         
+        
+        #region Addresses CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = AddressesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = AddressesOperationClaims.Read },
+                new() { Id = ++lastId, Name = AddressesOperationClaims.Write },
+                new() { Id = ++lastId, Name = AddressesOperationClaims.Create },
+                new() { Id = ++lastId, Name = AddressesOperationClaims.Update },
+                new() { Id = ++lastId, Name = AddressesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Gifts CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = GiftsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = GiftsOperationClaims.Read },
+                new() { Id = ++lastId, Name = GiftsOperationClaims.Write },
+                new() { Id = ++lastId, Name = GiftsOperationClaims.Create },
+                new() { Id = ++lastId, Name = GiftsOperationClaims.Update },
+                new() { Id = ++lastId, Name = GiftsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Layers CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = LayersOperationClaims.Admin },
+                new() { Id = ++lastId, Name = LayersOperationClaims.Read },
+                new() { Id = ++lastId, Name = LayersOperationClaims.Write },
+                new() { Id = ++lastId, Name = LayersOperationClaims.Create },
+                new() { Id = ++lastId, Name = LayersOperationClaims.Update },
+                new() { Id = ++lastId, Name = LayersOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Orders CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = OrdersOperationClaims.Admin },
+                new() { Id = ++lastId, Name = OrdersOperationClaims.Read },
+                new() { Id = ++lastId, Name = OrdersOperationClaims.Write },
+                new() { Id = ++lastId, Name = OrdersOperationClaims.Create },
+                new() { Id = ++lastId, Name = OrdersOperationClaims.Update },
+                new() { Id = ++lastId, Name = OrdersOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region OrderItems CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = OrderItemsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = OrderItemsOperationClaims.Read },
+                new() { Id = ++lastId, Name = OrderItemsOperationClaims.Write },
+                new() { Id = ++lastId, Name = OrderItemsOperationClaims.Create },
+                new() { Id = ++lastId, Name = OrderItemsOperationClaims.Update },
+                new() { Id = ++lastId, Name = OrderItemsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        
+        
+        #region Placements CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = PlacementsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = PlacementsOperationClaims.Read },
+                new() { Id = ++lastId, Name = PlacementsOperationClaims.Write },
+                new() { Id = ++lastId, Name = PlacementsOperationClaims.Create },
+                new() { Id = ++lastId, Name = PlacementsOperationClaims.Update },
+                new() { Id = ++lastId, Name = PlacementsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Positions CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = PositionsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = PositionsOperationClaims.Read },
+                new() { Id = ++lastId, Name = PositionsOperationClaims.Write },
+                new() { Id = ++lastId, Name = PositionsOperationClaims.Create },
+                new() { Id = ++lastId, Name = PositionsOperationClaims.Update },
+                new() { Id = ++lastId, Name = PositionsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region RetailCosts CRUD
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = RetailCostsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = RetailCostsOperationClaims.Read },
+                new() { Id = ++lastId, Name = RetailCostsOperationClaims.Write },
+                new() { Id = ++lastId, Name = RetailCostsOperationClaims.Create },
+                new() { Id = ++lastId, Name = RetailCostsOperationClaims.Update },
+                new() { Id = ++lastId, Name = RetailCostsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+   
+   
+   #region Customizations CRUD
+   featureOperationClaims.AddRange(
+       [
+           new() { Id = ++lastId, Name = CustomizationsOperationClaims.Admin },
+           new() { Id = ++lastId, Name = CustomizationsOperationClaims.Read },
+           new() { Id = ++lastId, Name = CustomizationsOperationClaims.Write },
+           new() { Id = ++lastId, Name = CustomizationsOperationClaims.Create },
+           new() { Id = ++lastId, Name = CustomizationsOperationClaims.Update },
+           new() { Id = ++lastId, Name = CustomizationsOperationClaims.Delete },
+       ]
+   );
+   #endregion
+   
+   
+   #region PackingSlips CRUD
+   featureOperationClaims.AddRange(
+       [
+           new() { Id = ++lastId, Name = PackingSlipsOperationClaims.Admin },
+           new() { Id = ++lastId, Name = PackingSlipsOperationClaims.Read },
+           new() { Id = ++lastId, Name = PackingSlipsOperationClaims.Write },
+           new() { Id = ++lastId, Name = PackingSlipsOperationClaims.Create },
+           new() { Id = ++lastId, Name = PackingSlipsOperationClaims.Update },
+           new() { Id = ++lastId, Name = PackingSlipsOperationClaims.Delete },
+       ]
+   );
+   #endregion
+   
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

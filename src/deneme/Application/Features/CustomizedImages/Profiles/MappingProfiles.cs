@@ -14,21 +14,21 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<CreateCustomizedImageCommand, CustomizedImage>();
-        CreateMap<CustomizedImage, CreatedCustomizedImageResponse>();
+        CreateMap<CreateCustomizedImageCommand, CustomizedImage>().ReverseMap();
+        CreateMap<CustomizedImage, CreatedCustomizedImageResponse>().ReverseMap();
 
-        CreateMap<CreateCustomizedImageRemoveBackgroundCommand, CustomizedImage>();
-        CreateMap<CustomizedImage, CreatedCustomizedImageRemoveBackgroundResponse>();
+        CreateMap<CreateCustomizedImageRemoveBackgroundCommand, CustomizedImage>().ReverseMap();
+        CreateMap<CustomizedImage, CreatedCustomizedImageRemoveBackgroundResponse>().ReverseMap();
 
-        CreateMap<UpdateCustomizedImageCommand, CustomizedImage>();
-        CreateMap<CustomizedImage, UpdatedCustomizedImageResponse>();
+        CreateMap<UpdateCustomizedImageCommand, CustomizedImage>().ReverseMap();
+        CreateMap<CustomizedImage, UpdatedCustomizedImageResponse>().ReverseMap();
 
-        CreateMap<DeleteCustomizedImageCommand, CustomizedImage>();
-        CreateMap<CustomizedImage, DeletedCustomizedImageResponse>();
+        CreateMap<DeleteCustomizedImageCommand, CustomizedImage>().ReverseMap();
+        CreateMap<CustomizedImage, DeletedCustomizedImageResponse>().ReverseMap();
 
-        CreateMap<CustomizedImage, GetByIdCustomizedImageResponse>();
+        CreateMap<CustomizedImage, GetByIdCustomizedImageResponse>().ReverseMap();
 
-        CreateMap<CustomizedImage, GetListCustomizedImageListItemDto>();
-        CreateMap<IPaginate<CustomizedImage>, GetListResponse<GetListCustomizedImageListItemDto>>();
+        CreateMap<CustomizedImage, GetListCustomizedImageListItemDto>().ReverseMap();
+        CreateMap<IPaginate<CustomizedImage>, GetListResponse<GetListCustomizedImageListItemDto>>().ReverseMap();
     }
 }

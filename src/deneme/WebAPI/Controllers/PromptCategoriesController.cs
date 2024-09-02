@@ -16,6 +16,7 @@ public class PromptCategoriesController : BaseController
     [HttpPost]
     public async Task<ActionResult<CreatedPromptCategoryResponse>> Add([FromBody] CreatePromptCategoryCommand command)
     {
+
         CreatedPromptCategoryResponse response = await Mediator.Send(command);
 
         return CreatedAtAction(nameof(GetById), new { response.Id }, response);

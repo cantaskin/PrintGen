@@ -26,6 +26,18 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IPromptRepository, PromptRepository>();
         services.AddScoped<ICustomizedImageRepository, CustomizedImageRepository>();
         services.AddScoped<IPromptCategoryRepository, PromptCategoryRepository>();
+        services.AddScoped<IAddressRepository, AddressRepository>();
+        services.AddScoped<IGiftRepository, GiftRepository>();
+        services.AddScoped<ILayerRepository, LayerRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+        services.AddScoped<IPackingSlipRepository, PackingSlipRepository>();
+        services.AddScoped<IPlacementRepository, PlacementRepository>();
+        services.AddScoped<IPositionRepository, PositionRepository>();
+        services.AddScoped<IRetailCostRepository, RetailCostRepository>();
+        services.AddScoped<ICustomizationRepository, CustomizationRepository>();
+        services.AddScoped<ICustomizationRepository, CustomizationRepository>();
+        services.AddScoped<IPackingSlipRepository, PackingSlipRepository>();
         return services;
     }
 }

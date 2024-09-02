@@ -24,6 +24,17 @@ using Application.Services.Prompts;
 using Application.Services.ImageGeneratorService;
 using Application.Services.CustomizedImages;
 using Application.Services.PromptCategories;
+using Application.Services.Addresses;
+using Application.Services.Gifts;
+using Application.Services.Layers;
+using Application.Services.Orders;
+using Application.Services.OrderItems;
+using Application.Services.PackingSlips;
+using Application.Services.Placements;
+using Application.Services.Positions;
+using Application.Services.RetailCosts;
+using Application.Services.Customizations;
+
 
 namespace Application;
 
@@ -67,6 +78,18 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IPromptService, PromptManager>();
         services.AddScoped<ICustomizedImageService, CustomizedImageManager>();
         services.AddScoped<IPromptCategoryService, PromptCategoryManager>();
+        services.AddScoped<IAddressService, AddressManager>();
+        services.AddScoped<IGiftService, GiftManager>();
+        services.AddScoped<ILayerService, LayerManager>();
+        services.AddScoped<IOrderService, OrderManager>();
+        services.AddScoped<IOrderItemService, OrderItemManager>();
+        services.AddScoped<IPackingSlipService, PackingSlipManager>();
+        services.AddScoped<IPlacementService, PlacementManager>();
+        services.AddScoped<IPositionService, PositionManager>();
+        services.AddScoped<IRetailCostService, RetailCostManager>();
+        services.AddScoped<ICustomizationService, CustomizationManager>();
+        services.AddScoped<ICustomizationService, CustomizationManager>();
+        services.AddScoped<IPackingSlipService, PackingSlipManager>();
         return services;
     }
 

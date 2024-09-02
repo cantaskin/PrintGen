@@ -13,15 +13,15 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<CreatePromptCommand, Prompt>();
-        CreateMap<Prompt, CreatedPromptResponse>();
+        CreateMap<CreatePromptCommand, Prompt>().ReverseMap();
+        CreateMap<Prompt, CreatedPromptResponse>().ReverseMap();
 
-        CreateMap<DeletePromptCommand, Prompt>();
-        CreateMap<Prompt, DeletedPromptResponse>();
+        CreateMap<DeletePromptCommand, Prompt>().ReverseMap();
+        CreateMap<Prompt, DeletedPromptResponse>().ReverseMap();
 
-        CreateMap<Prompt, GetByIdPromptResponse>();
+        CreateMap<Prompt, GetByIdPromptResponse>().ReverseMap();
 
-        CreateMap<Prompt, GetListPromptListItemDto>();
-        CreateMap<IPaginate<Prompt>, GetListResponse<GetListPromptListItemDto>>();
+        CreateMap<Prompt, GetListPromptListItemDto>().ReverseMap();
+        CreateMap<IPaginate<Prompt>, GetListResponse<GetListPromptListItemDto>>().ReverseMap();
     }
 }
