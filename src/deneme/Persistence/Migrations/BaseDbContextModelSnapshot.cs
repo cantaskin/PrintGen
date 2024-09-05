@@ -49,6 +49,10 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Company");
 
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CountryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -278,6 +282,9 @@ namespace Persistence.Migrations
                     b.Property<Guid>("PlacementId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("PlacementId");
+
+                    b.Property<Guid?>("PositionId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -954,17 +961,12 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("CreatedDate");
 
-                    b.Property<Guid?>("CustomizationId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CustomizationId");
-
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<Guid>("RetailCostId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("RetailCostId");
+                    b.Property<string>("OrderApiIp")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Shipping")
                         .HasColumnType("nvarchar(max)")
@@ -984,6 +986,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.OrderItem", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("Id");
 
@@ -1011,10 +1014,6 @@ namespace Persistence.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("OrderId");
 
-                    b.Property<Guid>("PlacementId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("PlacementId");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int")
                         .HasColumnName("Quantity");
@@ -1033,6 +1032,8 @@ namespace Persistence.Migrations
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("OrderItems", (string)null);
                 });
@@ -1165,8 +1166,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderItemId")
-                        .IsUnique();
+                    b.HasIndex("OrderItemId");
 
                     b.ToTable("Placements", (string)null);
                 });
@@ -1442,12 +1442,12 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f220437c-2e1b-4ff1-a1b4-843f2be860dd"),
+                            Id = new Guid("59f8e2da-3d7f-46fb-a154-e0a59a0eae60"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "myCrazyip@proton.me",
-                            PasswordHash = new byte[] { 146, 255, 202, 154, 149, 215, 220, 233, 254, 202, 200, 0, 9, 117, 112, 122, 158, 68, 95, 128, 227, 211, 79, 3, 99, 109, 56, 66, 228, 66, 219, 52, 156, 120, 130, 96, 70, 222, 31, 233, 101, 141, 179, 141, 156, 235, 248, 115, 244, 137, 24, 4, 97, 23, 63, 201, 119, 225, 160, 239, 33, 138, 40, 7 },
-                            PasswordSalt = new byte[] { 213, 79, 32, 54, 172, 34, 49, 129, 44, 147, 86, 185, 9, 177, 192, 153, 83, 71, 238, 244, 129, 236, 33, 198, 132, 101, 192, 1, 60, 185, 188, 95, 252, 239, 153, 251, 248, 134, 167, 207, 115, 95, 45, 132, 20, 95, 27, 217, 61, 234, 89, 46, 253, 93, 210, 135, 127, 113, 240, 191, 158, 236, 166, 255, 140, 95, 102, 14, 148, 55, 73, 61, 119, 26, 36, 9, 91, 167, 232, 98, 175, 61, 234, 137, 251, 9, 203, 22, 86, 28, 127, 47, 69, 123, 86, 76, 95, 254, 127, 126, 213, 101, 231, 138, 120, 18, 59, 6, 236, 231, 60, 201, 21, 128, 224, 38, 233, 162, 125, 203, 221, 247, 48, 63, 244, 148, 156, 138 }
+                            PasswordHash = new byte[] { 208, 114, 171, 73, 141, 204, 220, 95, 186, 111, 185, 228, 125, 30, 77, 247, 61, 90, 109, 207, 240, 248, 186, 147, 228, 130, 228, 244, 175, 126, 248, 146, 192, 40, 211, 250, 209, 182, 152, 220, 39, 208, 35, 154, 207, 248, 185, 161, 238, 52, 152, 110, 208, 169, 206, 44, 101, 244, 31, 179, 230, 149, 70, 93 },
+                            PasswordSalt = new byte[] { 200, 24, 64, 73, 182, 96, 13, 240, 116, 29, 47, 146, 247, 223, 129, 92, 98, 38, 252, 217, 201, 77, 107, 183, 56, 46, 174, 16, 38, 189, 27, 51, 152, 12, 207, 253, 255, 9, 89, 81, 59, 160, 77, 115, 68, 86, 10, 186, 250, 49, 138, 240, 37, 149, 143, 121, 122, 66, 193, 90, 178, 182, 7, 189, 172, 214, 196, 95, 232, 175, 25, 144, 165, 131, 159, 221, 171, 150, 88, 190, 16, 241, 214, 146, 215, 194, 38, 139, 90, 104, 104, 100, 7, 223, 143, 111, 231, 65, 212, 59, 242, 233, 19, 216, 66, 131, 191, 88, 112, 87, 184, 190, 124, 200, 221, 74, 24, 121, 183, 38, 27, 202, 135, 215, 191, 252, 158, 58 }
                         });
                 });
 
@@ -1489,10 +1489,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6898e9e8-fdb9-49c0-a137-23c07ab7ced5"),
+                            Id = new Guid("27918a65-9ef6-4141-9cf2-581cfeede5e8"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
-                            UserId = new Guid("f220437c-2e1b-4ff1-a1b4-843f2be860dd")
+                            UserId = new Guid("59f8e2da-3d7f-46fb-a154-e0a59a0eae60")
                         });
                 });
 
@@ -1570,7 +1570,7 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Entities.Order", "Order")
                         .WithMany("OrderItems")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1591,8 +1591,8 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Placement", b =>
                 {
                     b.HasOne("Domain.Entities.OrderItem", "OrderItem")
-                        .WithOne()
-                        .HasForeignKey("Domain.Entities.Placement", "OrderItemId")
+                        .WithMany("Placements")
+                        .HasForeignKey("OrderItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1602,7 +1602,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Position", b =>
                 {
                     b.HasOne("Domain.Entities.Layer", "Layer")
-                        .WithOne()
+                        .WithOne("Position")
                         .HasForeignKey("Domain.Entities.Position", "LayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1667,9 +1667,19 @@ namespace Persistence.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Layer", b =>
+                {
+                    b.Navigation("Position");
+                });
+
             modelBuilder.Entity("Domain.Entities.Order", b =>
                 {
                     b.Navigation("OrderItems");
+                });
+
+            modelBuilder.Entity("Domain.Entities.OrderItem", b =>
+                {
+                    b.Navigation("Placements");
                 });
 
             modelBuilder.Entity("Domain.Entities.PackingSlip", b =>

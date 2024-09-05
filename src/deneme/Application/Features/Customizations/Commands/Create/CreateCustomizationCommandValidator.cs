@@ -6,6 +6,5 @@ public class CreateCustomizationCommandValidator : AbstractValidator<CreateCusto
 {
     public CreateCustomizationCommandValidator()
     {
-        RuleFor(c => c.PackingSlipId).NotEmpty();
     }
 }

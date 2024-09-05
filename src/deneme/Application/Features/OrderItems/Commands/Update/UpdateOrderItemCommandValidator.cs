@@ -11,6 +11,5 @@ public class UpdateOrderItemCommandValidator : AbstractValidator<UpdateOrderItem
         RuleFor(c => c.CatalogVariantId).NotEmpty();
         RuleFor(c => c.Quantity).NotEmpty();
         RuleFor(c => c.PlacementId).NotEmpty();
-        RuleFor(c => c.Placement).NotEmpty();
     }
 }

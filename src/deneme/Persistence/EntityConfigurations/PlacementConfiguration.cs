@@ -21,9 +21,8 @@ public class PlacementConfiguration : IEntityTypeConfiguration<Placement>
 
 
         builder.HasOne(p => p.OrderItem)
-            .WithOne()
-            .HasForeignKey<Placement>(p => p.OrderItemId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .WithMany(oi => oi.Placements)
+            .HasForeignKey(p => p.OrderItemId);
 
         builder.HasMany(p => p.Layers)
             .WithOne(l => l.Placement)

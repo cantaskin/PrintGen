@@ -1,4 +1,5 @@
 using Application.Features.OrderItems.Rules;
+using Application.Features.Placements.Commands.Create;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
@@ -14,7 +15,10 @@ public class CreateOrderItemCommand : IRequest<CreatedOrderItemResponse>
     public required int Quantity { get; set; }
     public string? RetailPrice { get; set; }
     public string? Name { get; set; }
-    public required Guid PlacementId { get; set; }
+
+    //public required Guid PlacementId { get; set; }
+    public required List<CreatePlacementCommand> Placements { get; set; }
+
 
     public class CreateOrderItemCommandHandler : IRequestHandler<CreateOrderItemCommand, CreatedOrderItemResponse>
     {

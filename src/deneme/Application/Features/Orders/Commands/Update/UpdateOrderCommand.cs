@@ -10,12 +10,7 @@ public class UpdateOrderCommand : IRequest<UpdatedOrderResponse>
 {
     public Guid Id { get; set; }
     public required Guid AddressId { get; set; }
-    public required Guid RetailCostId { get; set; }
-    public Guid? CustomizationId { get; set; }
     public string? Shipping { get; set; }
-    public Customization? Customization { get; set; }
-    public required Address Address { get; set; }
-    public RetailCost? RetailCost { get; set; }
 
     public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, UpdatedOrderResponse>
     {
@@ -35,6 +30,7 @@ public class UpdateOrderCommand : IRequest<UpdatedOrderResponse>
         {
             Order? order = await _orderRepository.GetAsync(predicate: o => o.Id == request.Id, cancellationToken: cancellationToken);
             await _orderBusinessRules.OrderShouldExistWhenSelected(order);
+             //BURADA PRÝNTFULA YOLLA
             order = _mapper.Map(request, order);
 
             await _orderRepository.UpdateAsync(order!);

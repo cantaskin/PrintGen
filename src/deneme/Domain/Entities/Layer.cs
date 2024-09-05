@@ -16,6 +16,10 @@ public class Layer : Entity<Guid>
 
     public Placement Placement { get; set; }
 
+    public Guid? PositionId { get; set; }
+
+    public Position? Position { get; set; }
+
    // public List<LayerOption<object>>? LayerOptions { get; set; }
 
 

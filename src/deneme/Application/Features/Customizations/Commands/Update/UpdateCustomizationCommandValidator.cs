@@ -8,6 +8,5 @@ public class UpdateCustomizationCommandValidator : AbstractValidator<UpdateCusto
     {
         RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.PackingSlipId).NotEmpty();
-        RuleFor(c => c.PackingSlip).NotEmpty();
     }
 }

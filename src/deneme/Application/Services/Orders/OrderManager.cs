@@ -1,5 +1,9 @@
+using Application.Features.Orders.Commands.Create;
 using Application.Features.Orders.Rules;
+using Application.Services.Addresses;
+using Application.Services.OrderItems;
 using Application.Services.Repositories;
+using Application.Services.RetailCosts;
 using NArchitecture.Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
@@ -11,11 +15,17 @@ public class OrderManager : IOrderService
 {
     private readonly IOrderRepository _orderRepository;
     private readonly OrderBusinessRules _orderBusinessRules;
+    private readonly IOrderItemService _orderItemService;
+    private readonly IAddressService _addressService;
+    private readonly IRetailCostService _retailCostService;
 
-    public OrderManager(IOrderRepository orderRepository, OrderBusinessRules orderBusinessRules)
+    public OrderManager(IOrderRepository orderRepository, OrderBusinessRules orderBusinessRules, IAddressService addressService, IOrderItemService orderItemService, IRetailCostService retailCostService)
     {
         _orderRepository = orderRepository;
         _orderBusinessRules = orderBusinessRules;
+        _addressService = addressService;
+        _orderItemService = orderItemService;
+        _retailCostService = retailCostService;
     }
 
     public async Task<Order?> GetAsync(
@@ -73,5 +83,33 @@ public class OrderManager : IOrderService
         Order deletedOrder = await _orderRepository.DeleteAsync(order);
 
         return deletedOrder;
+    }
+
+    public async Task<Address> GetOrderAddressAsync(Order order)
+    {
+        Address? address = await _addressService.GetAsync(a => a.Id == order.AddressId);
+
+        if (address == null)
+        {
+            throw new Exception("Address not found");
+        }
+
+        return address;
+    }
+
+    public  async Task<List<OrderItem>> GetOrderOrderItemsAsync(Guid orderId)
+    {
+        var orderItems = await _orderItemService.GetListAsync(
+            oi => oi.OrderId == orderId,
+            index: 0,
+            size: int.MaxValue
+        );
+
+        return orderItems.Items.ToList();
+    }
+
+    public async Task<RetailCost> GetRetailCostAsync(Order order)
+    {
+       return await _retailCostService.GetAsync(o => o.OrderId == order.Id);
     }
 }

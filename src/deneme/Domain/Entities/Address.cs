@@ -23,6 +23,8 @@ public class Address : Entity<Guid>
 
     public string CountryName { get; set; }
 
+    public string CountryCode { get; set; }
+
     public string Zip { get; set; }
 
     public string Phone { get; set; }

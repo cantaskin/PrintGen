@@ -7,7 +7,5 @@ public class UpdatedCustomizationResponse : IResponse
 {
     public Guid Id { get; set; }
     public Guid? GiftId { get; set; }
-    public Gift? Gift { get; set; }
     public Guid PackingSlipId { get; set; }
-    public PackingSlip PackingSlip { get; set; }
 }

@@ -10,9 +10,7 @@ public class UpdateCustomizationCommand : IRequest<UpdatedCustomizationResponse>
 {
     public Guid Id { get; set; }
     public Guid? GiftId { get; set; }
-    public Gift? Gift { get; set; }
     public required Guid PackingSlipId { get; set; }
-    public required PackingSlip PackingSlip { get; set; }
 
     public class UpdateCustomizationCommandHandler : IRequestHandler<UpdateCustomizationCommand, UpdatedCustomizationResponse>
     {

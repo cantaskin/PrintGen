@@ -1,4 +1,5 @@
 using Application.Features.Customizations.Rules;
+using Application.Features.Gifts.Commands.Create;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
@@ -8,8 +9,10 @@ namespace Application.Features.Customizations.Commands.Create;
 
 public class CreateCustomizationCommand : IRequest<CreatedCustomizationResponse>
 {
-    public Guid? GiftId { get; set; }
-    public required Guid PackingSlipId { get; set; }
+   // public Guid? GiftId { get; set; }
+
+    public CreateGiftCommand? Gift { get; set; }
+    //public required Guid PackingSlipId { get; set; } //Bir tane packinslip oluþtur onun id'si burada olacak. 
 
     public class CreateCustomizationCommandHandler : IRequestHandler<CreateCustomizationCommand, CreatedCustomizationResponse>
     {

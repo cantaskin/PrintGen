@@ -13,5 +13,4 @@ public class UpdatedOrderItemResponse : IResponse
     public string? RetailPrice { get; set; }
     public string? Name { get; set; }
     public Guid PlacementId { get; set; }
-    public Placement Placement { get; set; }
 }

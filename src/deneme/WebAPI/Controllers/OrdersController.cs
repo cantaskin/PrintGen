@@ -3,6 +3,7 @@ using Application.Features.Orders.Commands.Delete;
 using Application.Features.Orders.Commands.Update;
 using Application.Features.Orders.Queries.GetById;
 using Application.Features.Orders.Queries.GetList;
+using Infrastructure.Adapters.PrintfulService;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +14,31 @@ namespace WebAPI.Controllers;
 [ApiController]
 public class OrdersController : BaseController
 {
+    private readonly PrintfulServiceAdapter printfulServiceAdapter;
+    
+    public OrdersController(PrintfulServiceAdapter _printfulServiceAdapter)
+    {
+        printfulServiceAdapter = _printfulServiceAdapter;
+        
+    }
+
     [HttpPost]
     public async Task<ActionResult<CreatedOrderResponse>> Add([FromBody] CreateOrderCommand command)
     {
         CreatedOrderResponse response = await Mediator.Send(command);
+        await printfulServiceAdapter.CreateOrderAsync(response.Id);
 
         return CreatedAtAction(nameof(GetById), new { response.Id }, response);
     }
+
+
+    // [HttpPut("{id}")]
+    // public  async Task<ActionResult> Create([FromRoute] Guid id)
+    // {
+    //     await printfulServiceAdapter.CreateOrderAsync(id);
+    //     return Ok();
+    // }
+
 
     [HttpPut]
     public async Task<ActionResult<UpdatedOrderResponse>> Update([FromBody] UpdateOrderCommand command)

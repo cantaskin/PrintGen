@@ -12,7 +12,6 @@ public class UpdateLayerCommand : IRequest<UpdatedLayerResponse>
     public required string Type { get; set; }
     public required string Url { get; set; }
     public Guid? PositionId { get; set; }
-    public Position? Position { get; set; }
 
     public class UpdateLayerCommandHandler : IRequestHandler<UpdateLayerCommand, UpdatedLayerResponse>
     {

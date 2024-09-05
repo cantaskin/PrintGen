@@ -25,6 +25,11 @@ public class LayerConfiguration : IEntityTypeConfiguration<Layer>
         //     .HasForeignKey(lo => lo.LayerId)
         //     .OnDelete(DeleteBehavior.Cascade);
 
+        builder.HasOne(l => l.Position)
+            .WithOne(p => p.Layer)
+            .HasForeignKey<Layer>(l => l.PositionId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         builder.HasOne(l => l.Placement)
             .WithMany(p => p.Layers) // Explicitly specify the navigation property
             .HasForeignKey(l => l.PlacementId)

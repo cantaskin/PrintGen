@@ -27,5 +27,10 @@ public class MappingProfiles : Profile
 
         CreateMap<OrderItem, GetListOrderItemListItemDto>();
         CreateMap<IPaginate<OrderItem>, GetListResponse<GetListOrderItemListItemDto>>();
+
+        CreateMap<CreateOrderItemCommand, OrderItem>()
+            .ForMember(dest => dest.Placements, opt => opt.Ignore());
+
+
     }
 }

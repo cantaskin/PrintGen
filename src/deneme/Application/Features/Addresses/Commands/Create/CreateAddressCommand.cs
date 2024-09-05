@@ -16,6 +16,7 @@ public class CreateAddressCommand : IRequest<CreatedAddressResponse>
     public required string StateCode { get; set; }
     public required string StateName { get; set; }
     public required string CountryName { get; set; }
+    public required string CountryCode { get; set; }
     public required string Zip { get; set; }
     public required string Phone { get; set; }
     public required string Email { get; set; }

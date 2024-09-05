@@ -12,7 +12,7 @@ public class Customization : Entity<Guid>
 
    // public Gift? Gift { get; set; }
 
-    public Guid PackingSlipId { get; set; }
+    public Guid PackingSlipId { get; set; } // = "" buraya hardcode değer gir ya da json dosyasından girilen id değerini ctor'da config'den çek.
 
     public Guid OrderId { get; set; }
 

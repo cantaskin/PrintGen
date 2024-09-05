@@ -21,7 +21,7 @@ public class PositionConfiguration : IEntityTypeConfiguration<Position>
         builder.Property(p => p.LayerId).HasColumnName("LayerId").IsRequired();
 
         // One-to-One Relationship Configuration
-        builder.HasOne(p => p.Layer).WithOne().HasForeignKey<Position>(p => p.LayerId).OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(p => p.Layer).WithOne(l => l.Position).HasForeignKey<Position>(p => p.LayerId).OnDelete(DeleteBehavior.Cascade);
 
         builder.HasQueryFilter(p => !p.DeletedDate.HasValue);
     }

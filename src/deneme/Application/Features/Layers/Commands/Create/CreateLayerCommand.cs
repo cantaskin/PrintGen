@@ -1,4 +1,5 @@
 using Application.Features.Layers.Rules;
+using Application.Features.Positions.Commands.Create;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
@@ -8,9 +9,9 @@ namespace Application.Features.Layers.Commands.Create;
 
 public class CreateLayerCommand : IRequest<CreatedLayerResponse>
 {
-    public required string Type { get; set; }
+    public required string Type { get; set; } = "file";
     public required string Url { get; set; }
-    public Guid? PositionId { get; set; }
+    public CreatePositionCommand? Position { get; set; }
 
     public class CreateLayerCommandHandler : IRequestHandler<CreateLayerCommand, CreatedLayerResponse>
     {

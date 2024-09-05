@@ -15,10 +15,11 @@ public class MappingProfiles : Profile
     public MappingProfiles()
     {
         CreateMap<CreateOrderCommand, Order>();
-        CreateMap<Order, CreatedOrderResponse>();
+        CreateMap<Order, CreatedOrderResponse>().ReverseMap();
 
         CreateMap<UpdateOrderCommand, Order>();
         CreateMap<Order, UpdatedOrderResponse>();
+
 
         CreateMap<DeleteOrderCommand, Order>();
         CreateMap<Order, DeletedOrderResponse>();
@@ -27,5 +28,7 @@ public class MappingProfiles : Profile
 
         CreateMap<Order, GetListOrderListItemDto>();
         CreateMap<IPaginate<Order>, GetListResponse<GetListOrderListItemDto>>();
+
+
     }
 }

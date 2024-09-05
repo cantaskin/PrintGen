@@ -1,3 +1,4 @@
+using Application.Features.Orders.Commands.Create;
 using NArchitecture.Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
@@ -27,4 +28,11 @@ public interface IOrderService
     Task<Order> AddAsync(Order order);
     Task<Order> UpdateAsync(Order order);
     Task<Order> DeleteAsync(Order order, bool permanent = false);
+
+    Task<Address> GetOrderAddressAsync(Order order);
+
+    Task<List<OrderItem>> GetOrderOrderItemsAsync(Guid orderId);
+
+    Task<RetailCost> GetRetailCostAsync(Order order);
+
 }

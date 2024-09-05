@@ -10,11 +10,14 @@ public class Order : Entity<Guid>
 {
 
     public Guid AddressId { get; set; }
-
-    public Guid RetailCostId { get; set; }
-    public Guid? CustomizationId { get; set; }
     public string? Shipping { get; set; }
 
-    public List<OrderItem> OrderItems { get; set; }
+    public string? OrderApiIp { get; set; }
 
+    public List<OrderItem>? OrderItems { get; set; }
+
+    public Order()
+    {
+        Id = Guid.NewGuid();
+    }
 }

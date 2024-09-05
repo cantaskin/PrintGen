@@ -16,7 +16,8 @@ public class UpdateOrderItemCommand : IRequest<UpdatedOrderItemResponse>
     public string? RetailPrice { get; set; }
     public string? Name { get; set; }
     public required Guid PlacementId { get; set; }
-    public required Placement Placement { get; set; }
+
+    public required Guid OrderId { get; set; }
 
     public class UpdateOrderItemCommandHandler : IRequestHandler<UpdateOrderItemCommand, UpdatedOrderItemResponse>
     {
