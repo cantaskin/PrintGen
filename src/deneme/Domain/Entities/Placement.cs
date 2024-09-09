@@ -18,6 +18,7 @@ public class Placement : Entity<Guid>
 
     public List<Layer> Layers { get; set; }
 
+    public List<Option> PlacementOptions { get; set; }
     public Placement()
     {
         Id = Guid.NewGuid(); // Entity<Guid>'den türetildiği için bu gerekli olmayabilir

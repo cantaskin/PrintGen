@@ -13,7 +13,7 @@ namespace Infrastructure.Adapters.ImageGeneratorService
 {
     public class StableDiffusionImageGeneratorServiceAdapter : ImageGeneratorServiceBase
     {
-        private readonly string apikey = "sk-Qoro5gzp6NnhEPXMxEFp6VZ0qamcnwqdTWe9njg2T6kndwer";
+        private readonly string apikey = "sk-amjfCruC5TUuAwbqri3NIvDpI5T2uBdzFnZbzJcwlYbLkz7T";
         private readonly string baseurl = "https://api.stability.ai/v2beta/stable-image";
         private readonly ImageServiceBase ImageServiceAdapter;
 
@@ -79,6 +79,7 @@ namespace Infrastructure.Adapters.ImageGeneratorService
 
         public override async Task<string> RemoveBackgroundAsync(string url)
         {
+
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apikey);

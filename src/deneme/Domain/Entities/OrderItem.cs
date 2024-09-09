@@ -20,9 +20,12 @@ public class OrderItem : Entity<Guid>
     public string? Name { get; set; }
 
     public List<Placement> Placements { get; set; }
+
     public Guid OrderId { get; set; }
 
     public Order Order { get; set; }
+
+    public List<Option> ProductOptions { get; set; }
 
     public OrderItem()
     {

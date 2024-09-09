@@ -36,8 +36,8 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IPositionRepository, PositionRepository>();
         services.AddScoped<IRetailCostRepository, RetailCostRepository>();
         services.AddScoped<ICustomizationRepository, CustomizationRepository>();
-        services.AddScoped<ICustomizationRepository, CustomizationRepository>();
         services.AddScoped<IPackingSlipRepository, PackingSlipRepository>();
+        services.AddScoped<IOptionRepository, OptionRepository>();
         return services;
     }
 }

@@ -27,7 +27,7 @@ public class BaseDbContext : DbContext
     public DbSet<Position> Positions { get; set; }
     public DbSet<RetailCost> RetailCosts { get; set; }
     public DbSet<Customization> Customizations { get; set; }
- 
+    public DbSet<Option> Options { get; set; }
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)
     {

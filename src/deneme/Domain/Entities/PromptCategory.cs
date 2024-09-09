@@ -13,4 +13,9 @@ public class PromptCategory  : Entity<Guid>
     public string Description { get; set; }
 
     public List<Prompt> Prompts { get; set; }
+
+    public PromptCategory()
+    {
+        Id = Guid.NewGuid();
+    }
 }

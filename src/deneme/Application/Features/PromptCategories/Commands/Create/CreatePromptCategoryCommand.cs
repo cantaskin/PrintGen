@@ -3,13 +3,17 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.PromptCategories.Commands.Create;
 
-public class CreatePromptCategoryCommand : IRequest<CreatedPromptCategoryResponse>
+public class CreatePromptCategoryCommand : IRequest<CreatedPromptCategoryResponse>, ISecuredRequest
 {
     public required string Name { get; set; }
     public required string Description { get; set; }
+
+    public string[] Roles => [];
+
 
     public class CreatePromptCategoryCommandHandler : IRequestHandler<CreatePromptCategoryCommand, CreatedPromptCategoryResponse>
     {
@@ -35,4 +39,6 @@ public class CreatePromptCategoryCommand : IRequest<CreatedPromptCategoryRespons
             return response;
         }
     }
+
+
 }

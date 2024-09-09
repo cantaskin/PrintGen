@@ -1,16 +1,21 @@
+using Application.Features.Auth.Constants;
+using Application.Features.Orders.Constants;
 using Application.Features.Orders.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.Orders.Commands.Update;
 
-public class UpdateOrderCommand : IRequest<UpdatedOrderResponse>
+public class UpdateOrderCommand : IRequest<UpdatedOrderResponse>, ISecuredRequest
 {
     public Guid Id { get; set; }
     public required Guid AddressId { get; set; }
     public string? Shipping { get; set; }
+
+    public string[] Roles => [AuthOperationClaims.User];
 
     public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, UpdatedOrderResponse>
     {
@@ -39,4 +44,5 @@ public class UpdateOrderCommand : IRequest<UpdatedOrderResponse>
             return response;
         }
     }
+
 }

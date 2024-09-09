@@ -4,12 +4,15 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.Orders.Commands.Delete;
 
-public class DeleteOrderCommand : IRequest<DeletedOrderResponse>
+public class DeleteOrderCommand : IRequest<DeletedOrderResponse>, ISecuredRequest
 {
     public Guid Id { get; set; }
+
+    public string[] Roles => [];
 
     public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, DeletedOrderResponse>
     {

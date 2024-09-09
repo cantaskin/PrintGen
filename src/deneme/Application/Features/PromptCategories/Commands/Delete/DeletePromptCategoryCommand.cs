@@ -4,12 +4,15 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.PromptCategories.Commands.Delete;
 
-public class DeletePromptCategoryCommand : IRequest<DeletedPromptCategoryResponse>
+public class DeletePromptCategoryCommand : IRequest<DeletedPromptCategoryResponse>, ISecuredRequest
 {
     public Guid Id { get; set; }
+
+    public string[] Roles => [];
 
     public class DeletePromptCategoryCommandHandler : IRequestHandler<DeletePromptCategoryCommand, DeletedPromptCategoryResponse>
     {
@@ -36,4 +39,6 @@ public class DeletePromptCategoryCommand : IRequest<DeletedPromptCategoryRespons
             return response;
         }
     }
+
+
 }

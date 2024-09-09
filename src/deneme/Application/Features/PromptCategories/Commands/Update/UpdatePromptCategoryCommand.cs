@@ -3,14 +3,17 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.PromptCategories.Commands.Update;
 
-public class UpdatePromptCategoryCommand : IRequest<UpdatedPromptCategoryResponse>
+public class UpdatePromptCategoryCommand : IRequest<UpdatedPromptCategoryResponse>, ISecuredRequest
 {
     public Guid Id { get; set; }
     public required string Name { get; set; }
     public required string Description { get; set; }
+
+    public string[] Roles => [];
 
     public class UpdatePromptCategoryCommandHandler : IRequestHandler<UpdatePromptCategoryCommand, UpdatedPromptCategoryResponse>
     {

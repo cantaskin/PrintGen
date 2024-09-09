@@ -18,4 +18,9 @@ public class RetailCost : Entity<Guid>
 
     public Guid OrderId { get; set; }
     public Order Order { get; set; }
+
+    public RetailCost()
+    {
+        Id = Guid.NewGuid();
+    }
 }

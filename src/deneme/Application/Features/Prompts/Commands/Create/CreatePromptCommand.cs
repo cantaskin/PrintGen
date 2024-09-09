@@ -1,4 +1,6 @@
+using Application.Features.Auth.Constants;
 using Application.Features.CustomizedImages.Commands.Create;
+using Application.Features.Prompts.Constants;
 using Application.Features.Prompts.Rules;
 using Application.Services.CustomizedImages;
 using Application.Services.ImageGeneratorService;
@@ -6,14 +8,19 @@ using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 using Nest;
+using System.ComponentModel;
 
 namespace Application.Features.Prompts.Commands.Create;
 
-public class CreatePromptCommand : MediatR.IRequest<CreatedPromptResponse>
+public class CreatePromptCommand : MediatR.IRequest<CreatedPromptResponse> , ISecuredRequest
 {
     public required string PromptString { get; set; }
     public required Guid PromptCategoryId { get; set; }
+
+    public string[] Roles => [AuthOperationClaims.User];
+
 
     public class CreatePromptCommandHandler : IRequestHandler<CreatePromptCommand, CreatedPromptResponse>
     {
@@ -51,12 +58,11 @@ public class CreatePromptCommand : MediatR.IRequest<CreatedPromptResponse>
             CustomizedImage Image = new CustomizedImage();
             Image.ImageUrl = imageUrl;
             Image.PromptId = prompt.Id;
-            await _customizedImageService.AddAsync(Image);
-
+            Image = await _customizedImageService.AddAsync(Image);
 
 
             CreatedPromptResponse response = _mapper.Map<CreatedPromptResponse>(prompt);
-            response.ImageUrl = imageUrl;
+            response.ImageId = Image.Id;
             return response;
         }
     }
@@ -96,4 +102,5 @@ public class CreatePromptCommand : MediatR.IRequest<CreatedPromptResponse>
     //        return response;
     //    }
     //}
+
 }

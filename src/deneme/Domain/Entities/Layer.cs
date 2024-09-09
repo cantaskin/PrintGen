@@ -20,11 +20,15 @@ public class Layer : Entity<Guid>
 
     public Position? Position { get; set; }
 
+    public List<Option> LayerOptions { get; set; }
+
+
    // public List<LayerOption<object>>? LayerOptions { get; set; }
 
 
     public Layer()
     {
+        Id = Guid.NewGuid();
         Type = "file";
     }
 }

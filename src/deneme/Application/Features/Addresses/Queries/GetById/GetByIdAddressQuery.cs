@@ -1,15 +1,18 @@
 using Application.Features.Addresses.Rules;
+using Application.Features.Auth.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.Addresses.Queries.GetById;
 
-public class GetByIdAddressQuery : IRequest<GetByIdAddressResponse>
+public class GetByIdAddressQuery : IRequest<GetByIdAddressResponse>, ISecuredRequest
 {
     public Guid Id { get; set; }
 
+    public string[] Roles => [AuthOperationClaims.User];
     public class GetByIdAddressQueryHandler : IRequestHandler<GetByIdAddressQuery, GetByIdAddressResponse>
     {
         private readonly IMapper _mapper;

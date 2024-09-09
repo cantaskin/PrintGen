@@ -15,4 +15,9 @@ public class Gift : Entity<Guid>
     public string Message { get; set; }
 
     public Customization Customization { get; set; }
+
+    public Gift()
+    {
+        Id = Guid.NewGuid();
+    }
 }

@@ -18,12 +18,14 @@ public class LayerConfiguration : IEntityTypeConfiguration<Layer>
         builder.Property(l => l.DeletedDate).HasColumnName("DeletedDate");
         builder.Property(l => l.PlacementId).HasColumnName("PlacementId").IsRequired();
 
-        //
-        // // LayerOptions ile olan iliþkiyi yapýlandýrma
-        // builder.HasMany(l => l.LayerOptions)
-        //     .WithOne(lo => lo.Layer)
-        //     .HasForeignKey(lo => lo.LayerId)
-        //     .OnDelete(DeleteBehavior.Cascade);
+
+        // LayerOptions ile olan iliþkiyi yapýlandýrma
+        builder.HasMany(l => l.LayerOptions)
+            .WithOne(lo => lo.Layer)
+            .HasForeignKey(lo => lo.LayerId)
+            .OnDelete(DeleteBehavior.NoAction)
+       ;
+
 
         builder.HasOne(l => l.Position)
             .WithOne(p => p.Layer)

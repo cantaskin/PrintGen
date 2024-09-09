@@ -1,15 +1,19 @@
 using Application.Features.Addresses.Constants;
 using Application.Features.Addresses.Rules;
+using Application.Features.Auth.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.Addresses.Commands.Delete;
 
-public class DeleteAddressCommand : IRequest<DeletedAddressResponse>
+public class DeleteAddressCommand : IRequest<DeletedAddressResponse>, ISecuredRequest
 {
     public Guid Id { get; set; }
+
+    public string[] Roles => [];
 
     public class DeleteAddressCommandHandler : IRequestHandler<DeleteAddressCommand, DeletedAddressResponse>
     {

@@ -31,6 +31,8 @@ public class MappingProfiles : Profile
         CreateMap<CreateOrderItemCommand, OrderItem>()
             .ForMember(dest => dest.Placements, opt => opt.Ignore());
 
+        CreateMap<CreateOrderItemCommand, List<Option>>().ReverseMap();
+
 
     }
 }

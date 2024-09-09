@@ -124,17 +124,12 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<Guid?>("GiftId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("GiftId");
-
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("OrderId");
 
                     b.Property<Guid>("PackingSlipId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("PackingSlipId");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2")
@@ -183,6 +178,39 @@ namespace Persistence.Migrations
                     b.HasIndex("PromptId");
 
                     b.ToTable("CustomizedImages", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Denemeci", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int")
+                        .HasColumnName("Type");
+
+                    b.Property<string>("Type1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Type1");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Denemecis", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.EmailAuthenticator", b =>
@@ -340,610 +368,1409 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = 1612,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 1613,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Auth.Admin"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 1614,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Auth.Read"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 1615,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Auth.Write"
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 1616,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Auth.RevokeToken"
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 1617,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "OperationClaims.Admin"
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 1618,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "OperationClaims.Read"
                         },
                         new
                         {
-                            Id = 8,
+                            Id = 1619,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "OperationClaims.Write"
                         },
                         new
                         {
-                            Id = 9,
+                            Id = 1620,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "OperationClaims.Create"
                         },
                         new
                         {
-                            Id = 10,
+                            Id = 1621,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "OperationClaims.Update"
                         },
                         new
                         {
-                            Id = 11,
+                            Id = 1622,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "OperationClaims.Delete"
                         },
                         new
                         {
-                            Id = 12,
+                            Id = 1623,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "UserOperationClaims.Admin"
                         },
                         new
                         {
-                            Id = 13,
+                            Id = 1624,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "UserOperationClaims.Read"
                         },
                         new
                         {
-                            Id = 14,
+                            Id = 1625,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "UserOperationClaims.Write"
                         },
                         new
                         {
-                            Id = 15,
+                            Id = 1626,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "UserOperationClaims.Create"
                         },
                         new
                         {
-                            Id = 16,
+                            Id = 1627,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "UserOperationClaims.Update"
                         },
                         new
                         {
-                            Id = 17,
+                            Id = 1628,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "UserOperationClaims.Delete"
                         },
                         new
                         {
-                            Id = 18,
+                            Id = 1629,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Users.Admin"
                         },
                         new
                         {
-                            Id = 19,
+                            Id = 1630,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Users.Read"
                         },
                         new
                         {
-                            Id = 20,
+                            Id = 1631,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Users.Write"
                         },
                         new
                         {
-                            Id = 21,
+                            Id = 1632,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Users.Create"
                         },
                         new
                         {
-                            Id = 22,
+                            Id = 1633,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Users.Update"
                         },
                         new
                         {
-                            Id = 23,
+                            Id = 1634,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Users.Delete"
                         },
                         new
                         {
-                            Id = 24,
+                            Id = 1635,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Prompts.Admin"
                         },
                         new
                         {
-                            Id = 25,
+                            Id = 1636,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Prompts.Read"
                         },
                         new
                         {
-                            Id = 26,
+                            Id = 1637,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Prompts.Write"
                         },
                         new
                         {
-                            Id = 27,
+                            Id = 1638,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Prompts.Create"
                         },
                         new
                         {
-                            Id = 28,
+                            Id = 1639,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Prompts.Update"
                         },
                         new
                         {
-                            Id = 29,
+                            Id = 1640,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Prompts.Delete"
                         },
                         new
                         {
-                            Id = 30,
+                            Id = 1641,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "CustomizedImages.Admin"
                         },
                         new
                         {
-                            Id = 31,
+                            Id = 1642,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "CustomizedImages.Read"
                         },
                         new
                         {
-                            Id = 32,
+                            Id = 1643,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "CustomizedImages.Write"
                         },
                         new
                         {
-                            Id = 33,
+                            Id = 1644,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "CustomizedImages.Create"
                         },
                         new
                         {
-                            Id = 34,
+                            Id = 1645,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "CustomizedImages.Update"
                         },
                         new
                         {
-                            Id = 35,
+                            Id = 1646,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "CustomizedImages.Delete"
                         },
                         new
                         {
-                            Id = 36,
+                            Id = 1647,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "PromptCategories.Admin"
                         },
                         new
                         {
-                            Id = 37,
+                            Id = 1648,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "PromptCategories.Read"
                         },
                         new
                         {
-                            Id = 38,
+                            Id = 1649,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "PromptCategories.Write"
                         },
                         new
                         {
-                            Id = 39,
+                            Id = 1650,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "PromptCategories.Create"
                         },
                         new
                         {
-                            Id = 40,
+                            Id = 1651,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "PromptCategories.Update"
                         },
                         new
                         {
-                            Id = 41,
+                            Id = 1652,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "PromptCategories.Delete"
                         },
                         new
                         {
-                            Id = 42,
+                            Id = 1653,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Addresses.Admin"
                         },
                         new
                         {
-                            Id = 43,
+                            Id = 1654,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Addresses.Read"
                         },
                         new
                         {
-                            Id = 44,
+                            Id = 1655,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Addresses.Write"
                         },
                         new
                         {
-                            Id = 45,
+                            Id = 1656,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Addresses.Create"
                         },
                         new
                         {
-                            Id = 46,
+                            Id = 1657,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Addresses.Update"
                         },
                         new
                         {
-                            Id = 47,
+                            Id = 1658,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Addresses.Delete"
                         },
                         new
                         {
-                            Id = 48,
+                            Id = 1659,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Gifts.Admin"
                         },
                         new
                         {
-                            Id = 49,
+                            Id = 1660,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Gifts.Read"
                         },
                         new
                         {
-                            Id = 50,
+                            Id = 1661,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Gifts.Write"
                         },
                         new
                         {
-                            Id = 51,
+                            Id = 1662,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Gifts.Create"
                         },
                         new
                         {
-                            Id = 52,
+                            Id = 1663,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Gifts.Update"
                         },
                         new
                         {
-                            Id = 53,
+                            Id = 1664,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Gifts.Delete"
                         },
                         new
                         {
-                            Id = 54,
+                            Id = 1665,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Layers.Admin"
                         },
                         new
                         {
-                            Id = 55,
+                            Id = 1666,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Layers.Read"
                         },
                         new
                         {
-                            Id = 56,
+                            Id = 1667,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Layers.Write"
                         },
                         new
                         {
-                            Id = 57,
+                            Id = 1668,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Layers.Create"
                         },
                         new
                         {
-                            Id = 58,
+                            Id = 1669,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Layers.Update"
                         },
                         new
                         {
-                            Id = 59,
+                            Id = 1670,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Layers.Delete"
                         },
                         new
                         {
-                            Id = 60,
+                            Id = 1671,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Orders.Admin"
                         },
                         new
                         {
-                            Id = 61,
+                            Id = 1672,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Orders.Read"
                         },
                         new
                         {
-                            Id = 62,
+                            Id = 1673,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Orders.Write"
                         },
                         new
                         {
-                            Id = 63,
+                            Id = 1674,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Orders.Create"
                         },
                         new
                         {
-                            Id = 64,
+                            Id = 1675,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Orders.Update"
                         },
                         new
                         {
-                            Id = 65,
+                            Id = 1676,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Orders.Delete"
                         },
                         new
                         {
-                            Id = 66,
+                            Id = 1677,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "OrderItems.Admin"
                         },
                         new
                         {
-                            Id = 67,
+                            Id = 1678,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "OrderItems.Read"
                         },
                         new
                         {
-                            Id = 68,
+                            Id = 1679,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "OrderItems.Write"
                         },
                         new
                         {
-                            Id = 69,
+                            Id = 1680,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "OrderItems.Create"
                         },
                         new
                         {
-                            Id = 70,
+                            Id = 1681,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "OrderItems.Update"
                         },
                         new
                         {
-                            Id = 71,
+                            Id = 1682,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "OrderItems.Delete"
                         },
                         new
                         {
-                            Id = 72,
+                            Id = 1683,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Placements.Admin"
                         },
                         new
                         {
-                            Id = 73,
+                            Id = 1684,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Placements.Read"
                         },
                         new
                         {
-                            Id = 74,
+                            Id = 1685,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Placements.Write"
                         },
                         new
                         {
-                            Id = 75,
+                            Id = 1686,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Placements.Create"
                         },
                         new
                         {
-                            Id = 76,
+                            Id = 1687,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Placements.Update"
                         },
                         new
                         {
-                            Id = 77,
+                            Id = 1688,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Placements.Delete"
                         },
                         new
                         {
-                            Id = 78,
+                            Id = 1689,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Positions.Admin"
                         },
                         new
                         {
-                            Id = 79,
+                            Id = 1690,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Positions.Read"
                         },
                         new
                         {
-                            Id = 80,
+                            Id = 1691,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Positions.Write"
                         },
                         new
                         {
-                            Id = 81,
+                            Id = 1692,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Positions.Create"
                         },
                         new
                         {
-                            Id = 82,
+                            Id = 1693,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Positions.Update"
                         },
                         new
                         {
-                            Id = 83,
+                            Id = 1694,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Positions.Delete"
                         },
                         new
                         {
-                            Id = 84,
+                            Id = 1695,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "RetailCosts.Admin"
                         },
                         new
                         {
-                            Id = 85,
+                            Id = 1696,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "RetailCosts.Read"
                         },
                         new
                         {
-                            Id = 86,
+                            Id = 1697,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "RetailCosts.Write"
                         },
                         new
                         {
-                            Id = 87,
+                            Id = 1698,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "RetailCosts.Create"
                         },
                         new
                         {
-                            Id = 88,
+                            Id = 1699,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "RetailCosts.Update"
                         },
                         new
                         {
-                            Id = 89,
+                            Id = 1700,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "RetailCosts.Delete"
                         },
                         new
                         {
-                            Id = 90,
+                            Id = 1701,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Customizations.Admin"
                         },
                         new
                         {
-                            Id = 91,
+                            Id = 1702,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Customizations.Read"
                         },
                         new
                         {
-                            Id = 92,
+                            Id = 1703,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Customizations.Write"
                         },
                         new
                         {
-                            Id = 93,
+                            Id = 1704,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Customizations.Create"
                         },
                         new
                         {
-                            Id = 94,
+                            Id = 1705,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Customizations.Update"
                         },
                         new
                         {
-                            Id = 95,
+                            Id = 1706,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Customizations.Delete"
                         },
                         new
                         {
-                            Id = 96,
+                            Id = 1707,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "PackingSlips.Admin"
                         },
                         new
                         {
-                            Id = 97,
+                            Id = 1708,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "PackingSlips.Read"
                         },
                         new
                         {
-                            Id = 98,
+                            Id = 1709,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "PackingSlips.Write"
                         },
                         new
                         {
-                            Id = 99,
+                            Id = 1710,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "PackingSlips.Create"
                         },
                         new
                         {
-                            Id = 100,
+                            Id = 1711,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "PackingSlips.Update"
                         },
                         new
                         {
-                            Id = 101,
+                            Id = 1712,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "PackingSlips.Delete"
+                        },
+                        new
+                        {
+                            Id = 1713,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Options.Admin"
+                        },
+                        new
+                        {
+                            Id = 1714,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Options.Read"
+                        },
+                        new
+                        {
+                            Id = 1715,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Options.Write"
+                        },
+                        new
+                        {
+                            Id = 1716,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Options.Create"
+                        },
+                        new
+                        {
+                            Id = 1717,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Options.Update"
+                        },
+                        new
+                        {
+                            Id = 1718,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Options.Delete"
+                        },
+                        new
+                        {
+                            Id = 1719,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Denemecis.Admin"
+                        },
+                        new
+                        {
+                            Id = 1720,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Denemecis.Read"
+                        },
+                        new
+                        {
+                            Id = 1721,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Denemecis.Write"
+                        },
+                        new
+                        {
+                            Id = 1722,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Denemecis.Create"
+                        },
+                        new
+                        {
+                            Id = 1723,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Denemecis.Update"
+                        },
+                        new
+                        {
+                            Id = 1724,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Denemecis.Delete"
+                        },
+                        new
+                        {
+                            Id = 2018,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "User"
+                        },
+                        new
+                        {
+                            Id = 2019,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Auth.Admin"
+                        },
+                        new
+                        {
+                            Id = 2020,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Auth.Read"
+                        },
+                        new
+                        {
+                            Id = 2021,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Auth.Write"
+                        },
+                        new
+                        {
+                            Id = 2022,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Auth.RevokeToken"
+                        },
+                        new
+                        {
+                            Id = 2023,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "OperationClaims.Admin"
+                        },
+                        new
+                        {
+                            Id = 2024,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "OperationClaims.Read"
+                        },
+                        new
+                        {
+                            Id = 2025,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "OperationClaims.Write"
+                        },
+                        new
+                        {
+                            Id = 2026,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "OperationClaims.Create"
+                        },
+                        new
+                        {
+                            Id = 2027,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "OperationClaims.Update"
+                        },
+                        new
+                        {
+                            Id = 2028,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "OperationClaims.Delete"
+                        },
+                        new
+                        {
+                            Id = 2029,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "UserOperationClaims.Admin"
+                        },
+                        new
+                        {
+                            Id = 2030,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "UserOperationClaims.Read"
+                        },
+                        new
+                        {
+                            Id = 2031,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "UserOperationClaims.Write"
+                        },
+                        new
+                        {
+                            Id = 2032,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "UserOperationClaims.Create"
+                        },
+                        new
+                        {
+                            Id = 2033,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "UserOperationClaims.Update"
+                        },
+                        new
+                        {
+                            Id = 2034,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "UserOperationClaims.Delete"
+                        },
+                        new
+                        {
+                            Id = 2035,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Users.Admin"
+                        },
+                        new
+                        {
+                            Id = 2036,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Users.Read"
+                        },
+                        new
+                        {
+                            Id = 2037,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Users.Write"
+                        },
+                        new
+                        {
+                            Id = 2038,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Users.Create"
+                        },
+                        new
+                        {
+                            Id = 2039,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Users.Update"
+                        },
+                        new
+                        {
+                            Id = 2040,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Users.Delete"
+                        },
+                        new
+                        {
+                            Id = 2041,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Prompts.Admin"
+                        },
+                        new
+                        {
+                            Id = 2042,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Prompts.Read"
+                        },
+                        new
+                        {
+                            Id = 2043,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Prompts.Write"
+                        },
+                        new
+                        {
+                            Id = 2044,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Prompts.Create"
+                        },
+                        new
+                        {
+                            Id = 2045,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Prompts.Update"
+                        },
+                        new
+                        {
+                            Id = 2046,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Prompts.Delete"
+                        },
+                        new
+                        {
+                            Id = 2047,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "CustomizedImages.Admin"
+                        },
+                        new
+                        {
+                            Id = 2048,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "CustomizedImages.Read"
+                        },
+                        new
+                        {
+                            Id = 2049,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "CustomizedImages.Write"
+                        },
+                        new
+                        {
+                            Id = 2050,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "CustomizedImages.Create"
+                        },
+                        new
+                        {
+                            Id = 2051,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "CustomizedImages.Update"
+                        },
+                        new
+                        {
+                            Id = 2052,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "CustomizedImages.Delete"
+                        },
+                        new
+                        {
+                            Id = 2053,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PromptCategories.Admin"
+                        },
+                        new
+                        {
+                            Id = 2054,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PromptCategories.Read"
+                        },
+                        new
+                        {
+                            Id = 2055,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PromptCategories.Write"
+                        },
+                        new
+                        {
+                            Id = 2056,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PromptCategories.Create"
+                        },
+                        new
+                        {
+                            Id = 2057,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PromptCategories.Update"
+                        },
+                        new
+                        {
+                            Id = 2058,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PromptCategories.Delete"
+                        },
+                        new
+                        {
+                            Id = 2059,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Addresses.Admin"
+                        },
+                        new
+                        {
+                            Id = 2060,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Addresses.Read"
+                        },
+                        new
+                        {
+                            Id = 2061,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Addresses.Write"
+                        },
+                        new
+                        {
+                            Id = 2062,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Addresses.Create"
+                        },
+                        new
+                        {
+                            Id = 2063,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Addresses.Update"
+                        },
+                        new
+                        {
+                            Id = 2064,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Addresses.Delete"
+                        },
+                        new
+                        {
+                            Id = 2065,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Gifts.Admin"
+                        },
+                        new
+                        {
+                            Id = 2066,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Gifts.Read"
+                        },
+                        new
+                        {
+                            Id = 2067,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Gifts.Write"
+                        },
+                        new
+                        {
+                            Id = 2068,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Gifts.Create"
+                        },
+                        new
+                        {
+                            Id = 2069,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Gifts.Update"
+                        },
+                        new
+                        {
+                            Id = 2070,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Gifts.Delete"
+                        },
+                        new
+                        {
+                            Id = 2071,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Layers.Admin"
+                        },
+                        new
+                        {
+                            Id = 2072,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Layers.Read"
+                        },
+                        new
+                        {
+                            Id = 2073,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Layers.Write"
+                        },
+                        new
+                        {
+                            Id = 2074,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Layers.Create"
+                        },
+                        new
+                        {
+                            Id = 2075,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Layers.Update"
+                        },
+                        new
+                        {
+                            Id = 2076,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Layers.Delete"
+                        },
+                        new
+                        {
+                            Id = 2077,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Orders.Admin"
+                        },
+                        new
+                        {
+                            Id = 2078,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Orders.Read"
+                        },
+                        new
+                        {
+                            Id = 2079,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Orders.Write"
+                        },
+                        new
+                        {
+                            Id = 2080,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Orders.Create"
+                        },
+                        new
+                        {
+                            Id = 2081,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Orders.Update"
+                        },
+                        new
+                        {
+                            Id = 2082,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Orders.Delete"
+                        },
+                        new
+                        {
+                            Id = 2083,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "OrderItems.Admin"
+                        },
+                        new
+                        {
+                            Id = 2084,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "OrderItems.Read"
+                        },
+                        new
+                        {
+                            Id = 2085,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "OrderItems.Write"
+                        },
+                        new
+                        {
+                            Id = 2086,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "OrderItems.Create"
+                        },
+                        new
+                        {
+                            Id = 2087,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "OrderItems.Update"
+                        },
+                        new
+                        {
+                            Id = 2088,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "OrderItems.Delete"
+                        },
+                        new
+                        {
+                            Id = 2089,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Placements.Admin"
+                        },
+                        new
+                        {
+                            Id = 2090,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Placements.Read"
+                        },
+                        new
+                        {
+                            Id = 2091,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Placements.Write"
+                        },
+                        new
+                        {
+                            Id = 2092,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Placements.Create"
+                        },
+                        new
+                        {
+                            Id = 2093,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Placements.Update"
+                        },
+                        new
+                        {
+                            Id = 2094,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Placements.Delete"
+                        },
+                        new
+                        {
+                            Id = 2095,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Positions.Admin"
+                        },
+                        new
+                        {
+                            Id = 2096,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Positions.Read"
+                        },
+                        new
+                        {
+                            Id = 2097,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Positions.Write"
+                        },
+                        new
+                        {
+                            Id = 2098,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Positions.Create"
+                        },
+                        new
+                        {
+                            Id = 2099,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Positions.Update"
+                        },
+                        new
+                        {
+                            Id = 2100,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Positions.Delete"
+                        },
+                        new
+                        {
+                            Id = 2101,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RetailCosts.Admin"
+                        },
+                        new
+                        {
+                            Id = 2102,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RetailCosts.Read"
+                        },
+                        new
+                        {
+                            Id = 2103,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RetailCosts.Write"
+                        },
+                        new
+                        {
+                            Id = 2104,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RetailCosts.Create"
+                        },
+                        new
+                        {
+                            Id = 2105,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RetailCosts.Update"
+                        },
+                        new
+                        {
+                            Id = 2106,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "RetailCosts.Delete"
+                        },
+                        new
+                        {
+                            Id = 2107,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Customizations.Admin"
+                        },
+                        new
+                        {
+                            Id = 2108,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Customizations.Read"
+                        },
+                        new
+                        {
+                            Id = 2109,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Customizations.Write"
+                        },
+                        new
+                        {
+                            Id = 2110,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Customizations.Create"
+                        },
+                        new
+                        {
+                            Id = 2111,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Customizations.Update"
+                        },
+                        new
+                        {
+                            Id = 2112,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Customizations.Delete"
+                        },
+                        new
+                        {
+                            Id = 2113,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PackingSlips.Admin"
+                        },
+                        new
+                        {
+                            Id = 2114,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PackingSlips.Read"
+                        },
+                        new
+                        {
+                            Id = 2115,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PackingSlips.Write"
+                        },
+                        new
+                        {
+                            Id = 2116,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PackingSlips.Create"
+                        },
+                        new
+                        {
+                            Id = 2117,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PackingSlips.Update"
+                        },
+                        new
+                        {
+                            Id = 2118,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PackingSlips.Delete"
+                        },
+                        new
+                        {
+                            Id = 2119,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Options.Admin"
+                        },
+                        new
+                        {
+                            Id = 2120,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Options.Read"
+                        },
+                        new
+                        {
+                            Id = 2121,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Options.Write"
+                        },
+                        new
+                        {
+                            Id = 2122,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Options.Create"
+                        },
+                        new
+                        {
+                            Id = 2123,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Options.Update"
+                        },
+                        new
+                        {
+                            Id = 2124,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Options.Delete"
+                        },
+                        new
+                        {
+                            Id = 2125,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Denemecis.Admin"
+                        },
+                        new
+                        {
+                            Id = 2126,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Denemecis.Read"
+                        },
+                        new
+                        {
+                            Id = 2127,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Denemecis.Write"
+                        },
+                        new
+                        {
+                            Id = 2128,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Denemecis.Create"
+                        },
+                        new
+                        {
+                            Id = 2129,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Denemecis.Update"
+                        },
+                        new
+                        {
+                            Id = 2130,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Denemecis.Delete"
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Option", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<Guid?>("LayerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Name");
+
+                    b.Property<Guid?>("OrderItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("PlacementId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UpdatedDate");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LayerId");
+
+                    b.HasIndex("OrderItemId");
+
+                    b.HasIndex("PlacementId");
+
+                    b.ToTable("Options", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Order", b =>
@@ -1087,11 +1914,6 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("CreatedDate");
-
-                    b.Property<string>("CustomerOrderId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("CustomerOrderId");
 
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2")
@@ -1442,12 +2264,12 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("59f8e2da-3d7f-46fb-a154-e0a59a0eae60"),
+                            Id = new Guid("1ff2a302-6a47-4e62-8011-fbfe7bd0cdd7"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "myCrazyip@proton.me",
-                            PasswordHash = new byte[] { 208, 114, 171, 73, 141, 204, 220, 95, 186, 111, 185, 228, 125, 30, 77, 247, 61, 90, 109, 207, 240, 248, 186, 147, 228, 130, 228, 244, 175, 126, 248, 146, 192, 40, 211, 250, 209, 182, 152, 220, 39, 208, 35, 154, 207, 248, 185, 161, 238, 52, 152, 110, 208, 169, 206, 44, 101, 244, 31, 179, 230, 149, 70, 93 },
-                            PasswordSalt = new byte[] { 200, 24, 64, 73, 182, 96, 13, 240, 116, 29, 47, 146, 247, 223, 129, 92, 98, 38, 252, 217, 201, 77, 107, 183, 56, 46, 174, 16, 38, 189, 27, 51, 152, 12, 207, 253, 255, 9, 89, 81, 59, 160, 77, 115, 68, 86, 10, 186, 250, 49, 138, 240, 37, 149, 143, 121, 122, 66, 193, 90, 178, 182, 7, 189, 172, 214, 196, 95, 232, 175, 25, 144, 165, 131, 159, 221, 171, 150, 88, 190, 16, 241, 214, 146, 215, 194, 38, 139, 90, 104, 104, 100, 7, 223, 143, 111, 231, 65, 212, 59, 242, 233, 19, 216, 66, 131, 191, 88, 112, 87, 184, 190, 124, 200, 221, 74, 24, 121, 183, 38, 27, 202, 135, 215, 191, 252, 158, 58 }
+                            PasswordHash = new byte[] { 254, 47, 140, 241, 114, 160, 127, 220, 158, 8, 125, 113, 95, 254, 95, 137, 171, 128, 203, 99, 69, 137, 2, 238, 77, 5, 218, 15, 40, 150, 248, 131, 232, 153, 233, 185, 219, 205, 40, 165, 232, 137, 255, 109, 106, 159, 2, 3, 192, 24, 42, 110, 204, 71, 243, 72, 89, 100, 116, 165, 154, 123, 27, 241 },
+                            PasswordSalt = new byte[] { 59, 49, 90, 16, 140, 95, 111, 184, 178, 118, 31, 195, 41, 8, 97, 63, 151, 197, 219, 134, 203, 214, 92, 171, 242, 38, 185, 37, 182, 193, 60, 191, 0, 193, 224, 151, 226, 12, 246, 230, 73, 2, 94, 157, 234, 35, 157, 11, 245, 88, 125, 217, 255, 213, 210, 223, 248, 125, 215, 13, 19, 30, 181, 33, 98, 199, 215, 239, 227, 185, 6, 214, 210, 153, 213, 97, 116, 49, 3, 59, 12, 201, 120, 251, 165, 109, 70, 63, 238, 17, 11, 77, 195, 54, 128, 12, 190, 43, 45, 181, 55, 84, 85, 172, 47, 215, 140, 78, 64, 138, 227, 159, 219, 115, 176, 142, 235, 221, 147, 41, 181, 155, 228, 80, 50, 40, 5, 35 }
                         });
                 });
 
@@ -1489,28 +2311,30 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("27918a65-9ef6-4141-9cf2-581cfeede5e8"),
+                            Id = new Guid("655f97a4-8a17-4928-8021-b664de502fd2"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OperationClaimId = 1,
-                            UserId = new Guid("59f8e2da-3d7f-46fb-a154-e0a59a0eae60")
+                            OperationClaimId = 1612,
+                            UserId = new Guid("1ff2a302-6a47-4e62-8011-fbfe7bd0cdd7")
                         });
                 });
 
             modelBuilder.Entity("Domain.Entities.Customization", b =>
                 {
                     b.HasOne("Domain.Entities.Order", "Order")
-                        .WithOne()
+                        .WithOne("Customization")
                         .HasForeignKey("Domain.Entities.Customization", "OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.PackingSlip", null)
+                    b.HasOne("Domain.Entities.PackingSlip", "PackingSlip")
                         .WithMany("Customizations")
                         .HasForeignKey("PackingSlipId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Order");
+
+                    b.Navigation("PackingSlip");
                 });
 
             modelBuilder.Entity("Domain.Entities.CustomizedImage", b =>
@@ -1538,7 +2362,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Gift", b =>
                 {
                     b.HasOne("Domain.Entities.Customization", "Customization")
-                        .WithOne()
+                        .WithOne("Gift")
                         .HasForeignKey("Domain.Entities.Gift", "CustomizationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1553,6 +2377,30 @@ namespace Persistence.Migrations
                         .HasForeignKey("PlacementId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Placement");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Option", b =>
+                {
+                    b.HasOne("Domain.Entities.Layer", "Layer")
+                        .WithMany("LayerOptions")
+                        .HasForeignKey("LayerId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Domain.Entities.OrderItem", "OrderItem")
+                        .WithMany("ProductOptions")
+                        .HasForeignKey("OrderItemId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Domain.Entities.Placement", "Placement")
+                        .WithMany("PlacementOptions")
+                        .HasForeignKey("PlacementId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Layer");
+
+                    b.Navigation("OrderItem");
 
                     b.Navigation("Placement");
                 });
@@ -1667,19 +2515,30 @@ namespace Persistence.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Customization", b =>
+                {
+                    b.Navigation("Gift");
+                });
+
             modelBuilder.Entity("Domain.Entities.Layer", b =>
                 {
+                    b.Navigation("LayerOptions");
+
                     b.Navigation("Position");
                 });
 
             modelBuilder.Entity("Domain.Entities.Order", b =>
                 {
+                    b.Navigation("Customization");
+
                     b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("Domain.Entities.OrderItem", b =>
                 {
                     b.Navigation("Placements");
+
+                    b.Navigation("ProductOptions");
                 });
 
             modelBuilder.Entity("Domain.Entities.PackingSlip", b =>
@@ -1690,6 +2549,8 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Placement", b =>
                 {
                     b.Navigation("Layers");
+
+                    b.Navigation("PlacementOptions");
                 });
 
             modelBuilder.Entity("Domain.Entities.Prompt", b =>

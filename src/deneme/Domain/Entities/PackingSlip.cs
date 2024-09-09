@@ -19,7 +19,11 @@ public class PackingSlip : Entity<Guid>
 
     public string StoreName { get; set; }
 
-    public string CustomerOrderId { get; set; }
 
     public List<Customization> Customizations { get; set; }
+
+    public PackingSlip()
+    {
+        Id = Guid.NewGuid();
+    }
 }

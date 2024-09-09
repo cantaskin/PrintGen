@@ -34,6 +34,8 @@ using Application.Services.Placements;
 using Application.Services.Positions;
 using Application.Services.RetailCosts;
 using Application.Services.Customizations;
+using Application.Services.Options;
+using Application.Services.UserOperationClaims;
 
 
 namespace Application;
@@ -90,6 +92,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ICustomizationService, CustomizationManager>();
         services.AddScoped<ICustomizationService, CustomizationManager>();
         services.AddScoped<IPackingSlipService, PackingSlipManager>();
+        services.AddScoped<IOptionService, OptionManager>();
+        services.AddScoped<IUserOperationClaimService, UserUserOperationClaimManager>();
         return services;
     }
 

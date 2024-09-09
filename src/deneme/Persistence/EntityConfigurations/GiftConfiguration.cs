@@ -20,7 +20,7 @@ public class GiftConfiguration : IEntityTypeConfiguration<Gift>
 
 
         builder.HasOne(g => g.Customization)
-            .WithOne()
+            .WithOne(c => c.Gift)
             .HasForeignKey<Gift>(g => g.CustomizationId)
             .OnDelete(DeleteBehavior.Cascade);
 

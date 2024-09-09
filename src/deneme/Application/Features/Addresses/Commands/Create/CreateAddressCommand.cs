@@ -1,12 +1,14 @@
 using Application.Features.Addresses.Rules;
+using Application.Features.Auth.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.Addresses.Commands.Create;
 
-public class CreateAddressCommand : IRequest<CreatedAddressResponse>
+public class CreateAddressCommand : IRequest<CreatedAddressResponse>, ISecuredRequest
 {
     public required string Name { get; set; }
     public required string Company { get; set; }
@@ -21,6 +23,8 @@ public class CreateAddressCommand : IRequest<CreatedAddressResponse>
     public required string Phone { get; set; }
     public required string Email { get; set; }
     public string? TaxNumber { get; set; }
+
+    public string[] Roles => [AuthOperationClaims.User];
 
     public class CreateAddressCommandHandler : IRequestHandler<CreateAddressCommand, CreatedAddressResponse>
     {

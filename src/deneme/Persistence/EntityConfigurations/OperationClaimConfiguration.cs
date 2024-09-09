@@ -19,6 +19,10 @@ using Application.Features.Placements.Constants;
 using Application.Features.Positions.Constants;
 using Application.Features.RetailCosts.Constants;
 using Application.Features.Customizations.Constants;
+using Application.Features.Options.Constants;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
+
 namespace Persistence.EntityConfigurations;
 
 public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationClaim>
@@ -40,7 +44,9 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         builder.HasBaseType((string)null!);
     }
 
-    public static int AdminId => 1;
+    public static int AdminId => 1612;
+
+    public static int UserId => 2018;
     private IEnumerable<OperationClaim> _seeds
     {
         get
@@ -49,6 +55,12 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
 
             IEnumerable<OperationClaim> featureOperationClaims = getFeatureOperationClaims(AdminId);
             foreach (OperationClaim claim in featureOperationClaims)
+                yield return claim;
+
+            yield return new() { Id = UserId, Name = AuthOperationClaims.User};
+
+            IEnumerable<OperationClaim> userFeatureOperationClaims = getFeatureOperationClaims(UserId);
+            foreach (OperationClaim claim in userFeatureOperationClaims)
                 yield return claim;
         }
     }
@@ -295,6 +307,24 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
    );
    #endregion
    
+   
+  
+  
+  #region Options CRUD
+  featureOperationClaims.AddRange(
+      [
+          new() { Id = ++lastId, Name = OptionsOperationClaims.Admin },
+          new() { Id = ++lastId, Name = OptionsOperationClaims.Read },
+          new() { Id = ++lastId, Name = OptionsOperationClaims.Write },
+          new() { Id = ++lastId, Name = OptionsOperationClaims.Create },
+          new() { Id = ++lastId, Name = OptionsOperationClaims.Update },
+          new() { Id = ++lastId, Name = OptionsOperationClaims.Delete },
+      ]
+  );
+  #endregion
+  
+  
+  
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

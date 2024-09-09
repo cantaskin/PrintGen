@@ -19,10 +19,15 @@ public class PlacementConfiguration : IEntityTypeConfiguration<Placement>
         builder.Property(p => p.DeletedDate).HasColumnName("DeletedDate");
         builder.Property(p => p.OrderItemId).HasColumnName("OrderItemId").IsRequired();
 
+        builder.HasMany(p => p.PlacementOptions)
+            .WithOne(po => po.Placement)
+            .HasForeignKey(po => po.PlacementId)
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(p => p.OrderItem)
             .WithMany(oi => oi.Placements)
-            .HasForeignKey(p => p.OrderItemId);
+            .HasForeignKey(p => p.OrderItemId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(p => p.Layers)
             .WithOne(l => l.Placement)

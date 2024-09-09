@@ -1,4 +1,5 @@
 using Application.Features.Layers.Rules;
+using Application.Features.Options.Commands.Create;
 using Application.Features.Positions.Commands.Create;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -12,6 +13,8 @@ public class CreateLayerCommand : IRequest<CreatedLayerResponse>
     public required string Type { get; set; } = "file";
     public required string Url { get; set; }
     public CreatePositionCommand? Position { get; set; }
+
+    public List<CreateOptionCommand>? LayerOptions { get; set; }
 
     public class CreateLayerCommandHandler : IRequestHandler<CreateLayerCommand, CreatedLayerResponse>
     {

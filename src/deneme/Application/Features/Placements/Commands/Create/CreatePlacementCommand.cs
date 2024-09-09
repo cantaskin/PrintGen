@@ -1,4 +1,5 @@
 using Application.Features.Layers.Commands.Create;
+using Application.Features.Options.Commands.Create;
 using Application.Features.Placements.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -13,6 +14,8 @@ public class CreatePlacementCommand : IRequest<CreatedPlacementResponse>
     public required string Technique { get; set; }
 
     public required List<CreateLayerCommand> Layers { get; set; }
+
+    public List<CreateOptionCommand>? PlacementOptions { get; set; }
   //  public Guid? PlacementOptionId { get; set; }
 
     public class CreatePlacementCommandHandler : IRequestHandler<CreatePlacementCommand, CreatedPlacementResponse>

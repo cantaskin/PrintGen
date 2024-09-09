@@ -17,4 +17,9 @@ public class Position : Entity<Guid>
 
     public Guid LayerId { get; set; }
     public Layer  Layer { get; set; }
+
+    public Position()
+    {
+        Id = Guid.NewGuid();
+    }
 }

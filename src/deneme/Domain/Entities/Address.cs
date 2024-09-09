@@ -34,4 +34,9 @@ public class Address : Entity<Guid>
     public string? TaxNumber { get; set; }
 
     public List<Order> Orders { get; set; }
+
+    public Address()
+    {
+        Id = Guid.NewGuid();
+    }
 }

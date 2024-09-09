@@ -6,6 +6,6 @@ public class CreateCustomizedImageRemoveBackgroundCommandValidator : AbstractVal
 {
     public CreateCustomizedImageRemoveBackgroundCommandValidator()
     {
-        RuleFor(c => c.PromptId).NotEmpty();
+        RuleFor(c => c.Id).NotEmpty();
     }
 }

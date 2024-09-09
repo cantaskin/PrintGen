@@ -16,6 +16,8 @@ public class Order : Entity<Guid>
 
     public List<OrderItem>? OrderItems { get; set; }
 
+    public Customization? Customization { get; set; }
+
     public Order()
     {
         Id = Guid.NewGuid();

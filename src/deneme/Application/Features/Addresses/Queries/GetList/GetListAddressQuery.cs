@@ -5,12 +5,16 @@ using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
+using Application.Features.Auth.Constants;
 
 namespace Application.Features.Addresses.Queries.GetList;
 
-public class GetListAddressQuery : IRequest<GetListResponse<GetListAddressListItemDto>>
+public class GetListAddressQuery : IRequest<GetListResponse<GetListAddressListItemDto>>, ISecuredRequest
 {
     public PageRequest PageRequest { get; set; }
+
+    public string[] Roles => [];
 
     public class GetListAddressQueryHandler : IRequestHandler<GetListAddressQuery, GetListResponse<GetListAddressListItemDto>>
     {

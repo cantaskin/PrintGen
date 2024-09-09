@@ -22,6 +22,11 @@ public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
         builder.Property(oi => oi.OrderId).HasColumnName("OrderId").IsRequired();
 
 
+        builder.HasMany(oi => oi.ProductOptions)
+            .WithOne(po => po.OrderItem)
+            .HasForeignKey(po => po.OrderItemId)
+            .OnDelete(DeleteBehavior.NoAction);
+
         builder.HasMany(oi => oi.Placements)
             .WithOne(p => p.OrderItem)
             .HasForeignKey(p => p.OrderItemId);

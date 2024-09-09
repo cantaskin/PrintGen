@@ -1,11 +1,15 @@
-﻿using Application.Features.Auth.Rules;
+﻿using Application.Features.Auth.Constants;
+using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Application.Services.Repositories;
+using Application.Services.UserOperationClaims;
 using Domain.Entities;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using NArchitecture.Core.Application.Dtos;
 using NArchitecture.Core.Security.Hashing;
 using NArchitecture.Core.Security.JWT;
+using NArchitecture.Core.Security.OtpAuthenticator;
 
 namespace Application.Features.Auth.Commands.Register;
 
@@ -13,6 +17,7 @@ public class RegisterCommand : IRequest<RegisteredResponse>
 {
     public UserForRegisterDto UserForRegisterDto { get; set; }
     public string IpAddress { get; set; }
+
 
     public RegisterCommand()
     {
@@ -31,16 +36,18 @@ public class RegisterCommand : IRequest<RegisteredResponse>
         private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
         private readonly AuthBusinessRules _authBusinessRules;
-
+        private readonly IUserOperationClaimService _userOperationClaimService;
         public RegisterCommandHandler(
             IUserRepository userRepository,
             IAuthService authService,
-            AuthBusinessRules authBusinessRules
+            AuthBusinessRules authBusinessRules,
+            IUserOperationClaimService  userOperationClaimService
         )
         {
             _userRepository = userRepository;
             _authService = authService;
             _authBusinessRules = authBusinessRules;
+            _userOperationClaimService = userOperationClaimService;
         }
 
         public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -69,6 +76,16 @@ public class RegisterCommand : IRequest<RegisteredResponse>
             );
             Domain.Entities.RefreshToken addedRefreshToken = await _authService.AddRefreshToken(createdRefreshToken);
 
+
+                UserOperationClaim userOperationClaim = new()
+                {
+                    OperationClaimId = AuthOperationClaims.UserId, UserId = createdUser.Id
+                };
+
+                await _userOperationClaimService.AddAsync(userOperationClaim);
+
+            
+            
             RegisteredResponse registeredResponse = new() { AccessToken = createdAccessToken, RefreshToken = addedRefreshToken };
             return registeredResponse;
         }

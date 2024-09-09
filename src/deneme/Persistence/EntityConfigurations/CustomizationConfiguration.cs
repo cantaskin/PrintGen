@@ -11,9 +11,7 @@ public class CustomizationConfiguration : IEntityTypeConfiguration<Customization
         builder.ToTable("Customizations").HasKey(c => c.Id);
 
         builder.Property(c => c.Id).HasColumnName("Id").IsRequired();
-        builder.Property(c => c.GiftId).HasColumnName("GiftId");
        // builder.Property(c => c.Gift).HasColumnName("Gift");
-        builder.Property(c => c.PackingSlipId).HasColumnName("PackingSlipId").IsRequired();
       //  builder.Property(c => c.PackingSlip).HasColumnName("PackingSlip").IsRequired();
         builder.Property(c => c.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(c => c.UpdatedDate).HasColumnName("UpdatedDate");
@@ -23,21 +21,21 @@ public class CustomizationConfiguration : IEntityTypeConfiguration<Customization
 
 
         builder.HasOne(c => c.Order).
-            WithOne().
+            WithOne(o => o.Customization).
             HasForeignKey<Customization>(c => c.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
-        /*
+
         // Configure the Gift relationship with a foreign key
         builder.HasOne(c => c.Gift)
-            .WithOne() // Assuming Gift has no reference to Customization
-            .HasForeignKey<Customization>(c => c.GiftId)
+            .WithOne(g => g.Customization) // Assuming Gift has no reference to Customization
+            .HasForeignKey<Customization>()
             .OnDelete(DeleteBehavior.Cascade);
 
         // Configure the relationship with PackingSlip
         builder.HasOne(c => c.PackingSlip)
             .WithMany(ps => ps.Customizations)  // Assuming PackingSlip can have multiple Customizations
             .HasForeignKey(c => c.PackingSlipId)
-            .OnDelete(DeleteBehavior.Cascade);*/
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasQueryFilter(c => !c.DeletedDate.HasValue);
     }

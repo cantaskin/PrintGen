@@ -1,12 +1,14 @@
 using Application.Features.Addresses.Rules;
+using Application.Features.Auth.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.Addresses.Commands.Update;
 
-public class UpdateAddressCommand : IRequest<UpdatedAddressResponse>
+public class UpdateAddressCommand : IRequest<UpdatedAddressResponse>, ISecuredRequest
 {
     public Guid Id { get; set; }
     public required string Name { get; set; }
@@ -21,6 +23,8 @@ public class UpdateAddressCommand : IRequest<UpdatedAddressResponse>
     public required string Phone { get; set; }
     public required string Email { get; set; }
     public string? TaxNumber { get; set; }
+
+    public string[] Roles => [];
 
     public class UpdateAddressCommandHandler : IRequestHandler<UpdateAddressCommand, UpdatedAddressResponse>
     {

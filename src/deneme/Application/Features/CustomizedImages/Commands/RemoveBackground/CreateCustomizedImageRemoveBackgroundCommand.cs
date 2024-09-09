@@ -1,17 +1,19 @@
+using Application.Features.Auth.Constants;
 using Application.Features.CustomizedImages.Rules;
 using Application.Services.ImageGeneratorService;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 
 namespace Application.Features.CustomizedImages.Commands.Create;
 
-public class CreateCustomizedImageRemoveBackgroundCommand : IRequest<CreatedCustomizedImageRemoveBackgroundResponse>
+public class CreateCustomizedImageRemoveBackgroundCommand : IRequest<CreatedCustomizedImageRemoveBackgroundResponse>, ISecuredRequest
 {
-    public required string ImageUrl { get; set; }
-    public required Guid PromptId { get; set; }
+    public required Guid Id { get; set; }
 
+    public string[] Roles => [AuthOperationClaims.User];
     public class CreateCustomizedImageRemoveBackgroundCommandHandler : IRequestHandler<CreateCustomizedImageRemoveBackgroundCommand, CreatedCustomizedImageRemoveBackgroundResponse>
     {
         private readonly IMapper _mapper;
@@ -30,11 +32,26 @@ public class CreateCustomizedImageRemoveBackgroundCommand : IRequest<CreatedCust
 
         public async Task<CreatedCustomizedImageRemoveBackgroundResponse> Handle(CreateCustomizedImageRemoveBackgroundCommand request, CancellationToken cancellationToken)
         {
-            CustomizedImage customizedImage = _mapper.Map<CustomizedImage>(request);
+            //CustomizedImage? customizedImage = _mapper.Map<CustomizedImage>(request);
 
-            customizedImage.ImageUrl = await _imageGeneratorService.RemoveBackgroundAsync(customizedImage.ImageUrl);
+            CustomizedImage? customizedImage = await _customizedImageRepository.GetAsync(ci => ci.Id == request.Id);
 
-            await _customizedImageRepository.AddAsync(customizedImage);
+            if (customizedImage == null)
+            {
+                throw new InvalidOperationException("Customized image not found.");
+            }
+
+            CustomizedImage Image = new()
+            {
+                CreatedDate = DateTime.Now,
+                PromptId = customizedImage.PromptId,
+                ImageUrl = customizedImage.ImageUrl
+            };
+
+            Image.ImageUrl = await _imageGeneratorService.RemoveBackgroundAsync(Image.ImageUrl);
+
+            
+            await _customizedImageRepository.AddAsync(Image);
 
             CreatedCustomizedImageRemoveBackgroundResponse response = _mapper.Map<CreatedCustomizedImageRemoveBackgroundResponse>(customizedImage);
             return response;

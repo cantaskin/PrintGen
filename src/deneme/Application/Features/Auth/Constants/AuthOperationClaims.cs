@@ -10,4 +10,8 @@ public static class AuthOperationClaims
     public const string Read = $"{_section}.Read";
 
     public const string RevokeToken = $"{_section}.RevokeToken";
+
+    public const string User = "User";
+
+    public const int UserId = 2018;
 }

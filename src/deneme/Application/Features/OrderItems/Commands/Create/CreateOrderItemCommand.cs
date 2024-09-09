@@ -1,9 +1,13 @@
+using Application.Features.Auth.Constants;
+using Application.Features.Options.Commands.Create;
 using Application.Features.OrderItems.Rules;
 using Application.Features.Placements.Commands.Create;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
+using NArchitecture.Core.Application.Pipelines.Transaction;
 
 namespace Application.Features.OrderItems.Commands.Create;
 
@@ -11,10 +15,11 @@ public class CreateOrderItemCommand : IRequest<CreatedOrderItemResponse>
 {
     public required string Source { get; set; }
     public required int CatalogVariantId { get; set; }
-    public string? ExternalId { get; set; }
     public required int Quantity { get; set; }
-    public string? RetailPrice { get; set; }
     public string? Name { get; set; }
+
+
+    public List<CreateOptionCommand>? ProductOptions { get; set; }
 
     //public required Guid PlacementId { get; set; }
     public required List<CreatePlacementCommand> Placements { get; set; }
