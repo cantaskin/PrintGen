@@ -27,11 +27,41 @@ public class AddressConfiguration : IEntityTypeConfiguration<Address>
         builder.Property(a => a.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(a => a.DeletedDate).HasColumnName("DeletedDate");
 
+
+        builder.HasData(_seeds);
+
         builder.HasMany(a => a.Orders)
             .WithOne() 
             .HasForeignKey(o => o.AddressId);
 
 
         builder.HasQueryFilter(a => !a.DeletedDate.HasValue);
+    }
+
+    private IEnumerable<Address> _seeds
+    {
+        get
+        {
+
+            Address address =
+                new Address()
+                {
+                    Id = new Guid("846dc1aa-5417-4567-a38d-5bee762b5125"),
+                    Name = "John Smith",
+                    Company = "John Smith Inc",
+                    Address1 =  "19749 Dearborn St",
+                    Address2 = "string",
+                    City = "Chatsworth",
+                    StateCode = "CA",
+                    StateName = "California",
+                    CountryCode = "US",
+                    CountryName = "United States",
+                    Zip = "91311",
+                    Phone = "2312322334",
+                    Email = "firstname.secondname@domain.com",
+                    TaxNumber = "123.456.789-10"
+                };
+            yield return address;
+        }
     }
 }

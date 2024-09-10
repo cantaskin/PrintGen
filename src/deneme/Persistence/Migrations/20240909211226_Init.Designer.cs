@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20240909004312_Creation")]
-    partial class Creation
+    [Migration("20240909211226_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,6 +110,26 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Addresses", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("846dc1aa-5417-4567-a38d-5bee762b5125"),
+                            Address1 = "19749 Dearborn St",
+                            Address2 = "string",
+                            City = "Chatsworth",
+                            Company = "John Smith Inc",
+                            CountryCode = "US",
+                            CountryName = "United States",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "firstname.secondname@domain.com",
+                            Name = "John Smith",
+                            Phone = "2312322334",
+                            StateCode = "CA",
+                            StateName = "California",
+                            TaxNumber = "123.456.789-10",
+                            Zip = "91311"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Customization", b =>
@@ -176,44 +196,17 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("UpdatedDate");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UserId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PromptId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("CustomizedImages", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Denemeci", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("Id");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("DeletedDate");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int")
-                        .HasColumnName("Type");
-
-                    b.Property<string>("Type1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Type1");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("UpdatedDate");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Denemecis", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.EmailAuthenticator", b =>
@@ -1013,42 +1006,6 @@ namespace Persistence.Migrations
                         },
                         new
                         {
-                            Id = 1719,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Denemecis.Admin"
-                        },
-                        new
-                        {
-                            Id = 1720,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Denemecis.Read"
-                        },
-                        new
-                        {
-                            Id = 1721,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Denemecis.Write"
-                        },
-                        new
-                        {
-                            Id = 1722,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Denemecis.Create"
-                        },
-                        new
-                        {
-                            Id = 1723,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Denemecis.Update"
-                        },
-                        new
-                        {
-                            Id = 1724,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Denemecis.Delete"
-                        },
-                        new
-                        {
                             Id = 2018,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "User"
@@ -1688,42 +1645,6 @@ namespace Persistence.Migrations
                             Id = 2124,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Options.Delete"
-                        },
-                        new
-                        {
-                            Id = 2125,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Denemecis.Admin"
-                        },
-                        new
-                        {
-                            Id = 2126,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Denemecis.Read"
-                        },
-                        new
-                        {
-                            Id = 2127,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Denemecis.Write"
-                        },
-                        new
-                        {
-                            Id = 2128,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Denemecis.Create"
-                        },
-                        new
-                        {
-                            Id = 2129,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Denemecis.Update"
-                        },
-                        new
-                        {
-                            Id = 2130,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Denemecis.Delete"
                         });
                 });
 
@@ -1954,6 +1875,18 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PackingSlips", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("043a460f-03fe-4811-9197-5326286519c6"),
+                            CreatedDate = new DateTime(2024, 9, 10, 0, 12, 25, 690, DateTimeKind.Local).AddTicks(6581),
+                            Email = "myCrazyip@proton.me",
+                            LogoUrl = "https://upload.wikimedia.org/wikipedia/commons/8/8d/42_Logo.svg",
+                            Message = "Made by Deneme",
+                            Phone = "+905432133422",
+                            StoreName = "Deneme"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Placement", b =>
@@ -2070,9 +2003,15 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("UpdatedDate");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UserId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PromptCategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Prompts", (string)null);
                 });
@@ -2267,12 +2206,12 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1ff2a302-6a47-4e62-8011-fbfe7bd0cdd7"),
+                            Id = new Guid("68c5a744-34c3-4fc3-bd13-f4359b0ec20f"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "myCrazyip@proton.me",
-                            PasswordHash = new byte[] { 254, 47, 140, 241, 114, 160, 127, 220, 158, 8, 125, 113, 95, 254, 95, 137, 171, 128, 203, 99, 69, 137, 2, 238, 77, 5, 218, 15, 40, 150, 248, 131, 232, 153, 233, 185, 219, 205, 40, 165, 232, 137, 255, 109, 106, 159, 2, 3, 192, 24, 42, 110, 204, 71, 243, 72, 89, 100, 116, 165, 154, 123, 27, 241 },
-                            PasswordSalt = new byte[] { 59, 49, 90, 16, 140, 95, 111, 184, 178, 118, 31, 195, 41, 8, 97, 63, 151, 197, 219, 134, 203, 214, 92, 171, 242, 38, 185, 37, 182, 193, 60, 191, 0, 193, 224, 151, 226, 12, 246, 230, 73, 2, 94, 157, 234, 35, 157, 11, 245, 88, 125, 217, 255, 213, 210, 223, 248, 125, 215, 13, 19, 30, 181, 33, 98, 199, 215, 239, 227, 185, 6, 214, 210, 153, 213, 97, 116, 49, 3, 59, 12, 201, 120, 251, 165, 109, 70, 63, 238, 17, 11, 77, 195, 54, 128, 12, 190, 43, 45, 181, 55, 84, 85, 172, 47, 215, 140, 78, 64, 138, 227, 159, 219, 115, 176, 142, 235, 221, 147, 41, 181, 155, 228, 80, 50, 40, 5, 35 }
+                            PasswordHash = new byte[] { 167, 185, 91, 162, 98, 109, 173, 245, 201, 102, 194, 133, 178, 12, 70, 96, 93, 193, 28, 139, 15, 220, 103, 138, 20, 77, 36, 69, 178, 13, 79, 18, 159, 14, 29, 240, 228, 180, 137, 159, 31, 235, 231, 40, 137, 239, 108, 53, 116, 153, 106, 196, 161, 2, 152, 145, 147, 34, 103, 121, 42, 45, 157, 34 },
+                            PasswordSalt = new byte[] { 15, 189, 39, 163, 113, 184, 157, 92, 73, 140, 156, 168, 94, 44, 89, 66, 82, 254, 223, 191, 114, 136, 38, 126, 119, 240, 160, 234, 130, 38, 79, 8, 142, 208, 152, 31, 149, 194, 86, 100, 15, 200, 63, 81, 157, 218, 73, 237, 34, 143, 193, 169, 180, 183, 104, 218, 247, 222, 162, 82, 110, 165, 198, 128, 214, 100, 214, 219, 222, 24, 54, 113, 30, 124, 179, 159, 111, 142, 221, 13, 53, 156, 45, 151, 15, 158, 135, 205, 172, 104, 225, 100, 159, 92, 133, 197, 100, 50, 174, 144, 65, 57, 114, 71, 235, 186, 250, 223, 235, 162, 103, 24, 72, 91, 233, 71, 126, 137, 99, 22, 45, 65, 232, 9, 209, 31, 244, 239 }
                         });
                 });
 
@@ -2314,10 +2253,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("655f97a4-8a17-4928-8021-b664de502fd2"),
+                            Id = new Guid("8b22c88b-27c3-428e-b174-1b913eb2f797"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1612,
-                            UserId = new Guid("1ff2a302-6a47-4e62-8011-fbfe7bd0cdd7")
+                            UserId = new Guid("68c5a744-34c3-4fc3-bd13-f4359b0ec20f")
                         });
                 });
 
@@ -2348,7 +2287,15 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany("CustomizedImages")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("ImagePrompt");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.EmailAuthenticator", b =>
@@ -2469,7 +2416,15 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany("Prompts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("PromptCategory");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.RefreshToken", b =>
@@ -2568,9 +2523,13 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
+                    b.Navigation("CustomizedImages");
+
                     b.Navigation("EmailAuthenticators");
 
                     b.Navigation("OtpAuthenticators");
+
+                    b.Navigation("Prompts");
 
                     b.Navigation("RefreshTokens");
 

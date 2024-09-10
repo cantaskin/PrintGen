@@ -14,6 +14,11 @@ public class CustomizedImage : Entity<Guid>
     public Guid? PromptId { get; set; }
     public Prompt? ImagePrompt { get; set; }
 
+    public Guid UserId { get; set; }
+
+    public User User { get; set; }
+
+
     public CustomizedImage()
     {
         Id = Guid.NewGuid();

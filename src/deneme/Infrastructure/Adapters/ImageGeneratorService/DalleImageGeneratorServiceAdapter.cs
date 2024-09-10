@@ -21,20 +21,37 @@ namespace Infrastructure.Adapters.ImageGeneratorService;
 public class DalleImageGeneratorServiceAdapter : ImageGeneratorServiceBase
 {
     private readonly OpenAIAPI _openAIAPI;
-    private readonly ImageServiceBase _imageServiceBase;
 
-    public DalleImageGeneratorServiceAdapter(IConfiguration configuration, ImageServiceBase imageServiceBase)
+    public DalleImageGeneratorServiceAdapter(IConfiguration configuration, ImageServiceBase imageServiceBase) : base(imageServiceBase)
     {
-        _imageServiceBase = imageServiceBase;
         Account? account = configuration.GetSection("DalleAccount").Get<Account>();
         _openAIAPI = new OpenAIAPI(account.ApiKey);
     }
+
     public override async Task<string> CreateAsync(string prompt)
     {
-        ImageGenerationRequest request =  new ImageGenerationRequest(prompt, OpenAI_API.Models.Model.DALLE3, ImageSize._1024,"standard");
+        ImageGenerationRequest request =
+            new ImageGenerationRequest(prompt, OpenAI_API.Models.Model.DALLE3, ImageSize._1024, "hd");
         var result = await _openAIAPI.ImageGenerations.CreateImageAsync(request);
-        return result.ToString();
-           
+        var imageUrl = result.Data[0].Url;
+
+        using (HttpClient client = new HttpClient())
+        {
+
+            var response = await client.GetAsync(imageUrl);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await UploadImage(response);
+            }
+            else
+            {
+                throw new Exception("Image generation error");
+
+            }
+            //return result.ToString();
+
+        }
     }
 
     public override Task<string> RemoveBackgroundAsync(string url)

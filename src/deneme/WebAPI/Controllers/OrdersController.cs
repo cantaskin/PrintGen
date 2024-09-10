@@ -26,7 +26,6 @@ public class OrdersController : BaseController
     public async Task<ActionResult<CreatedOrderResponse>> Add([FromBody] CreateOrderCommand command)
     {
         CreatedOrderResponse response = await Mediator.Send(command);
-        await printfulServiceAdapter.CreateOrderAsync(response.Id);
 
         return CreatedAtAction(nameof(GetById), new { response.Id }, response);
     }

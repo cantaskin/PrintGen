@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Creation : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,22 +38,6 @@ namespace Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Addresses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Denemecis",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    Type1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Denemecis", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -149,28 +133,6 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Prompts",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PromptString = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PromptCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Prompts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Prompts_PromptCategories_PromptCategoryId",
-                        column: x => x.PromptCategoryId,
-                        principalTable: "PromptCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "EmailAuthenticators",
                 columns: table => new
                 {
@@ -210,6 +172,35 @@ namespace Persistence.Migrations
                     table.PrimaryKey("PK_OtpAuthenticators", x => x.Id);
                     table.ForeignKey(
                         name: "FK_OtpAuthenticators_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Prompts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PromptString = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PromptCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Prompts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Prompts_PromptCategories_PromptCategoryId",
+                        column: x => x.PromptCategoryId,
+                        principalTable: "PromptCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Prompts_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -359,6 +350,7 @@ namespace Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PromptId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -372,6 +364,11 @@ namespace Persistence.Migrations
                         principalTable: "Prompts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomizedImages_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -504,6 +501,11 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Addresses",
+                columns: new[] { "Id", "Address1", "Address2", "City", "Company", "CountryCode", "CountryName", "CreatedDate", "DeletedDate", "Email", "Name", "Phone", "StateCode", "StateName", "TaxNumber", "UpdatedDate", "Zip" },
+                values: new object[] { new Guid("846dc1aa-5417-4567-a38d-5bee762b5125"), "19749 Dearborn St", "string", "Chatsworth", "John Smith Inc", "US", "United States", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "firstname.secondname@domain.com", "John Smith", "2312322334", "CA", "California", "123.456.789-10", null, "91311" });
+
+            migrationBuilder.InsertData(
                 table: "OperationClaims",
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "Name", "UpdatedDate" },
                 values: new object[,]
@@ -615,12 +617,6 @@ namespace Persistence.Migrations
                     { 1716, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Create", null },
                     { 1717, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Update", null },
                     { 1718, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Delete", null },
-                    { 1719, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Denemecis.Admin", null },
-                    { 1720, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Denemecis.Read", null },
-                    { 1721, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Denemecis.Write", null },
-                    { 1722, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Denemecis.Create", null },
-                    { 1723, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Denemecis.Update", null },
-                    { 1724, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Denemecis.Delete", null },
                     { 2018, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "User", null },
                     { 2019, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Auth.Admin", null },
                     { 2020, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Auth.Read", null },
@@ -727,24 +723,23 @@ namespace Persistence.Migrations
                     { 2121, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Write", null },
                     { 2122, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Create", null },
                     { 2123, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Update", null },
-                    { 2124, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Delete", null },
-                    { 2125, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Denemecis.Admin", null },
-                    { 2126, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Denemecis.Read", null },
-                    { 2127, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Denemecis.Write", null },
-                    { 2128, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Denemecis.Create", null },
-                    { 2129, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Denemecis.Update", null },
-                    { 2130, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Denemecis.Delete", null }
+                    { 2124, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Delete", null }
                 });
+
+            migrationBuilder.InsertData(
+                table: "PackingSlips",
+                columns: new[] { "Id", "CreatedDate", "DeletedDate", "Email", "LogoUrl", "Message", "Phone", "StoreName", "UpdatedDate" },
+                values: new object[] { new Guid("043a460f-03fe-4811-9197-5326286519c6"), new DateTime(2024, 9, 10, 0, 12, 25, 690, DateTimeKind.Local).AddTicks(6581), null, "myCrazyip@proton.me", "https://upload.wikimedia.org/wikipedia/commons/8/8d/42_Logo.svg", "Made by Deneme", "+905432133422", "Deneme", null });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AuthenticatorType", "CreatedDate", "DeletedDate", "Email", "PasswordHash", "PasswordSalt", "UpdatedDate" },
-                values: new object[] { new Guid("1ff2a302-6a47-4e62-8011-fbfe7bd0cdd7"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "myCrazyip@proton.me", new byte[] { 254, 47, 140, 241, 114, 160, 127, 220, 158, 8, 125, 113, 95, 254, 95, 137, 171, 128, 203, 99, 69, 137, 2, 238, 77, 5, 218, 15, 40, 150, 248, 131, 232, 153, 233, 185, 219, 205, 40, 165, 232, 137, 255, 109, 106, 159, 2, 3, 192, 24, 42, 110, 204, 71, 243, 72, 89, 100, 116, 165, 154, 123, 27, 241 }, new byte[] { 59, 49, 90, 16, 140, 95, 111, 184, 178, 118, 31, 195, 41, 8, 97, 63, 151, 197, 219, 134, 203, 214, 92, 171, 242, 38, 185, 37, 182, 193, 60, 191, 0, 193, 224, 151, 226, 12, 246, 230, 73, 2, 94, 157, 234, 35, 157, 11, 245, 88, 125, 217, 255, 213, 210, 223, 248, 125, 215, 13, 19, 30, 181, 33, 98, 199, 215, 239, 227, 185, 6, 214, 210, 153, 213, 97, 116, 49, 3, 59, 12, 201, 120, 251, 165, 109, 70, 63, 238, 17, 11, 77, 195, 54, 128, 12, 190, 43, 45, 181, 55, 84, 85, 172, 47, 215, 140, 78, 64, 138, 227, 159, 219, 115, 176, 142, 235, 221, 147, 41, 181, 155, 228, 80, 50, 40, 5, 35 }, null });
+                values: new object[] { new Guid("68c5a744-34c3-4fc3-bd13-f4359b0ec20f"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "myCrazyip@proton.me", new byte[] { 167, 185, 91, 162, 98, 109, 173, 245, 201, 102, 194, 133, 178, 12, 70, 96, 93, 193, 28, 139, 15, 220, 103, 138, 20, 77, 36, 69, 178, 13, 79, 18, 159, 14, 29, 240, 228, 180, 137, 159, 31, 235, 231, 40, 137, 239, 108, 53, 116, 153, 106, 196, 161, 2, 152, 145, 147, 34, 103, 121, 42, 45, 157, 34 }, new byte[] { 15, 189, 39, 163, 113, 184, 157, 92, 73, 140, 156, 168, 94, 44, 89, 66, 82, 254, 223, 191, 114, 136, 38, 126, 119, 240, 160, 234, 130, 38, 79, 8, 142, 208, 152, 31, 149, 194, 86, 100, 15, 200, 63, 81, 157, 218, 73, 237, 34, 143, 193, 169, 180, 183, 104, 218, 247, 222, 162, 82, 110, 165, 198, 128, 214, 100, 214, 219, 222, 24, 54, 113, 30, 124, 179, 159, 111, 142, 221, 13, 53, 156, 45, 151, 15, 158, 135, 205, 172, 104, 225, 100, 159, 92, 133, 197, 100, 50, 174, 144, 65, 57, 114, 71, 235, 186, 250, 223, 235, 162, 103, 24, 72, 91, 233, 71, 126, 137, 99, 22, 45, 65, 232, 9, 209, 31, 244, 239 }, null });
 
             migrationBuilder.InsertData(
                 table: "UserOperationClaims",
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "OperationClaimId", "UpdatedDate", "UserId" },
-                values: new object[] { new Guid("655f97a4-8a17-4928-8021-b664de502fd2"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1612, null, new Guid("1ff2a302-6a47-4e62-8011-fbfe7bd0cdd7") });
+                values: new object[] { new Guid("8b22c88b-27c3-428e-b174-1b913eb2f797"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1612, null, new Guid("68c5a744-34c3-4fc3-bd13-f4359b0ec20f") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customizations_OrderId",
@@ -761,6 +756,11 @@ namespace Persistence.Migrations
                 name: "IX_CustomizedImages_PromptId",
                 table: "CustomizedImages",
                 column: "PromptId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomizedImages_UserId",
+                table: "CustomizedImages",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmailAuthenticators_UserId",
@@ -825,6 +825,11 @@ namespace Persistence.Migrations
                 column: "PromptCategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Prompts_UserId",
+                table: "Prompts",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
                 table: "RefreshTokens",
                 column: "UserId");
@@ -851,9 +856,6 @@ namespace Persistence.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CustomizedImages");
-
-            migrationBuilder.DropTable(
-                name: "Denemecis");
 
             migrationBuilder.DropTable(
                 name: "EmailAuthenticators");
@@ -892,10 +894,10 @@ namespace Persistence.Migrations
                 name: "OperationClaims");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "PromptCategories");
 
             migrationBuilder.DropTable(
-                name: "PromptCategories");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "PackingSlips");

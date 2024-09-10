@@ -1,5 +1,6 @@
 ﻿using Application.Features.Orders.Commands.Create;
 using Application.Services.Orders;
+using Application.Services.PrintfulService;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.DTO;
@@ -18,7 +19,7 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.Adapters.PrintfulService
 {
-    public class PrintfulServiceAdapter
+    public class PrintfulServiceAdapter : PrintfulServiceBase
     {
         private readonly HttpClient _httpClient;
         private readonly string accessToken = "4sJCPLEKrXzHHu1ltYUzLEwjYUgkCS38CoeNpv7c";
@@ -50,7 +51,7 @@ namespace Infrastructure.Adapters.PrintfulService
             return ExtractContent(ModifyResponseContent(content),key);
         }
 
-        public async Task<string> CreateOrderAsync(Guid OrderId)
+        public override async Task<string> CreateOrderAsync(Guid OrderId)
         {
             var requestUrl = "https://api.printful.com/v2/orders";
 

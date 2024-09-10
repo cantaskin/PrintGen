@@ -15,11 +15,10 @@ namespace Infrastructure.Adapters.ImageGeneratorService
     {
         private readonly string apikey = "sk-amjfCruC5TUuAwbqri3NIvDpI5T2uBdzFnZbzJcwlYbLkz7T";
         private readonly string baseurl = "https://api.stability.ai/v2beta/stable-image";
-        private readonly ImageServiceBase ImageServiceAdapter;
 
-        public StableDiffusionImageGeneratorServiceAdapter(ImageServiceBase _ImageServiceAdapter)
+        public StableDiffusionImageGeneratorServiceAdapter(ImageServiceBase _ImageServiceAdapter) : base(_ImageServiceAdapter)
         {
-            ImageServiceAdapter = _ImageServiceAdapter;
+           
         }
 
         public override async Task<string> CreateAsync(string prompt)
@@ -40,23 +39,11 @@ namespace Infrastructure.Adapters.ImageGeneratorService
 
                 try
                 {
-                    var response = await client.PostAsync($"{baseurl}/generate/core", content);
+                    var response = await client.PostAsync($"{baseurl}/generate/ultra", content);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        var responseData = await response.Content.ReadAsByteArrayAsync();
-                        var guid = Guid.NewGuid();
-                        var fileName = $"{guid}.png";
-
-                        using (var stream = new MemoryStream(responseData))
-                        {
-                            var formFile = new FormFile(stream, 0, responseData.Length, "image", fileName)
-                            {
-                                Headers = new HeaderDictionary(), ContentType = "image/png"
-                            };
-
-                            return await ImageServiceAdapter.UploadAsync(formFile);
-                        }
+                       return await UploadImage(response);
                     }
                     else
                     {

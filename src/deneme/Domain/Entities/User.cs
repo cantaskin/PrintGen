@@ -7,4 +7,8 @@ public class User : NArchitecture.Core.Security.Entities.User<Guid>
     public virtual ICollection<OtpAuthenticator> OtpAuthenticators { get; set; } = default!;
     public virtual ICollection<EmailAuthenticator> EmailAuthenticators { get; set; } = default!;
 
+    public virtual ICollection<Prompt> Prompts { get; set; } = default!;
+
+    public virtual ICollection<CustomizedImage> CustomizedImages { get; set; } = default!;
+
 }

@@ -8,11 +8,13 @@ using Application.Services.Options;
 using Application.Services.OrderItems;
 using Application.Services.PackingSlips;
 using Application.Services.Placements;
+using Application.Services.PrintfulService;
 using Application.Services.PrintOnDemand;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Transaction;
 
@@ -34,14 +36,18 @@ public class CreateOrderCommand : IRequest<CreatedOrderResponse> , ISecuredReque
         private readonly IMapper _mapper;
         private readonly IOrderRepository _orderRepository;
         private readonly IPackingSlipService _packingSlipService;
+        private readonly Guid _id;
+        private readonly PrintfulServiceBase printfulServiceAdapter;
 
 
         public CreateOrderCommandHandler(IMapper mapper, IOrderRepository orderRepository,
-            OrderBusinessRules orderBusinessRules, IPackingSlipService packingSlipService)
+            OrderBusinessRules orderBusinessRules, IPackingSlipService packingSlipService, IConfiguration configuration,PrintfulServiceBase printfulService)
         {
             _packingSlipService = packingSlipService;
             _mapper = mapper;
             _orderRepository = orderRepository;
+            _id = new Guid(configuration["PackingSlip:Id"]);
+            printfulServiceAdapter = printfulService;
         }
 
         public async Task<CreatedOrderResponse> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -94,7 +100,6 @@ public class CreateOrderCommand : IRequest<CreatedOrderResponse> , ISecuredReque
 
            
 
-            // 4. Eðer varsa, Customization'ý ekle
             if (request.Customizations != null)
             {
                 Customization customization = _mapper.Map<Customization>(request.Customizations);
@@ -113,9 +118,8 @@ public class CreateOrderCommand : IRequest<CreatedOrderResponse> , ISecuredReque
                     customization.PackingSlipId = packingSlip.Id;
                 }
                 else
-                {
-                    Guid pId = new Guid("6ad7e558-970a-4da4-8059-7bad866c700d"); //bunu json dosyasına çekmek lazım.
-                    packingSlip = await _packingSlipService.GetAsync(ps => ps.Id == pId);
+                { 
+                    packingSlip = await _packingSlipService.GetAsync(ps => ps.Id == _id);
                 }
                 customization.PackingSlip = packingSlip;
 
@@ -128,7 +132,8 @@ public class CreateOrderCommand : IRequest<CreatedOrderResponse> , ISecuredReque
 
             await _orderRepository.AddAsync(order);
 
-            // 5. Yanýtý oluþtur ve dön
+            await printfulServiceAdapter.CreateOrderAsync(order.Id);
+
             CreatedOrderResponse response = _mapper.Map<CreatedOrderResponse>(order);
             return response;
 

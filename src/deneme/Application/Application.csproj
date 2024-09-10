@@ -19,6 +19,7 @@
 	<PackageReference Include="NArchitecture.Core.Localization.Resource.Yaml.DependencyInjection" Version="1.0.1" />
 	<PackageReference Include="NArchitecture.Core.ElasticSearch" Version="1.0.0" />
 	<PackageReference Include="NArchitecture.Core.Security.DependencyInjection" Version="1.2.0" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Features\**\Resources\Locales\*.*.yaml">

@@ -15,6 +15,13 @@ public class PromptConfiguration : IEntityTypeConfiguration<Prompt>
         builder.Property(p => p.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(p => p.DeletedDate).HasColumnName("DeletedDate");
+        builder.Property(ci => ci.UserId).HasColumnName("UserId").IsRequired();
+
+
+        builder.HasOne(ci => ci.User)
+            .WithMany(u => u.Prompts)
+            .HasForeignKey(ci => ci.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(p => p.Images).
             WithOne(ci => ci.ImagePrompt);

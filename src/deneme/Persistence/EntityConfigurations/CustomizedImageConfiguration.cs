@@ -16,7 +16,13 @@ public class CustomizedImageConfiguration : IEntityTypeConfiguration<CustomizedI
         builder.Property(ci => ci.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(ci => ci.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(ci => ci.DeletedDate).HasColumnName("DeletedDate");
+        builder.Property(ci => ci.UserId).HasColumnName("UserId").IsRequired();
 
+
+        builder.HasOne(ci => ci.User)
+            .WithMany(u => u.CustomizedImages)
+            .HasForeignKey(ci => ci.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.
             HasOne(ci => ci.ImagePrompt).
