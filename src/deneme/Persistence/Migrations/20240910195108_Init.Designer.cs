@@ -12,7 +12,7 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20240909211226_Init")]
+    [Migration("20240910195108_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -1880,7 +1880,7 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = new Guid("043a460f-03fe-4811-9197-5326286519c6"),
-                            CreatedDate = new DateTime(2024, 9, 10, 0, 12, 25, 690, DateTimeKind.Local).AddTicks(6581),
+                            CreatedDate = new DateTime(2024, 9, 10, 22, 51, 7, 671, DateTimeKind.Local).AddTicks(6572),
                             Email = "myCrazyip@proton.me",
                             LogoUrl = "https://upload.wikimedia.org/wikipedia/commons/8/8d/42_Logo.svg",
                             Message = "Made by Deneme",
@@ -2185,6 +2185,11 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Email");
 
+                    b.Property<string>("NickName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("NickName");
+
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("varbinary(max)")
@@ -2194,6 +2199,11 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)")
                         .HasColumnName("PasswordSalt");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("PhoneNumber");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2")
@@ -2206,12 +2216,14 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("68c5a744-34c3-4fc3-bd13-f4359b0ec20f"),
+                            Id = new Guid("49337293-340e-4133-af65-5168fa25b290"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "myCrazyip@proton.me",
-                            PasswordHash = new byte[] { 167, 185, 91, 162, 98, 109, 173, 245, 201, 102, 194, 133, 178, 12, 70, 96, 93, 193, 28, 139, 15, 220, 103, 138, 20, 77, 36, 69, 178, 13, 79, 18, 159, 14, 29, 240, 228, 180, 137, 159, 31, 235, 231, 40, 137, 239, 108, 53, 116, 153, 106, 196, 161, 2, 152, 145, 147, 34, 103, 121, 42, 45, 157, 34 },
-                            PasswordSalt = new byte[] { 15, 189, 39, 163, 113, 184, 157, 92, 73, 140, 156, 168, 94, 44, 89, 66, 82, 254, 223, 191, 114, 136, 38, 126, 119, 240, 160, 234, 130, 38, 79, 8, 142, 208, 152, 31, 149, 194, 86, 100, 15, 200, 63, 81, 157, 218, 73, 237, 34, 143, 193, 169, 180, 183, 104, 218, 247, 222, 162, 82, 110, 165, 198, 128, 214, 100, 214, 219, 222, 24, 54, 113, 30, 124, 179, 159, 111, 142, 221, 13, 53, 156, 45, 151, 15, 158, 135, 205, 172, 104, 225, 100, 159, 92, 133, 197, 100, 50, 174, 144, 65, 57, 114, 71, 235, 186, 250, 223, 235, 162, 103, 24, 72, 91, 233, 71, 126, 137, 99, 22, 45, 65, 232, 9, 209, 31, 244, 239 }
+                            NickName = "Deneme",
+                            PasswordHash = new byte[] { 152, 248, 89, 227, 86, 124, 98, 52, 209, 154, 204, 141, 129, 99, 16, 247, 11, 100, 165, 152, 227, 148, 14, 177, 81, 13, 245, 243, 157, 246, 128, 173, 100, 58, 103, 172, 137, 68, 158, 5, 11, 26, 33, 102, 66, 212, 129, 141, 224, 98, 6, 157, 175, 197, 7, 166, 153, 25, 241, 7, 27, 147, 67, 46 },
+                            PasswordSalt = new byte[] { 244, 212, 206, 119, 23, 55, 143, 243, 148, 145, 250, 15, 229, 158, 158, 118, 115, 178, 84, 3, 232, 38, 85, 157, 64, 41, 83, 70, 97, 107, 207, 58, 229, 177, 167, 165, 140, 133, 164, 7, 190, 243, 197, 208, 88, 137, 51, 149, 146, 151, 235, 170, 234, 222, 76, 198, 248, 169, 81, 69, 13, 123, 13, 116, 193, 117, 117, 175, 128, 157, 198, 156, 71, 221, 220, 164, 240, 125, 109, 240, 116, 83, 58, 57, 102, 54, 112, 182, 99, 180, 189, 217, 73, 208, 202, 47, 157, 191, 77, 93, 71, 49, 45, 0, 229, 152, 156, 135, 77, 158, 206, 185, 130, 146, 243, 12, 1, 12, 41, 180, 93, 16, 185, 56, 9, 166, 171, 240 },
+                            PhoneNumber = "+9012354353"
                         });
                 });
 
@@ -2253,10 +2265,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8b22c88b-27c3-428e-b174-1b913eb2f797"),
+                            Id = new Guid("ef72719e-b409-467a-94fc-fac376d0871e"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1612,
-                            UserId = new Guid("68c5a744-34c3-4fc3-bd13-f4359b0ec20f")
+                            UserId = new Guid("49337293-340e-4133-af65-5168fa25b290")
                         });
                 });
 

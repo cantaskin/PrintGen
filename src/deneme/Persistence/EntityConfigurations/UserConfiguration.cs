@@ -19,6 +19,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(u => u.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(u => u.DeletedDate).HasColumnName("DeletedDate");
+        builder.Property(u => u.NickName).HasColumnName("NickName").IsRequired();
+        builder.Property(u => u.PhoneNumber).HasColumnName("PhoneNumber").IsRequired();
 
         builder.HasQueryFilter(u => !u.DeletedDate.HasValue);
 
@@ -50,7 +52,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                     Id = AdminId,
                     Email = "myCrazyip@proton.me",
                     PasswordHash = passwordHash,
-                    PasswordSalt = passwordSalt
+                    PasswordSalt = passwordSalt,
+                    NickName = "Deneme",
+                    PhoneNumber = "+9012354353"
                 };
             yield return adminUser;
         }

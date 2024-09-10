@@ -3,6 +3,7 @@ using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Application.Services.Repositories;
 using Application.Services.UserOperationClaims;
+using Domain.DTO;
 using Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +16,7 @@ namespace Application.Features.Auth.Commands.Register;
 
 public class RegisterCommand : IRequest<RegisteredResponse>
 {
-    public UserForRegisterDto UserForRegisterDto { get; set; }
+    public UserForRegisterExtendedDto UserForRegisterDto { get; set; }
     public string IpAddress { get; set; }
 
 
@@ -25,7 +26,7 @@ public class RegisterCommand : IRequest<RegisteredResponse>
         IpAddress = string.Empty;
     }
 
-    public RegisterCommand(UserForRegisterDto userForRegisterDto, string ipAddress)
+    public RegisterCommand(UserForRegisterExtendedDto userForRegisterDto, string ipAddress)
     {
         UserForRegisterDto = userForRegisterDto;
         IpAddress = ipAddress;
@@ -52,19 +53,24 @@ public class RegisterCommand : IRequest<RegisteredResponse>
 
         public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
-            await _authBusinessRules.UserEmailShouldBeNotExists(request.UserForRegisterDto.Email);
+            await _authBusinessRules.UserEmailShouldBeNotExists(request.UserForRegisterDto.UserForRegisterDto.Email);
+            await _authBusinessRules.UserPasswordShouldBeMatchWithPasswordConfirm(
+                request.UserForRegisterDto.UserForRegisterDto.Password, request.UserForRegisterDto.PasswordConfirm);
+            await _authBusinessRules.UserNickNameShouldBeNotExist(request.UserForRegisterDto.NickName);
 
             HashingHelper.CreatePasswordHash(
-                request.UserForRegisterDto.Password,
+                request.UserForRegisterDto.UserForRegisterDto.Password,
                 passwordHash: out byte[] passwordHash,
                 passwordSalt: out byte[] passwordSalt
             );
             User newUser =
                 new()
                 {
-                    Email = request.UserForRegisterDto.Email,
+                    Email = request.UserForRegisterDto.UserForRegisterDto.Email,
                     PasswordHash = passwordHash,
                     PasswordSalt = passwordSalt,
+                    NickName = request.UserForRegisterDto.NickName,
+                    PhoneNumber = request.UserForRegisterDto.PhoneNumber
                 };
             User createdUser = await _userRepository.AddAsync(newUser);
 
@@ -79,7 +85,8 @@ public class RegisterCommand : IRequest<RegisteredResponse>
 
                 UserOperationClaim userOperationClaim = new()
                 {
-                    OperationClaimId = AuthOperationClaims.UserId, UserId = createdUser.Id
+                    OperationClaimId = AuthOperationClaims.UserId,
+                    UserId = createdUser.Id
                 };
 
                 await _userOperationClaimService.AddAsync(userOperationClaim);

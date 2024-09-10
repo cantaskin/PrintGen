@@ -7,14 +7,19 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
 {
     public RegisterCommandValidator()
     {
-        RuleFor(c => c.UserForRegisterDto.Email).NotEmpty().EmailAddress();
-        RuleFor(c => c.UserForRegisterDto.Password)
+        RuleFor(c => c.UserForRegisterDto.UserForRegisterDto.Email).NotEmpty().EmailAddress();
+        RuleFor(c => c.UserForRegisterDto.UserForRegisterDto.Password)
             .NotEmpty()
             .MinimumLength(6)
             .Must(StrongPassword)
             .WithMessage(
                 "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
             );
+        RuleFor(c => c.UserForRegisterDto.NickName).NotEmpty().MinimumLength(3);
+        RuleFor(c => c.UserForRegisterDto.PhoneNumber).NotEmpty().NotNull().WithMessage("Phone Number is required.")
+            .MinimumLength(10).WithMessage("PhoneNumber must not be less than 10 characters.")
+            .MaximumLength(20).WithMessage("PhoneNumber must not exceed 50 characters.")
+            .Matches(new Regex(@"((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}")).WithMessage("PhoneNumber not valid");
     }
 
     private bool StrongPassword(string value)

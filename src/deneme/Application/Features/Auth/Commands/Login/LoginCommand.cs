@@ -63,7 +63,7 @@ public class LoginCommand : IRequest<LoggedResponse>
                 if (request.UserForLoginDto.AuthenticatorCode is null)
                 {
                     await _authenticatorService.SendAuthenticatorCode(user);
-                    loggedResponse.RequiredAuthenticatorType = user.AuthenticatorType;
+                    //loggedResponse.RequiredAuthenticatorType = user.AuthenticatorType;
                     return loggedResponse;
                 }
 

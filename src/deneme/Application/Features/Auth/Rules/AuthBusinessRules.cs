@@ -6,6 +6,7 @@ using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
 using NArchitecture.Core.Security.Enums;
 using NArchitecture.Core.Security.Hashing;
+using System.Security.Cryptography;
 
 namespace Application.Features.Auth.Rules;
 
@@ -81,9 +82,23 @@ public class AuthBusinessRules : BaseBusinessRules
             await throwBusinessException(AuthMessages.UserMailAlreadyExists);
     }
 
+    public async Task UserNickNameShouldBeNotExist(string nickName)
+    {
+        bool doesExists = await _userRepository.AnyAsync(predicate: u => u.NickName == nickName);
+        if (doesExists)
+            await throwBusinessException(AuthMessages.NickNameAlreadyExist);
+
+    }
+
     public async Task UserPasswordShouldBeMatch(User user, string password)
     {
         if (!HashingHelper.VerifyPasswordHash(password, user!.PasswordHash, user.PasswordSalt))
+            await throwBusinessException(AuthMessages.PasswordDontMatch);
+    }
+
+    public async Task UserPasswordShouldBeMatchWithPasswordConfirm(string password, string passwordConfirm)
+    {
+        if(password != passwordConfirm)
             await throwBusinessException(AuthMessages.PasswordDontMatch);
     }
 }
