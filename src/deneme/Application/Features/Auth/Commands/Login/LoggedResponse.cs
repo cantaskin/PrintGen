@@ -10,14 +10,14 @@ public class LoggedResponse : IResponse
     public Domain.Entities.RefreshToken? RefreshToken { get; set; }
    // public AuthenticatorType? RequiredAuthenticatorType { get; set; }
 
-    public LoggedHttpResponse ToHttpResponse()
-    {
-        return new() { AccessToken = AccessToken }; //, RequiredAuthenticatorType = RequiredAuthenticatorType };
-    }
+    //public LoggedHttpResponse ToHttpResponse()
+    //{
+    //    return new() { AccessToken = AccessToken }; //, RequiredAuthenticatorType = RequiredAuthenticatorType };
+    //}
 
-    public class LoggedHttpResponse
-    {
-        public AccessToken? AccessToken { get; set; }
-        public AuthenticatorType? RequiredAuthenticatorType { get; set; }
-    }
+    //public class LoggedHttpResponse
+    //{
+    //    public AccessToken? AccessToken { get; set; }
+    //    public AuthenticatorType? RequiredAuthenticatorType { get; set; }
+    //}
 }

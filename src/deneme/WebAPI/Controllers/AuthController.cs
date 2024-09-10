@@ -37,7 +37,7 @@ public class AuthController : BaseController
         if (result.RefreshToken is not null)
             setRefreshTokenToCookie(result.RefreshToken);
 
-        return Ok(result.ToHttpResponse());
+        return Ok(result.AccessToken);
     }
 
     [HttpPost("Register")]
