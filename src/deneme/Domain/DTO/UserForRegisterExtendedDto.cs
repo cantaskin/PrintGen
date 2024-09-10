@@ -12,7 +12,9 @@ public class UserForRegisterExtendedDto
 
     public string PhoneNumber { get; set; }
 
-    public UserForRegisterDto UserForRegisterDto { get; set; }
+    public string  Email { get; set; }
+
+    public string Password { get; set; }
 
     public string PasswordConfirm { get; set; }
 }

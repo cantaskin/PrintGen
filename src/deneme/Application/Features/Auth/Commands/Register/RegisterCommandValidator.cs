@@ -7,8 +7,8 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
 {
     public RegisterCommandValidator()
     {
-        RuleFor(c => c.UserForRegisterDto.UserForRegisterDto.Email).NotEmpty().EmailAddress();
-        RuleFor(c => c.UserForRegisterDto.UserForRegisterDto.Password)
+        RuleFor(c => c.UserForRegisterDto.Email).NotEmpty().EmailAddress();
+        RuleFor(c => c.UserForRegisterDto.Password)
             .NotEmpty()
             .MinimumLength(6)
             .Must(StrongPassword)
@@ -19,12 +19,13 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
         RuleFor(c => c.UserForRegisterDto.PhoneNumber).NotEmpty().NotNull().WithMessage("Phone Number is required.")
             .MinimumLength(10).WithMessage("PhoneNumber must not be less than 10 characters.")
             .MaximumLength(20).WithMessage("PhoneNumber must not exceed 50 characters.")
-            .Matches(new Regex(@"((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}")).WithMessage("PhoneNumber not valid");
+            .WithMessage("PhoneNumber not valid");
     }
 
     private bool StrongPassword(string value)
     {
-        Regex strongPasswordRegex = new("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", RegexOptions.Compiled);
+        Regex strongPasswordRegex = new("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$",
+            RegexOptions.Compiled);
 
         return strongPasswordRegex.IsMatch(value);
     }
