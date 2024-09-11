@@ -22,6 +22,7 @@ using Application.Features.Customizations.Constants;
 using Application.Features.Options.Constants;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
+using Application.Features.TemplateProducts.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -324,6 +325,20 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
   #endregion
   
   
+  
+  
+  #region TemplateProducts CRUD
+  featureOperationClaims.AddRange(
+      [
+          new() { Id = ++lastId, Name = TemplateProductsOperationClaims.Admin },
+          new() { Id = ++lastId, Name = TemplateProductsOperationClaims.Read },
+          new() { Id = ++lastId, Name = TemplateProductsOperationClaims.Write },
+          new() { Id = ++lastId, Name = TemplateProductsOperationClaims.Create },
+          new() { Id = ++lastId, Name = TemplateProductsOperationClaims.Update },
+          new() { Id = ++lastId, Name = TemplateProductsOperationClaims.Delete },
+      ]
+  );
+  #endregion
   
         return featureOperationClaims;
     }

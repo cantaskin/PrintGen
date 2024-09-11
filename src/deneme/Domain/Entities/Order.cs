@@ -18,6 +18,8 @@ public class Order : Entity<Guid>
 
     public Customization? Customization { get; set; }
 
+    public Guid UserId { get; set; }
+    public User User { get; set; }
     public Order()
     {
         Id = Guid.NewGuid();

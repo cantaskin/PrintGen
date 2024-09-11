@@ -36,6 +36,7 @@ using Application.Services.RetailCosts;
 using Application.Services.Customizations;
 using Application.Services.Options;
 using Application.Services.UserOperationClaims;
+using Application.Services.TemplateProducts;
 
 
 namespace Application;
@@ -94,6 +95,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IPackingSlipService, PackingSlipManager>();
         services.AddScoped<IOptionService, OptionManager>();
         services.AddScoped<IUserOperationClaimService, UserUserOperationClaimManager>();
+        services.AddScoped<ITemplateProductService, TemplateProductManager>();
         return services;
     }
 

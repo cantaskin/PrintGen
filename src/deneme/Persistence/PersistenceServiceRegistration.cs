@@ -38,6 +38,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<ICustomizationRepository, CustomizationRepository>();
         services.AddScoped<IPackingSlipRepository, PackingSlipRepository>();
         services.AddScoped<IOptionRepository, OptionRepository>();
+        services.AddScoped<ITemplateProductRepository, TemplateProductRepository>();
         return services;
     }
 }

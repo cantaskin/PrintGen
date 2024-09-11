@@ -27,6 +27,8 @@ public class OrderItem : Entity<Guid>
 
     public List<Option> ProductOptions { get; set; }
 
+    public ICollection<TemplateProduct> TemplateProducts { get; set; }
+
     public OrderItem()
     {
         Id = Guid.NewGuid();

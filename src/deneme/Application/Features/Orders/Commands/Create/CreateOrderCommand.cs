@@ -11,6 +11,7 @@ using Application.Services.Placements;
 using Application.Services.PrintfulService;
 using Application.Services.PrintOnDemand;
 using Application.Services.Repositories;
+using Application.Services.TemplateProducts;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
@@ -22,8 +23,11 @@ namespace Application.Features.Orders.Commands.Create;
 
 public class CreateOrderCommand : IRequest<CreatedOrderResponse> , ISecuredRequest, ITransactionalRequest
 {
+    public required Guid UserId { get; set; }
     public required Guid AddressId { get; set; }
     public string? Shipping { get; set; }
+    
+    public Guid ? TemplateProductId { get; set; }
 
     public List<CreateOrderItemCommand> Items { get; set; }
 
@@ -38,13 +42,14 @@ public class CreateOrderCommand : IRequest<CreatedOrderResponse> , ISecuredReque
         private readonly IPackingSlipService _packingSlipService;
         private readonly Guid _id;
         private readonly PrintfulServiceBase printfulServiceAdapter;
+        private readonly ITemplateProductService _templateProductService;
 
-
-        public CreateOrderCommandHandler(IMapper mapper, IOrderRepository orderRepository,
+        public CreateOrderCommandHandler(IMapper mapper,ITemplateProductService templateProductService ,IOrderRepository orderRepository,
             OrderBusinessRules orderBusinessRules, IPackingSlipService packingSlipService, IConfiguration configuration,PrintfulServiceBase printfulService)
         {
             _packingSlipService = packingSlipService;
             _mapper = mapper;
+            _templateProductService = templateProductService;
             _orderRepository = orderRepository;
             _id = new Guid(configuration["PackingSlip:Id"]);
             printfulServiceAdapter = printfulService;
@@ -59,6 +64,30 @@ public class CreateOrderCommand : IRequest<CreatedOrderResponse> , ISecuredReque
             {
                 var orderItem = _mapper.Map<OrderItem>(item);
                 order.OrderItems.Add(orderItem);
+
+                if (request.TemplateProductId != null)
+                {
+                    var templateProduct= new TemplateProduct()
+                    {
+                        OrderItemId = orderItem.Id,
+                        UserId = order.UserId,
+                        OrderCount = 0,
+                        CreatedDate = DateTime.Now
+                    };
+                    await _templateProductService.AddAsync(templateProduct);
+                }
+                else
+                {
+                    var templateProduct = await _templateProductService.GetAsync(tp => tp.UserId == request.UserId))
+                    if(templateProduct != null)
+                    {
+                        templateProduct.OrderCount++;
+                        await _templateProductService.UpdateAsync(templateProduct);
+                    }
+
+                }
+
+
 
                 var placements = _mapper.Map<List<Placement>>(item.Placements);
                 foreach (var placement in placements)
@@ -129,6 +158,7 @@ public class CreateOrderCommand : IRequest<CreatedOrderResponse> , ISecuredReque
                 
                order.Customization = customization;
             }
+
 
             await _orderRepository.AddAsync(order);
 

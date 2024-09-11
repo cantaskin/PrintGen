@@ -15,6 +15,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.Property(o => o.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(o => o.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(o => o.DeletedDate).HasColumnName("DeletedDate");
+        builder.Property(o => o.UserId).HasColumnName("UserId");
 
         builder.HasMany(o => o.OrderItems)
             .WithOne(oi => oi.Order)
