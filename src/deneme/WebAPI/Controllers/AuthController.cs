@@ -14,7 +14,7 @@ using NArchitecture.Core.Application.Dtos;
 
 namespace WebAPI.Controllers;
 
-[Route("Deneme/[controller]")]
+[Route("api/auth")]
 [ApiController]
 public class AuthController : BaseController
 {
@@ -28,7 +28,7 @@ public class AuthController : BaseController
             ?? throw new NullReferenceException($"\"{configurationSection}\" section cannot found in configuration.");
     }
 
-    [HttpPost("Login")]
+    [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] UserForLoginDto userForLoginDto)
     {
         LoginCommand loginCommand = new() { UserForLoginDto = userForLoginDto, IpAddress = getIpAddress() };
@@ -40,7 +40,7 @@ public class AuthController : BaseController
         return Ok(result.AccessToken);
     }
 
-    [HttpPost("Register")]
+    [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] UserForRegisterExtendedDto userForRegisterDto)
     {
         RegisterCommand registerCommand = new() { UserForRegisterDto = userForRegisterDto, IpAddress = getIpAddress() };
@@ -49,7 +49,7 @@ public class AuthController : BaseController
         return Created(uri: "", result.AccessToken);
     }
 
-    [HttpGet("RefreshToken")]
+    [HttpGet("refreshtoken")]
     public async Task<IActionResult> RefreshToken()
     {
         RefreshTokenCommand refreshTokenCommand =
@@ -59,7 +59,7 @@ public class AuthController : BaseController
         return Created(uri: "", result.AccessToken);
     }
 
-    [HttpPut("RevokeToken")]
+    [HttpPut("revoketoken")]
     public async Task<IActionResult> RevokeToken([FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)] string? refreshToken)
     {
         RevokeTokenCommand revokeTokenCommand =
@@ -68,7 +68,7 @@ public class AuthController : BaseController
         return Ok(result);
     }
 
-    [HttpGet("EnableEmailAuthenticator")]
+    [HttpGet("enableemailauthenticator")]
     public async Task<IActionResult> EnableEmailAuthenticator()
     {
         EnableEmailAuthenticatorCommand enableEmailAuthenticatorCommand =
@@ -82,7 +82,7 @@ public class AuthController : BaseController
         return Ok();
     }
 
-    [HttpGet("EnableOtpAuthenticator")]
+    [HttpGet("enablettpauthenticator")]
     public async Task<IActionResult> EnableOtpAuthenticator()
     {
         EnableOtpAuthenticatorCommand enableOtpAuthenticatorCommand = new() { UserId = getUserIdFromRequest() };
@@ -91,7 +91,7 @@ public class AuthController : BaseController
         return Ok(result);
     }
 
-    [HttpGet("VerifyEmailAuthenticator")]
+    [HttpGet("verifyemailauthenticator")]
     public async Task<IActionResult> VerifyEmailAuthenticator(
         [FromQuery] VerifyEmailAuthenticatorCommand verifyEmailAuthenticatorCommand
     )
@@ -100,7 +100,7 @@ public class AuthController : BaseController
         return Ok();
     }
 
-    [HttpPost("VerifyOtpAuthenticator")]
+    [HttpPost("verifyotpauthenticator")]
     public async Task<IActionResult> VerifyOtpAuthenticator([FromBody] string authenticatorCode)
     {
         VerifyOtpAuthenticatorCommand verifyEmailAuthenticatorCommand =
@@ -117,7 +117,7 @@ public class AuthController : BaseController
 
     private void setRefreshTokenToCookie(RefreshToken refreshToken)
     {
-        CookieOptions cookieOptions = new() { HttpOnly = true, Expires = DateTime.UtcNow.AddDays(7) };
+        CookieOptions cookieOptions = new() { HttpOnly = false, Expires = DateTime.UtcNow.AddDays(7) };
         Response.Cookies.Append(key: "refresh_token", refreshToken.Token, cookieOptions);
     }
 }

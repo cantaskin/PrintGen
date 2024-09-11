@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
-[Route("Deneme/[controller]")]
+[Route("api/prompt")]
 [ApiController]
 public class PromptsController : BaseController
 {

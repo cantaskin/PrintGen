@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/promptcategory")]
 [ApiController]
 public class PromptCategoriesController : BaseController
 {

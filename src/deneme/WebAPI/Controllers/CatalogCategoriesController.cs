@@ -5,7 +5,7 @@ using Infrastructure.Adapters.PrintfulService;
 
 namespace WebAPI.Controllers;
 
-[Route("Deneme/[controller]")]
+[Route("api/catalogcategory")]
 [ApiController]
 public class CatalogCategoriesController : BaseController
 {

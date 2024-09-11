@@ -9,7 +9,7 @@ using NArchitecture.Core.Application.Responses;
 
 namespace WebAPI.Controllers;
 
-[Route("Deneme/[controller]")]
+[Route("api/operationclaim")]
 [ApiController]
 public class OperationClaimsController : BaseController
 {

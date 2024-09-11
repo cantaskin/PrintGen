@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/orderitem")]
 [ApiController]
 public class OrderItemsController : BaseController
 {

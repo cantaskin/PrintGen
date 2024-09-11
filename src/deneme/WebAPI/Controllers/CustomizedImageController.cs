@@ -16,7 +16,7 @@ using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 
 namespace WebAPI.Controllers;
-[Route("Deneme/[controller]")]
+[Route("api/customizedimage")]
 [ApiController]
 public class CustomizedImageController : BaseController
 {

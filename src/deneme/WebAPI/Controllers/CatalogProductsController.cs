@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 
 namespace WebAPI.Controllers;
 
-[Route("Deneme/[controller]")]
+[Route("api/catalogproduct")]
 [ApiController]
 public class CatalogProductsController : BaseController
 {

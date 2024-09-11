@@ -9,11 +9,11 @@ using NArchitecture.Core.Application.Responses;
 
 namespace WebAPI.Controllers;
 
-[Route("Deneme/[controller]")]
+[Route("api/useroperationclaim")]
 [ApiController]
 public class UserOperationClaimsController : BaseController
 {
-    [HttpGet("{Id}")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] GetByIdUserOperationClaimQuery getByIdUserOperationClaimQuery)
     {
         GetByIdUserOperationClaimResponse result = await Mediator.Send(getByIdUserOperationClaimQuery);

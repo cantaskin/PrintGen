@@ -10,18 +10,18 @@ using NArchitecture.Core.Application.Responses;
 
 namespace WebAPI.Controllers;
 
-[Route("Deneme/[controller]")]
+[Route("api/user")]
 [ApiController]
 public class UsersController : BaseController
 {
-    [HttpGet("{Id}")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetById([FromRoute] GetByIdUserQuery getByIdUserQuery)
     {
         GetByIdUserResponse result = await Mediator.Send(getByIdUserQuery);
         return Ok(result);
     }
 
-    [HttpGet("GetFromAuth")]
+    [HttpGet("getfromauth")]
     public async Task<IActionResult> GetFromAuth()
     {
         GetByIdUserQuery getByIdUserQuery = new() { Id = getUserIdFromRequest() };
@@ -51,7 +51,7 @@ public class UsersController : BaseController
         return Ok(result);
     }
 
-    [HttpPut("FromAuth")]
+    [HttpPut("fromauth")]
     public async Task<IActionResult> UpdateFromAuth([FromBody] UpdateUserFromAuthCommand updateUserFromAuthCommand)
     {
         updateUserFromAuthCommand.Id = getUserIdFromRequest();
