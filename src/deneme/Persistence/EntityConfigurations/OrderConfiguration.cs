@@ -15,13 +15,14 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.Property(o => o.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(o => o.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(o => o.DeletedDate).HasColumnName("DeletedDate");
-        builder.Property(o => o.UserId).HasColumnName("UserId");
+        builder.Property(o => o.UserId).HasColumnName("UserId").IsRequired();
 
         builder.HasMany(o => o.OrderItems)
             .WithOne(oi => oi.Order)
             .HasForeignKey(oi => oi.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder.HasOne(o => o.User);
 
         builder.HasOne(o => o.Customization)
             .WithOne(c => c.Order)

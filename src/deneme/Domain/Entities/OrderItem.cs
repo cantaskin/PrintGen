@@ -27,7 +27,9 @@ public class OrderItem : Entity<Guid>
 
     public List<Option> ProductOptions { get; set; }
 
-    public ICollection<TemplateProduct> TemplateProducts { get; set; }
+    public Guid? TemplateProductId { get; set; }
+
+    public TemplateProduct? TemplateProduct { get; set; }
 
     public OrderItem()
     {

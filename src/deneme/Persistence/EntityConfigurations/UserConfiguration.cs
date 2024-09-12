@@ -30,6 +30,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasMany(u => u.OtpAuthenticators);
         builder.HasMany(u => u.CustomizedImages);
         builder.HasMany(u => u.Prompts);
+        builder.HasMany(u => u.Orders);
+        builder.HasMany(u => u.TemplateProducts);
 
         builder.HasData(_seeds);
 

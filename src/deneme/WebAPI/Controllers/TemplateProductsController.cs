@@ -1,11 +1,14 @@
-using Application.Features.TemplateProducts.Commands.Create;
-using Application.Features.TemplateProducts.Commands.Delete;
-using Application.Features.TemplateProducts.Commands.Update;
 using Application.Features.TemplateProducts.Queries.GetById;
 using Application.Features.TemplateProducts.Queries.GetList;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.PromptCategories.Commands.Create;
+using Application.Features.PromptCategories.Commands.Delete;
+using Application.Features.PromptCategories.Commands.Update;
+using Application.Features.TemplateProducts.Command.Create;
+using Application.Features.TemplateProducts.Command.Delete;
+using Application.Features.TemplateProducts.Command.Update;
 
 namespace WebAPI.Controllers;
 
@@ -13,9 +16,11 @@ namespace WebAPI.Controllers;
 [ApiController]
 public class TemplateProductsController : BaseController
 {
+
     [HttpPost]
     public async Task<ActionResult<CreatedTemplateProductResponse>> Add([FromBody] CreateTemplateProductCommand command)
     {
+
         CreatedTemplateProductResponse response = await Mediator.Send(command);
 
         return CreatedAtAction(nameof(GetById), new { response.Id }, response);
@@ -32,7 +37,7 @@ public class TemplateProductsController : BaseController
     [HttpDelete("{id}")]
     public async Task<ActionResult<DeletedTemplateProductResponse>> Delete([FromRoute] Guid id)
     {
-        DeleteTemplateProductCommand command = new() { Id = id };
+        DeleteTemplateProductCommand command = new() { TemplateId = id };
 
         DeletedTemplateProductResponse response = await Mediator.Send(command);
 

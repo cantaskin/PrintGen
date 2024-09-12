@@ -1,4 +1,6 @@
+using Domain.Entities;
 using NArchitecture.Core.Application.Dtos;
+using NArchitecture.Core.Security.Entities;
 
 namespace Application.Features.TemplateProducts.Queries.GetList;
 

@@ -1,6 +1,6 @@
-using Application.Features.TemplateProducts.Commands.Create;
-using Application.Features.TemplateProducts.Commands.Delete;
-using Application.Features.TemplateProducts.Commands.Update;
+using Application.Features.TemplateProducts.Command.Create;
+using Application.Features.TemplateProducts.Command.Delete;
+using Application.Features.TemplateProducts.Command.Update;
 using Application.Features.TemplateProducts.Queries.GetById;
 using Application.Features.TemplateProducts.Queries.GetList;
 using AutoMapper;

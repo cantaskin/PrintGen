@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class Created : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -112,29 +112,6 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Shipping = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrderApiIp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "EmailAuthenticators",
                 columns: table => new
                 {
@@ -151,6 +128,36 @@ namespace Persistence.Migrations
                     table.PrimaryKey("PK_EmailAuthenticators", x => x.Id);
                     table.ForeignKey(
                         name: "FK_EmailAuthenticators_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Shipping = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderApiIp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -238,6 +245,27 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TemplateProducts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderCount = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TemplateProducts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TemplateProducts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserOperationClaims",
                 columns: table => new
                 {
@@ -294,33 +322,6 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderItems",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Source = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CatalogVariantId = table.Column<int>(type: "int", nullable: false),
-                    ExternalId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    RetailPrice = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrderItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrderItems_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RetailCosts",
                 columns: table => new
                 {
@@ -370,6 +371,39 @@ namespace Persistence.Migrations
                         name: "FK_CustomizedImages_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Source = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CatalogVariantId = table.Column<int>(type: "int", nullable: false),
+                    ExternalId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    RetailPrice = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TemplateProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_TemplateProducts_TemplateProductId",
+                        column: x => x.TemplateProductId,
+                        principalTable: "TemplateProducts",
                         principalColumn: "Id");
                 });
 
@@ -619,6 +653,12 @@ namespace Persistence.Migrations
                     { 1716, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Create", null },
                     { 1717, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Update", null },
                     { 1718, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Delete", null },
+                    { 1719, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "TemplateProducts.Admin", null },
+                    { 1720, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "TemplateProducts.Read", null },
+                    { 1721, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "TemplateProducts.Write", null },
+                    { 1722, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "TemplateProducts.Create", null },
+                    { 1723, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "TemplateProducts.Update", null },
+                    { 1724, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "TemplateProducts.Delete", null },
                     { 2018, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "User", null },
                     { 2019, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Auth.Admin", null },
                     { 2020, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Auth.Read", null },
@@ -725,23 +765,29 @@ namespace Persistence.Migrations
                     { 2121, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Write", null },
                     { 2122, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Create", null },
                     { 2123, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Update", null },
-                    { 2124, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Delete", null }
+                    { 2124, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Options.Delete", null },
+                    { 2125, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "TemplateProducts.Admin", null },
+                    { 2126, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "TemplateProducts.Read", null },
+                    { 2127, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "TemplateProducts.Write", null },
+                    { 2128, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "TemplateProducts.Create", null },
+                    { 2129, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "TemplateProducts.Update", null },
+                    { 2130, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "TemplateProducts.Delete", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "PackingSlips",
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "Email", "LogoUrl", "Message", "Phone", "StoreName", "UpdatedDate" },
-                values: new object[] { new Guid("043a460f-03fe-4811-9197-5326286519c6"), new DateTime(2024, 9, 10, 22, 51, 7, 671, DateTimeKind.Local).AddTicks(6572), null, "myCrazyip@proton.me", "https://upload.wikimedia.org/wikipedia/commons/8/8d/42_Logo.svg", "Made by Deneme", "+905432133422", "Deneme", null });
+                values: new object[] { new Guid("043a460f-03fe-4811-9197-5326286519c6"), new DateTime(2024, 9, 12, 2, 56, 9, 624, DateTimeKind.Local).AddTicks(2448), null, "myCrazyip@proton.me", "https://upload.wikimedia.org/wikipedia/commons/8/8d/42_Logo.svg", "Made by Deneme", "+905432133422", "Deneme", null });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AuthenticatorType", "CreatedDate", "DeletedDate", "Email", "NickName", "PasswordHash", "PasswordSalt", "PhoneNumber", "UpdatedDate" },
-                values: new object[] { new Guid("49337293-340e-4133-af65-5168fa25b290"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "myCrazyip@proton.me", "Deneme", new byte[] { 152, 248, 89, 227, 86, 124, 98, 52, 209, 154, 204, 141, 129, 99, 16, 247, 11, 100, 165, 152, 227, 148, 14, 177, 81, 13, 245, 243, 157, 246, 128, 173, 100, 58, 103, 172, 137, 68, 158, 5, 11, 26, 33, 102, 66, 212, 129, 141, 224, 98, 6, 157, 175, 197, 7, 166, 153, 25, 241, 7, 27, 147, 67, 46 }, new byte[] { 244, 212, 206, 119, 23, 55, 143, 243, 148, 145, 250, 15, 229, 158, 158, 118, 115, 178, 84, 3, 232, 38, 85, 157, 64, 41, 83, 70, 97, 107, 207, 58, 229, 177, 167, 165, 140, 133, 164, 7, 190, 243, 197, 208, 88, 137, 51, 149, 146, 151, 235, 170, 234, 222, 76, 198, 248, 169, 81, 69, 13, 123, 13, 116, 193, 117, 117, 175, 128, 157, 198, 156, 71, 221, 220, 164, 240, 125, 109, 240, 116, 83, 58, 57, 102, 54, 112, 182, 99, 180, 189, 217, 73, 208, 202, 47, 157, 191, 77, 93, 71, 49, 45, 0, 229, 152, 156, 135, 77, 158, 206, 185, 130, 146, 243, 12, 1, 12, 41, 180, 93, 16, 185, 56, 9, 166, 171, 240 }, "+9012354353", null });
+                values: new object[] { new Guid("9f6c958c-329f-461d-9132-ac723ff88cd7"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "myCrazyip@proton.me", "Deneme", new byte[] { 83, 245, 173, 52, 226, 176, 221, 176, 226, 114, 201, 196, 135, 65, 163, 63, 204, 84, 224, 231, 130, 37, 30, 104, 35, 23, 247, 208, 134, 68, 78, 85, 60, 169, 57, 2, 208, 236, 140, 178, 46, 189, 186, 205, 27, 42, 65, 173, 104, 245, 232, 43, 41, 43, 36, 186, 3, 193, 164, 197, 105, 79, 170, 228 }, new byte[] { 44, 181, 135, 140, 193, 131, 238, 190, 143, 174, 233, 243, 4, 30, 3, 36, 162, 175, 255, 214, 203, 6, 123, 58, 83, 12, 251, 98, 22, 180, 110, 9, 72, 145, 212, 62, 51, 92, 49, 23, 253, 65, 59, 148, 241, 59, 67, 135, 68, 94, 244, 130, 223, 157, 178, 191, 166, 3, 6, 78, 112, 13, 71, 145, 100, 10, 134, 248, 147, 232, 206, 43, 45, 174, 13, 119, 206, 148, 170, 121, 169, 64, 181, 194, 49, 234, 226, 167, 99, 69, 72, 51, 1, 254, 246, 164, 190, 212, 220, 160, 33, 241, 143, 73, 90, 249, 119, 251, 207, 73, 220, 48, 130, 51, 174, 19, 181, 206, 25, 61, 58, 51, 91, 72, 151, 131, 235, 132 }, "+9012354353", null });
 
             migrationBuilder.InsertData(
                 table: "UserOperationClaims",
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "OperationClaimId", "UpdatedDate", "UserId" },
-                values: new object[] { new Guid("ef72719e-b409-467a-94fc-fac376d0871e"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1612, null, new Guid("49337293-340e-4133-af65-5168fa25b290") });
+                values: new object[] { new Guid("570b1ecc-d61b-4b2c-8300-572b7a734124"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1612, null, new Guid("9f6c958c-329f-461d-9132-ac723ff88cd7") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customizations_OrderId",
@@ -801,9 +847,19 @@ namespace Persistence.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_TemplateProductId",
+                table: "OrderItems",
+                column: "TemplateProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_AddressId",
                 table: "Orders",
                 column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OtpAuthenticators_UserId",
@@ -841,6 +897,11 @@ namespace Persistence.Migrations
                 table: "RetailCosts",
                 column: "OrderId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TemplateProducts_UserId",
+                table: "TemplateProducts",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserOperationClaims_OperationClaimId",
@@ -899,9 +960,6 @@ namespace Persistence.Migrations
                 name: "PromptCategories");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "PackingSlips");
 
             migrationBuilder.DropTable(
@@ -914,7 +972,13 @@ namespace Persistence.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
+                name: "TemplateProducts");
+
+            migrationBuilder.DropTable(
                 name: "Addresses");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }
