@@ -11,7 +11,7 @@ namespace Application.Features.Users.Queries.GetById;
 
 public class GetByIdUserQuery : IRequest<GetByIdUserResponse>, ISecuredRequest
 {
-    public Guid Id { get; set; }
+    public Guid id { get; set; }
 
     public string[] Roles => [AuthOperationClaims.User];
 
@@ -31,7 +31,7 @@ public class GetByIdUserQuery : IRequest<GetByIdUserResponse>, ISecuredRequest
         public async Task<GetByIdUserResponse> Handle(GetByIdUserQuery request, CancellationToken cancellationToken)
         {
             User? user = await _userRepository.GetAsync(
-                predicate: b => b.Id.Equals(request.Id),
+                predicate: b => b.Id.Equals(request.id),
                 enableTracking: false,
                 cancellationToken: cancellationToken
             );

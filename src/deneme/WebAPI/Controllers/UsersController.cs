@@ -24,7 +24,7 @@ public class UsersController : BaseController
     [HttpGet("getfromauth")]
     public async Task<IActionResult> GetFromAuth()
     {
-        GetByIdUserQuery getByIdUserQuery = new() { Id = getUserIdFromRequest() };
+        GetByIdUserQuery getByIdUserQuery = new() { id = getUserIdFromRequest() };
         GetByIdUserResponse result = await Mediator.Send(getByIdUserQuery);
         return Ok(result);
     }
