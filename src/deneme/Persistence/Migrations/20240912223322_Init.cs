@@ -8,38 +8,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Created : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Addresses",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Company = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StateCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StateName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CountryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CountryCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Zip = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TaxNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Addresses", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "OperationClaims",
                 columns: table => new
@@ -96,8 +69,10 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NickName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -109,6 +84,40 @@ namespace Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Company = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StateCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StateName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CountryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CountryCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Zip = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TaxNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Addresses_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,36 +137,6 @@ namespace Persistence.Migrations
                     table.PrimaryKey("PK_EmailAuthenticators", x => x.Id);
                     table.ForeignKey(
                         name: "FK_EmailAuthenticators_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Shipping = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrderApiIp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -294,56 +273,32 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customizations",
+                name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PackingSlipId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Shipping = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderApiIp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customizations", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Customizations_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
+                        name: "FK_Orders_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Customizations_PackingSlips_PackingSlipId",
-                        column: x => x.PackingSlipId,
-                        principalTable: "PackingSlips",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RetailCosts",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Currency = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Discount = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Shipping = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Tax = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RetailCosts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RetailCosts_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Orders_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -372,6 +327,34 @@ namespace Persistence.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Customizations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PackingSlipId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customizations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Customizations_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Customizations_PackingSlips_PackingSlipId",
+                        column: x => x.PackingSlipId,
+                        principalTable: "PackingSlips",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -405,6 +388,31 @@ namespace Persistence.Migrations
                         column: x => x.TemplateProductId,
                         principalTable: "TemplateProducts",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RetailCosts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Currency = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Discount = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Shipping = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Tax = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RetailCosts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RetailCosts_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -535,11 +543,6 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.InsertData(
-                table: "Addresses",
-                columns: new[] { "Id", "Address1", "Address2", "City", "Company", "CountryCode", "CountryName", "CreatedDate", "DeletedDate", "Email", "Name", "Phone", "StateCode", "StateName", "TaxNumber", "UpdatedDate", "Zip" },
-                values: new object[] { new Guid("846dc1aa-5417-4567-a38d-5bee762b5125"), "19749 Dearborn St", "string", "Chatsworth", "John Smith Inc", "US", "United States", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "firstname.secondname@domain.com", "John Smith", "2312322334", "CA", "California", "123.456.789-10", null, "91311" });
 
             migrationBuilder.InsertData(
                 table: "OperationClaims",
@@ -777,17 +780,27 @@ namespace Persistence.Migrations
             migrationBuilder.InsertData(
                 table: "PackingSlips",
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "Email", "LogoUrl", "Message", "Phone", "StoreName", "UpdatedDate" },
-                values: new object[] { new Guid("043a460f-03fe-4811-9197-5326286519c6"), new DateTime(2024, 9, 12, 2, 56, 9, 624, DateTimeKind.Local).AddTicks(2448), null, "myCrazyip@proton.me", "https://upload.wikimedia.org/wikipedia/commons/8/8d/42_Logo.svg", "Made by Deneme", "+905432133422", "Deneme", null });
+                values: new object[] { new Guid("043a460f-03fe-4811-9197-5326286519c6"), new DateTime(2024, 9, 13, 1, 33, 22, 527, DateTimeKind.Local).AddTicks(5519), null, "myCrazyip@proton.me", "https://upload.wikimedia.org/wikipedia/commons/8/8d/42_Logo.svg", "Made by Deneme", "+905432133422", "Deneme", null });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "AuthenticatorType", "CreatedDate", "DeletedDate", "Email", "NickName", "PasswordHash", "PasswordSalt", "PhoneNumber", "UpdatedDate" },
-                values: new object[] { new Guid("9f6c958c-329f-461d-9132-ac723ff88cd7"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "myCrazyip@proton.me", "Deneme", new byte[] { 83, 245, 173, 52, 226, 176, 221, 176, 226, 114, 201, 196, 135, 65, 163, 63, 204, 84, 224, 231, 130, 37, 30, 104, 35, 23, 247, 208, 134, 68, 78, 85, 60, 169, 57, 2, 208, 236, 140, 178, 46, 189, 186, 205, 27, 42, 65, 173, 104, 245, 232, 43, 41, 43, 36, 186, 3, 193, 164, 197, 105, 79, 170, 228 }, new byte[] { 44, 181, 135, 140, 193, 131, 238, 190, 143, 174, 233, 243, 4, 30, 3, 36, 162, 175, 255, 214, 203, 6, 123, 58, 83, 12, 251, 98, 22, 180, 110, 9, 72, 145, 212, 62, 51, 92, 49, 23, 253, 65, 59, 148, 241, 59, 67, 135, 68, 94, 244, 130, 223, 157, 178, 191, 166, 3, 6, 78, 112, 13, 71, 145, 100, 10, 134, 248, 147, 232, 206, 43, 45, 174, 13, 119, 206, 148, 170, 121, 169, 64, 181, 194, 49, 234, 226, 167, 99, 69, 72, 51, 1, 254, 246, 164, 190, 212, 220, 160, 33, 241, 143, 73, 90, 249, 119, 251, 207, 73, 220, 48, 130, 51, 174, 19, 181, 206, 25, 61, 58, 51, 91, 72, 151, 131, 235, 132 }, "+9012354353", null });
+                columns: new[] { "Id", "AuthenticatorType", "CreatedDate", "DeletedDate", "Email", "FirstName", "LastName", "PasswordHash", "PasswordSalt", "PhoneNumber", "UpdatedDate", "UserName" },
+                values: new object[] { new Guid("15b9521a-ba70-4658-98f1-aa7942d5a2ec"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "myCrazyip@proton.me", "Mahmut", "Tuncer", new byte[] { 235, 113, 119, 164, 89, 172, 166, 151, 239, 56, 136, 174, 217, 95, 57, 157, 86, 137, 111, 72, 40, 30, 205, 237, 201, 52, 113, 99, 201, 12, 202, 156, 109, 162, 65, 28, 58, 31, 55, 246, 180, 104, 232, 172, 46, 125, 27, 72, 102, 18, 146, 121, 177, 91, 150, 213, 6, 81, 91, 164, 38, 106, 231, 75 }, new byte[] { 129, 243, 83, 95, 133, 210, 42, 7, 119, 93, 240, 23, 197, 145, 48, 36, 125, 190, 218, 214, 214, 53, 198, 85, 180, 174, 207, 165, 45, 161, 253, 128, 35, 215, 139, 149, 151, 57, 190, 149, 193, 13, 99, 65, 33, 76, 170, 99, 78, 178, 157, 255, 178, 4, 45, 97, 244, 24, 138, 161, 38, 231, 139, 125, 96, 89, 108, 200, 54, 66, 111, 120, 9, 244, 165, 158, 183, 56, 74, 64, 222, 41, 223, 82, 157, 48, 174, 206, 185, 88, 251, 44, 233, 124, 97, 105, 240, 114, 82, 26, 73, 136, 187, 100, 60, 32, 5, 72, 0, 213, 244, 157, 191, 103, 47, 20, 75, 48, 4, 202, 235, 97, 237, 157, 183, 130, 169, 21 }, "+9012354353", null, "Deneme" });
+
+            migrationBuilder.InsertData(
+                table: "Addresses",
+                columns: new[] { "Id", "Address1", "Address2", "City", "Company", "CountryCode", "CountryName", "CreatedDate", "DeletedDate", "Email", "Name", "Phone", "StateCode", "StateName", "TaxNumber", "UpdatedDate", "UserId", "Zip" },
+                values: new object[] { new Guid("846dc1aa-5417-4567-a38d-5bee762b5125"), "19749 Dearborn St", "string", "Chatsworth", "John Smith Inc", "US", "United States", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "firstname.secondname@domain.com", "John Smith", "2312322334", "CA", "California", "123.456.789-10", null, new Guid("15b9521a-ba70-4658-98f1-aa7942d5a2ec"), "91311" });
 
             migrationBuilder.InsertData(
                 table: "UserOperationClaims",
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "OperationClaimId", "UpdatedDate", "UserId" },
-                values: new object[] { new Guid("570b1ecc-d61b-4b2c-8300-572b7a734124"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1612, null, new Guid("9f6c958c-329f-461d-9132-ac723ff88cd7") });
+                values: new object[] { new Guid("2f961b0e-01f5-4c92-9ff1-df6dad445265"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1612, null, new Guid("15b9521a-ba70-4658-98f1-aa7942d5a2ec") });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Addresses_UserId",
+                table: "Addresses",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customizations_OrderId",

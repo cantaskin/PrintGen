@@ -15,7 +15,7 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
             .WithMessage(
                 "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
             );
-        RuleFor(c => c.UserForRegisterDto.NickName).NotEmpty().MinimumLength(3);
+        RuleFor(c => c.UserForRegisterDto.UserName).NotEmpty().MinimumLength(3);
         RuleFor(c => c.UserForRegisterDto.PhoneNumber).NotEmpty().NotNull().WithMessage("Phone Number is required.")
             .MinimumLength(10).WithMessage("PhoneNumber must not be less than 10 characters.")
             .MaximumLength(20).WithMessage("PhoneNumber must not exceed 50 characters.")

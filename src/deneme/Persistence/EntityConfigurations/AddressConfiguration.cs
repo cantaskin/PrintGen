@@ -26,13 +26,15 @@ public class AddressConfiguration : IEntityTypeConfiguration<Address>
         builder.Property(a => a.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(a => a.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(a => a.DeletedDate).HasColumnName("DeletedDate");
-
+        builder.Property(a => a.UserId).HasColumnName("UserId").IsRequired();
 
         builder.HasData(_seeds);
 
         builder.HasMany(a => a.Orders)
             .WithOne() 
             .HasForeignKey(o => o.AddressId);
+
+        builder.HasOne(a => a.User);
 
 
         builder.HasQueryFilter(a => !a.DeletedDate.HasValue);
@@ -59,7 +61,8 @@ public class AddressConfiguration : IEntityTypeConfiguration<Address>
                     Zip = "91311",
                     Phone = "2312322334",
                     Email = "firstname.secondname@domain.com",
-                    TaxNumber = "123.456.789-10"
+                    TaxNumber = "123.456.789-10",
+                    UserId = new Guid("15b9521a-ba70-4658-98f1-aa7942d5a2ec")
                 };
             yield return address;
         }

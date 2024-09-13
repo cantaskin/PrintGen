@@ -4,6 +4,9 @@ using Application.Services.Repositories;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
 using NArchitecture.Core.Persistence.Paging;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.Services.UsersService;
 
@@ -11,11 +14,14 @@ public class UserManager : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly UserBusinessRules _userBusinessRules;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public UserManager(IUserRepository userRepository, UserBusinessRules userBusinessRules)
+    public UserManager(IUserRepository userRepository, UserBusinessRules userBusinessRules,
+        IHttpContextAccessor httpContextAccessor)
     {
         _userRepository = userRepository;
         _userBusinessRules = userBusinessRules;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<User?> GetAsync(
@@ -77,5 +83,44 @@ public class UserManager : IUserService
         User deletedUser = await _userRepository.DeleteAsync(user);
 
         return deletedUser;
+    }
+
+    public async Task<Guid> GetUserIdIntoAccessToken(IHttpContextAccessor _httpContextAccessor)
+    {
+        var token = _httpContextAccessor.HttpContext?.Request.Headers["Authorization"]
+            .FirstOrDefault()?.Split(" ").Last();
+
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(token);
+
+        // Token'dan user ID'yi (sub claim) al
+        var userIdClaim =
+            jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier || claim.Type == "sub");
+
+        return new Guid(userIdClaim.Value);
+    }
+
+    public async Task<Claim> GetClaimAsync(IHttpContextAccessor _HttpContextAccessor)
+    {
+        var token = _HttpContextAccessor.HttpContext?.Request.Headers["Authorization"]
+            .FirstOrDefault()?.Split(" ").Last();
+
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(token);
+
+        // Token'dan role claim'ini al
+        var roleClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role || claim.Type == "role");
+
+        return roleClaim;
+    }
+
+    public async Task EnsureAdminOrUserOwnership(Guid id)
+    {
+
+        var claim = await GetClaimAsync(_httpContextAccessor);
+        var userId = await GetUserIdIntoAccessToken(_httpContextAccessor);
+
+        await _userBusinessRules.EnsureAdminOrUserOwnership(id, userId, claim);
+
     }
 }

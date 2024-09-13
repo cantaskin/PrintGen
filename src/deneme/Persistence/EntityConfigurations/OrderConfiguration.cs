@@ -22,7 +22,9 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .HasForeignKey(oi => oi.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasOne(o => o.User);
+        builder.HasOne(o => o.User)
+            .WithMany(u => u.Orders)
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(o => o.Customization)
             .WithOne(c => c.Order)

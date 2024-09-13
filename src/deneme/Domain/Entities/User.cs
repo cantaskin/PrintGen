@@ -3,8 +3,12 @@
 public class User : NArchitecture.Core.Security.Entities.User<Guid>
 {
 
-    public string NickName { get; set; }
+    public string UserName { get; set; }
     public string PhoneNumber { get; set; }
+
+    public string FirstName { get; set; }
+
+    public string LastName { get; set; }
 
     //Profil fotosu için yeni bir entity oluştur.
     public virtual ICollection<UserOperationClaim> UserOperationClaims { get; set; } = default!;
@@ -19,4 +23,5 @@ public class User : NArchitecture.Core.Security.Entities.User<Guid>
 
     public virtual ICollection<TemplateProduct> TemplateProducts { get; set; } = default!;
 
+    public virtual ICollection<Address> Address { get; set; } = default!;
 }

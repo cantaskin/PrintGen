@@ -7,6 +7,7 @@ using Infrastructure.Adapters.PrintfulService;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Orders.Queries.GetListbyUserId;
 
 namespace WebAPI.Controllers;
 
@@ -72,7 +73,17 @@ public class OrdersController : BaseController
     {
         GetListOrderQuery query = new() { PageRequest = pageRequest };
 
-        GetListResponse<GetListOrderListItemDto> response = await Mediator.Send(query);
+        GetListResponse<GetListdOrderListItemDto> response = await Mediator.Send(query);
+
+        return Ok(response);
+    }
+
+    [HttpGet("{id}/List")]
+    public async Task<ActionResult<GetListbyUserIdOrderQuery>> GetList([FromQuery] PageRequest pageRequest, [FromRoute] Guid id)
+    {
+        GetListbyUserIdOrderQuery query = new() { PageRequest = pageRequest , UserId = id};
+
+        GetListResponse<GetListbyUserIdOrderListItemDto> response = await Mediator.Send(query);
 
         return Ok(response);
     }

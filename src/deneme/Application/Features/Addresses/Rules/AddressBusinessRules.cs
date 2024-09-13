@@ -1,9 +1,12 @@
 using Application.Features.Addresses.Constants;
 using Application.Services.Repositories;
+using Application.Services.UsersService;
 using NArchitecture.Core.Application.Rules;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
 using Domain.Entities;
+using Microsoft.AspNetCore.Http;
+using NArchitecture.Core.Security.Constants;
 
 namespace Application.Features.Addresses.Rules;
 
@@ -11,11 +14,15 @@ public class AddressBusinessRules : BaseBusinessRules
 {
     private readonly IAddressRepository _addressRepository;
     private readonly ILocalizationService _localizationService;
+    private readonly IUserService _userService;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public AddressBusinessRules(IAddressRepository addressRepository, ILocalizationService localizationService)
+    public AddressBusinessRules(IAddressRepository addressRepository, ILocalizationService localizationService, IUserService userService, IHttpContextAccessor httpContextAccessor)
     {
         _addressRepository = addressRepository;
         _localizationService = localizationService;
+        _userService = userService;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     private async Task throwBusinessException(string messageKey)
@@ -39,4 +46,5 @@ public class AddressBusinessRules : BaseBusinessRules
         );
         await AddressShouldExistWhenSelected(address);
     }
+
 }

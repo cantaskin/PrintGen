@@ -16,7 +16,7 @@ public static class UsersTestServiceRegistration
         services.AddTransient<CreateUserCommand>();
         services.AddTransient<UpdateUserCommand>();
         services.AddTransient<DeleteUserCommand>();
-        services.AddTransient<GetByIdUserQuery>();
+        services.AddTransient<GetByMeUserQuery>();
         services.AddTransient<GetListUserQuery>();
         services.AddSingleton<CreateUserCommandValidator>();
         services.AddSingleton<UpdateUserCommandValidator>();

@@ -1,10 +1,15 @@
+using Application.Features.Addresses.Constants;
 using Application.Features.Users.Constants;
 using Application.Services.Repositories;
+using Application.Services.UsersService;
 using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using NArchitecture.Core.Application.Rules;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
+using NArchitecture.Core.Security.Constants;
 using NArchitecture.Core.Security.Hashing;
+using System.Security.Claims;
 
 namespace Application.Features.Users.Rules;
 
@@ -56,5 +61,14 @@ public class UserBusinessRules : BaseBusinessRules
         bool doesExists = await _userRepository.AnyAsync(predicate: u => u.Id != id && u.Email == email);
         if (doesExists)
             await throwBusinessException(UsersMessages.UserMailAlreadyExists);
+    }
+
+    public async Task EnsureAdminOrUserOwnership(Guid id, Guid userId, Claim claim)
+    {
+
+        if (userId == id || claim.Value.Equals(GeneralOperationClaims.Admin))
+            return;
+        else
+            await throwBusinessException(UsersMessages.UserDoesntHaveClaim);
     }
 }

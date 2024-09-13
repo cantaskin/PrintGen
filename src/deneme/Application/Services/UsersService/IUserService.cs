@@ -1,7 +1,9 @@
 ﻿using System.Linq.Expressions;
 using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Query;
 using NArchitecture.Core.Persistence.Paging;
+using System.Security.Claims;
 
 namespace Application.Services.UsersService;
 
@@ -29,4 +31,11 @@ public interface IUserService
     Task<User> AddAsync(User user);
     Task<User> UpdateAsync(User user);
     Task<User> DeleteAsync(User user, bool permanent = false);
+
+    Task<Guid> GetUserIdIntoAccessToken(IHttpContextAccessor _httpContextAccessor);
+
+    Task<Claim> GetClaimAsync(IHttpContextAccessor _HttpContextAccessor);
+
+    Task EnsureAdminOrUserOwnership(Guid id);
+
 }

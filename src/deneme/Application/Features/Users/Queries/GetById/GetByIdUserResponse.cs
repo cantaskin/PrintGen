@@ -6,23 +6,33 @@ public class GetByIdUserResponse : IResponse
 {
     public Guid Id { get; set; }
 
-    public string NickName { get; set; }
+    public string UserName { get; set; }
 
-    public string PhoneNumber { get; set; }
-    public string Email { get; set; }
+    public string? FirstName { get; set; }
 
-    public GetByIdUserResponse()
+    public string? LastName { get; set; }
+    public string? PhoneNumber { get; set; }
+    public string? Email { get; set; }
+
+    //Profil foto ve template products
+
+    public List<Guid>? templateProductsIds { get; set; }
+
+
+    public GetByIdUserResponse(string? firstName, string? lastName, string? phoneNumber)
     {
-        PhoneNumber = string.Empty;
-        NickName = string.Empty;
-        Email = string.Empty;
+        FirstName = firstName;
+        LastName = lastName;
+        PhoneNumber = phoneNumber;
+        UserName = string.Empty;
     }
 
-    public GetByIdUserResponse(Guid id, string nickName, string phoneNumber, string email)
+    public GetByIdUserResponse(Guid id, string UserName, string phoneNumber, string lastName, string firstName, string? firstName1, string? lastName1, string? phoneNumber1)
     {
         Id = id;
-        NickName = nickName;
-        PhoneNumber = phoneNumber;
-        Email = email;
+        FirstName = firstName1;
+        LastName = lastName1;
+        PhoneNumber = phoneNumber1;
+        UserName = UserName;
     }
 }

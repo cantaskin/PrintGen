@@ -1,3 +1,4 @@
 ﻿UserDontExists: "User don't exists."
 UserMailAlreadyExists: "User mail already exists."
 PasswordDontMatch: "Password don't match."
+UserDoesntHaveClaim: "User doesn't have claim for this action."

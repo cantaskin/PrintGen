@@ -82,11 +82,11 @@ public class AuthBusinessRules : BaseBusinessRules
             await throwBusinessException(AuthMessages.UserMailAlreadyExists);
     }
 
-    public async Task UserNickNameShouldBeNotExist(string nickName)
+    public async Task UserUserNameShouldBeNotExist(string UserName)
     {
-        bool doesExists = await _userRepository.AnyAsync(predicate: u => u.NickName == nickName);
+        bool doesExists = await _userRepository.AnyAsync(predicate: u => u.UserName == UserName);
         if (doesExists)
-            await throwBusinessException(AuthMessages.NickNameAlreadyExist);
+            await throwBusinessException(AuthMessages.UserNameAlreadyExist);
 
     }
 
@@ -101,4 +101,5 @@ public class AuthBusinessRules : BaseBusinessRules
         if(password != passwordConfirm)
             await throwBusinessException(AuthMessages.PasswordDontMatch);
     }
+
 }

@@ -56,7 +56,7 @@ public class RegisterCommand : IRequest<RegisteredResponse>
             await _authBusinessRules.UserEmailShouldBeNotExists(request.UserForRegisterDto.Email);
             await _authBusinessRules.UserPasswordShouldBeMatchWithPasswordConfirm(
                 request.UserForRegisterDto.Password, request.UserForRegisterDto.PasswordConfirm);
-            await _authBusinessRules.UserNickNameShouldBeNotExist(request.UserForRegisterDto.NickName);
+            await _authBusinessRules.UserUserNameShouldBeNotExist(request.UserForRegisterDto.UserName);
 
             HashingHelper.CreatePasswordHash(
                 request.UserForRegisterDto.Password,
@@ -69,7 +69,9 @@ public class RegisterCommand : IRequest<RegisteredResponse>
                     Email = request.UserForRegisterDto.Email,
                     PasswordHash = passwordHash,
                     PasswordSalt = passwordSalt,
-                    NickName = request.UserForRegisterDto.NickName,
+                    UserName = request.UserForRegisterDto.UserName,
+                    FirstName = request.UserForRegisterDto.FirstName,
+                    LastName = request.UserForRegisterDto.LastName,
                     PhoneNumber = request.UserForRegisterDto.PhoneNumber
                 };
             User createdUser = await _userRepository.AddAsync(newUser);

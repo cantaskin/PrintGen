@@ -7,6 +7,7 @@ using AutoMapper;
 using NArchitecture.Core.Application.Responses;
 using Domain.Entities;
 using NArchitecture.Core.Persistence.Paging;
+using Application.Features.Orders.Queries.GetListbyUserId;
 
 namespace Application.Features.Orders.Profiles;
 
@@ -26,9 +27,11 @@ public class MappingProfiles : Profile
 
         CreateMap<Order, GetByIdOrderResponse>();
 
-        CreateMap<Order, GetListOrderListItemDto>();
-        CreateMap<IPaginate<Order>, GetListResponse<GetListOrderListItemDto>>();
+        CreateMap<Order, GetListbyUserIdOrderListItemDto>();
+        CreateMap<IPaginate<Order>, GetListResponse<GetListbyUserIdOrderListItemDto>>();
 
+        CreateMap<Order, GetListdOrderListItemDto>();
+        CreateMap<IPaginate<Order>, GetListResponse<GetListdOrderListItemDto>>();
 
     }
 }

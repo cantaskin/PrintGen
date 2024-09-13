@@ -7,6 +7,7 @@ using AutoMapper;
 using NArchitecture.Core.Application.Responses;
 using Domain.Entities;
 using NArchitecture.Core.Persistence.Paging;
+using Application.Features.Addresses.Queries.GetListbyUserId;
 
 namespace Application.Features.Addresses.Profiles;
 
@@ -27,5 +28,8 @@ public class MappingProfiles : Profile
 
         CreateMap<Address, GetListAddressListItemDto>();
         CreateMap<IPaginate<Address>, GetListResponse<GetListAddressListItemDto>>();
+
+        CreateMap<Address, GetListByUserIdAddressListItemDto>();
+        CreateMap<IPaginate<Address>, GetListResponse<GetListByUserIdAddressListItemDto>>();
     }
 }
