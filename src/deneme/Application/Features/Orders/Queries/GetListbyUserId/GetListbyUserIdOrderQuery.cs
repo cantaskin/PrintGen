@@ -38,6 +38,12 @@ public class GetListbyUserIdOrderQuery : IRequest<GetListResponse<GetListbyUserI
         {
             IPaginate<Order> orders = await _orderRepository.GetListAsync(
                 predicate: o => o.UserId == request.UserId,
+              //  include: o => o
+                  //  .Include(order => order.OrderItems)
+                   // .ThenInclude(orderItem => orderItem.Placements)
+                   // .ThenInclude(p => p.Layers)
+                    //.ThenInclude(l => l.Position)
+                   // .Include(order => order.Customization),
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
                 cancellationToken: cancellationToken

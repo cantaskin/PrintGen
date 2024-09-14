@@ -22,20 +22,18 @@ public class CreatePromptCommand : MediatR.IRequest<CreatedPromptResponse> , ISe
     public required string PromptString { get; set; }
     public required Guid PromptCategoryId { get; set; }
 
-    public string RefreshToken { get; set; }
+    public required Guid UserId { get; set; }
 
     public string IpAddress { get; set; }
     public string[] Roles => [AuthOperationClaims.User];
 
     public CreatePromptCommand()
     {
-        RefreshToken = string.Empty;
         IpAddress = string.Empty;
     }
 
     public CreatePromptCommand(string token, string ipAddress)
     {
-        RefreshToken = token;
         IpAddress = ipAddress;
     }
 
@@ -76,24 +74,11 @@ public class CreatePromptCommand : MediatR.IRequest<CreatedPromptResponse> , ISe
 
             Prompt prompt = _mapper.Map<Prompt>(request);
 
-            Domain.Entities.RefreshToken? refreshToken = await _authService.GetRefreshTokenByToken(request.RefreshToken);
-            await _authBusinessRules.RefreshTokenShouldBeExists(refreshToken);
 
-            if (refreshToken!.RevokedDate != null)
-                await _authService.RevokeDescendantRefreshTokens(
-                    refreshToken,
-                    request.IpAddress,
-                    reason: $"Attempted reuse of revoked ancestor token: {refreshToken.Token}"
-                );
-            await _authBusinessRules.RefreshTokenShouldBeActive(refreshToken);
+            _userService.EnsureAdminOrUserOwnership(request.UserId);
+          
 
-            User? user = await _userService.GetAsync(
-                predicate: u => u.Id == refreshToken.UserId,
-                cancellationToken: cancellationToken
-            );
-            await _authBusinessRules.UserShouldBeExistsWhenSelected(user);
-
-            prompt.UserId = user.Id;
+            
 
             await _promptRepository.AddAsync(prompt);
             
@@ -103,7 +88,7 @@ public class CreatePromptCommand : MediatR.IRequest<CreatedPromptResponse> , ISe
             CustomizedImage Image = new CustomizedImage();
             Image.ImageUrl = imageUrl;
             Image.PromptId = prompt.Id;
-            Image.UserId = user.Id;
+            Image.UserId = prompt.UserId;
             Image = await _customizedImageService.AddAsync(Image);
 
 
