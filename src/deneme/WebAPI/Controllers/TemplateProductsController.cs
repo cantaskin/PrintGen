@@ -9,6 +9,8 @@ using Application.Features.PromptCategories.Commands.Update;
 using Application.Features.TemplateProducts.Command.Create;
 using Application.Features.TemplateProducts.Command.Delete;
 using Application.Features.TemplateProducts.Command.Update;
+using Application.Features.TemplateProducts.Queries.GetDynamicList;
+using NArchitecture.Core.Persistence.Dynamic;
 
 namespace WebAPI.Controllers;
 
@@ -60,6 +62,16 @@ public class TemplateProductsController : BaseController
         GetListTemplateProductQuery query = new() { PageRequest = pageRequest };
 
         GetListResponse<GetListTemplateProductListItemDto> response = await Mediator.Send(query);
+
+        return Ok(response);
+    }
+
+    [HttpPost ("dynamic")]
+    public async Task<ActionResult<GetDynamicListTemplateProductQuery>> GetDynamicList([FromQuery] PageRequest pageRequest, [FromBody] DynamicQuery dynamicQuery)
+    {
+        GetDynamicListTemplateProductQuery query = new() { PageRequest = pageRequest , DynamicQuery = dynamicQuery};
+
+        GetListResponse<GetDynamicListTemplateProductListItemDto> response = await Mediator.Send(query);
 
         return Ok(response);
     }

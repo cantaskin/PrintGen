@@ -8,6 +8,7 @@ using Application.Services.Repositories;
 using Application.Services.UsersService;
 using AutoMapper;
 using FluentValidation.TestHelper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
@@ -74,8 +75,9 @@ public class LoginTests
             _configuration,
             mapper
         );
+        IHttpContextAccessor _httpContextAccessor = new HttpContextAccessor();
         UserBusinessRules _userBusinessRules = new(_userRepository, localizationService);
-        IUserService _userService = new UserManager(_userRepository, _userBusinessRules);
+        IUserService _userService = new UserManager(_userRepository, _userBusinessRules,_httpContextAccessor);
         IAuthenticatorService _authententicatorService = new AuthenticatorManager(
             emailAuthenticatorHelper,
             _userEmailAuthenticatorRepository,

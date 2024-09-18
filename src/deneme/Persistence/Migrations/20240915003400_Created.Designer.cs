@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20240912223322_Init")]
-    partial class Init
+    [Migration("20240915003400_Created")]
+    partial class Created
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1863,10 +1863,6 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Source");
 
-                    b.Property<Guid?>("TemplateProductId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("TemplateProductId");
-
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("UpdatedDate");
@@ -1874,8 +1870,6 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
-
-                    b.HasIndex("TemplateProductId");
 
                     b.ToTable("OrderItems", (string)null);
                 });
@@ -1971,7 +1965,7 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = new Guid("043a460f-03fe-4811-9197-5326286519c6"),
-                            CreatedDate = new DateTime(2024, 9, 13, 1, 33, 22, 527, DateTimeKind.Local).AddTicks(5519),
+                            CreatedDate = new DateTime(2024, 9, 15, 3, 33, 59, 990, DateTimeKind.Local).AddTicks(2028),
                             Email = "myCrazyip@proton.me",
                             LogoUrl = "https://upload.wikimedia.org/wikipedia/commons/8/8d/42_Logo.svg",
                             Message = "Made by Deneme",
@@ -2271,6 +2265,10 @@ namespace Persistence.Migrations
                         .HasColumnType("int")
                         .HasColumnName("OrderCount");
 
+                    b.Property<Guid>("OrderItemId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("OrderItemId");
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("UpdatedDate");
@@ -2280,6 +2278,9 @@ namespace Persistence.Migrations
                         .HasColumnName("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderItemId")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -2357,8 +2358,8 @@ namespace Persistence.Migrations
                             Email = "myCrazyip@proton.me",
                             FirstName = "Mahmut",
                             LastName = "Tuncer",
-                            PasswordHash = new byte[] { 235, 113, 119, 164, 89, 172, 166, 151, 239, 56, 136, 174, 217, 95, 57, 157, 86, 137, 111, 72, 40, 30, 205, 237, 201, 52, 113, 99, 201, 12, 202, 156, 109, 162, 65, 28, 58, 31, 55, 246, 180, 104, 232, 172, 46, 125, 27, 72, 102, 18, 146, 121, 177, 91, 150, 213, 6, 81, 91, 164, 38, 106, 231, 75 },
-                            PasswordSalt = new byte[] { 129, 243, 83, 95, 133, 210, 42, 7, 119, 93, 240, 23, 197, 145, 48, 36, 125, 190, 218, 214, 214, 53, 198, 85, 180, 174, 207, 165, 45, 161, 253, 128, 35, 215, 139, 149, 151, 57, 190, 149, 193, 13, 99, 65, 33, 76, 170, 99, 78, 178, 157, 255, 178, 4, 45, 97, 244, 24, 138, 161, 38, 231, 139, 125, 96, 89, 108, 200, 54, 66, 111, 120, 9, 244, 165, 158, 183, 56, 74, 64, 222, 41, 223, 82, 157, 48, 174, 206, 185, 88, 251, 44, 233, 124, 97, 105, 240, 114, 82, 26, 73, 136, 187, 100, 60, 32, 5, 72, 0, 213, 244, 157, 191, 103, 47, 20, 75, 48, 4, 202, 235, 97, 237, 157, 183, 130, 169, 21 },
+                            PasswordHash = new byte[] { 10, 249, 42, 90, 0, 33, 6, 167, 219, 169, 15, 140, 193, 40, 142, 140, 47, 35, 163, 72, 245, 154, 216, 135, 103, 67, 99, 21, 74, 104, 11, 14, 132, 94, 56, 93, 216, 152, 36, 180, 0, 143, 228, 37, 252, 145, 129, 60, 125, 55, 188, 172, 239, 32, 208, 109, 5, 105, 181, 104, 138, 51, 32, 157 },
+                            PasswordSalt = new byte[] { 162, 25, 53, 38, 194, 249, 27, 14, 63, 142, 7, 197, 159, 173, 84, 91, 130, 77, 149, 82, 21, 105, 8, 143, 130, 127, 233, 251, 6, 84, 109, 167, 21, 70, 22, 180, 134, 40, 167, 176, 12, 224, 224, 63, 47, 43, 225, 157, 122, 211, 56, 175, 69, 111, 53, 110, 207, 162, 80, 238, 167, 59, 204, 52, 189, 94, 20, 133, 225, 23, 150, 21, 165, 167, 210, 5, 66, 154, 81, 183, 52, 195, 156, 82, 157, 190, 0, 31, 186, 39, 152, 80, 112, 62, 122, 161, 12, 61, 178, 13, 163, 89, 148, 163, 138, 146, 18, 238, 60, 98, 23, 221, 209, 141, 93, 165, 65, 208, 19, 232, 72, 147, 217, 206, 69, 103, 30, 166 },
                             PhoneNumber = "+9012354353",
                             UserName = "Deneme"
                         });
@@ -2402,7 +2403,7 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2f961b0e-01f5-4c92-9ff1-df6dad445265"),
+                            Id = new Guid("8636956a-1f3f-4d0d-a7d2-c03c2050d833"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1612,
                             UserId = new Guid("15b9521a-ba70-4658-98f1-aa7942d5a2ec")
@@ -2540,13 +2541,7 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.TemplateProduct", "TemplateProduct")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("TemplateProductId");
-
                     b.Navigation("Order");
-
-                    b.Navigation("TemplateProduct");
                 });
 
             modelBuilder.Entity("Domain.Entities.OtpAuthenticator", b =>
@@ -2625,11 +2620,19 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.TemplateProduct", b =>
                 {
+                    b.HasOne("Domain.Entities.OrderItem", "OrderItem")
+                        .WithOne("TemplateProduct")
+                        .HasForeignKey("Domain.Entities.TemplateProduct", "OrderItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("TemplateProducts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("OrderItem");
 
                     b.Navigation("User");
                 });
@@ -2682,6 +2685,8 @@ namespace Persistence.Migrations
                     b.Navigation("Placements");
 
                     b.Navigation("ProductOptions");
+
+                    b.Navigation("TemplateProduct");
                 });
 
             modelBuilder.Entity("Domain.Entities.PackingSlip", b =>
@@ -2704,11 +2709,6 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.PromptCategory", b =>
                 {
                     b.Navigation("Prompts");
-                });
-
-            modelBuilder.Entity("Domain.Entities.TemplateProduct", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>

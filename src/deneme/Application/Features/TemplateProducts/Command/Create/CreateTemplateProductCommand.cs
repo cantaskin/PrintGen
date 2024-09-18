@@ -43,11 +43,15 @@ public class CreateTemplateProductCommand : MediatR.IRequest<CreatedTemplateProd
             await _userBusinessRules.UserIdShouldBeExistsWhenSelected(request.UserId);
             await _orderItemBusinessRules.OrderItemIdShouldExistWhenSelected(request.OrderItemId,cancellationToken);
 
-            await _templateProductService.AddAsync(templateProduct);
 
-            OrderItem? orderItem= await _orderItemService.GetAsync(oi => oi.Id == request.OrderItemId);
+            OrderItem? orderItem = await _orderItemService.GetAsync(oi => oi.Id == request.OrderItemId);
+
+
+            templateProduct.OrderItemId = orderItem.Id;
+
+
+            await _templateProductService.AddAsync(templateProduct);
             
-            orderItem.TemplateProductId = templateProduct.Id;
             //orderItem.TemplateProduct = templateProduct;
 
             await _orderItemService.UpdateAsync(orderItem);

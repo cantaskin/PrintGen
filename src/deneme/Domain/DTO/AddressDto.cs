@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NArchitecture.Core.Application.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.DTO;
 
-public class AddressDto
+public class AddressDto : IDto
 {
     public string name { get; set; } // Alıcının adı
     public string? company { get; set; } // Şirket adı (isteğe bağlı)

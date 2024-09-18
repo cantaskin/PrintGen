@@ -20,7 +20,6 @@ public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
         builder.Property(oi => oi.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(oi => oi.DeletedDate).HasColumnName("DeletedDate");
         builder.Property(oi => oi.OrderId).HasColumnName("OrderId").IsRequired();
-        builder.Property(oi => oi.TemplateProductId).HasColumnName("TemplateProductId");
 
 
         builder.HasMany(oi => oi.ProductOptions)

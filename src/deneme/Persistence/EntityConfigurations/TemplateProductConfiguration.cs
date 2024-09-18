@@ -16,10 +16,11 @@ public class TemplateProductConfiguration : IEntityTypeConfiguration<TemplatePro
         builder.Property(tp => tp.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(tp => tp.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(tp => tp.DeletedDate).HasColumnName("DeletedDate");
+        builder.Property(tp => tp.OrderItemId).HasColumnName("OrderItemId").IsRequired();
 
         builder.HasOne(tp => tp.User).WithMany(u => u.TemplateProducts).OnDelete(DeleteBehavior.NoAction);
 
-        builder.HasMany(tp => tp.OrderItems);
+        builder.HasOne(tp => tp.OrderItem);
 
         builder.HasQueryFilter(tp => !tp.DeletedDate.HasValue);
     }

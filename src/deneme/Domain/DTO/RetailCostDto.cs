@@ -1,11 +1,12 @@
-﻿using System;
+﻿using NArchitecture.Core.Application.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.DTO;
-public class RetailCostDto
+public class RetailCostDto : IDto
 {
     public string currency { get; set; } // Para birimi
     public string? discount { get; set; } // İndirim (isteğe bağlı)

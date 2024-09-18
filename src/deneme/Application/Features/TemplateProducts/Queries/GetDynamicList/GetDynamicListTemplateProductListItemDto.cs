@@ -1,18 +1,16 @@
-﻿using NArchitecture.Core.Persistence.Repositories;
+﻿using Domain.Entities;
+using NArchitecture.Core.Application.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities;
-public class TemplateProduct : Entity<Guid>
+namespace Application.Features.TemplateProducts.Queries.GetDynamicList;
+public class GetDynamicListTemplateProductListItemDto : IDto
 {
+    public Guid Id { get; set; }
     public int OrderCount { get; set; }
-    
     public Guid OrderItemId { get; set; }
-    public OrderItem OrderItem { get; set; }
     public Guid UserId { get; set; }
-    public User User { get; set; }
-
 }

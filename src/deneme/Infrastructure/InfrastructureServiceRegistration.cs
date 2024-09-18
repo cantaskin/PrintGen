@@ -13,7 +13,7 @@ public static class InfrastructureServiceRegistration
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
         services.AddScoped<ImageServiceBase, CloudinaryImageServiceAdapter>();
-        services.AddScoped<ImageGeneratorServiceBase, DalleImageGeneratorServiceAdapter>();
+        services.AddScoped<ImageGeneratorServiceBase, StableDiffusionImageGeneratorServiceAdapter>();
         services.AddScoped<PrintfulServiceBase, PrintfulServiceAdapter>();
 
         return services;

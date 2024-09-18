@@ -1,11 +1,12 @@
-﻿using System;
+﻿using NArchitecture.Core.Application.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.DTO;
-public class OrderItemDto
+public class OrderItemDto : IDto
 {
     public string source { get; set; } = "catalog"; // Varsayılan kaynak
     public int catalog_variant_id { get; set; } // Katalog varyant ID'si

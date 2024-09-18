@@ -2,6 +2,7 @@ using Application.Features.TemplateProducts.Command.Create;
 using Application.Features.TemplateProducts.Command.Delete;
 using Application.Features.TemplateProducts.Command.Update;
 using Application.Features.TemplateProducts.Queries.GetById;
+using Application.Features.TemplateProducts.Queries.GetDynamicList;
 using Application.Features.TemplateProducts.Queries.GetList;
 using AutoMapper;
 using NArchitecture.Core.Application.Responses;
@@ -27,5 +28,8 @@ public class MappingProfiles : Profile
 
         CreateMap<TemplateProduct, GetListTemplateProductListItemDto>();
         CreateMap<IPaginate<TemplateProduct>, GetListResponse<GetListTemplateProductListItemDto>>();
+
+        CreateMap<TemplateProduct, GetDynamicListTemplateProductListItemDto>().ReverseMap();
+        CreateMap<IPaginate<TemplateProduct>, GetListResponse<GetDynamicListTemplateProductListItemDto>>().ReverseMap();
     }
 }

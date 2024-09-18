@@ -97,10 +97,10 @@ public class CreateOrderCommand : IRequest<CreatedOrderResponse>, ISecuredReques
             {
                 UserId = userId,
                 OrderCount = 0,
-                CreatedDate = DateTime.Now
+                CreatedDate = DateTime.Now,
+                OrderItemId = orderItem.Id
             };
 
-            orderItem.TemplateProductId = templateProduct.Id;
             orderItem.TemplateProduct = templateProduct;
             //await _templateProductService.AddAsync(templateProduct);
         }
@@ -111,7 +111,7 @@ public class CreateOrderCommand : IRequest<CreatedOrderResponse>, ISecuredReques
             if (templateProduct != null)
             {
                 templateProduct.OrderCount++;
-                orderItem.TemplateProductId = templateProduct.Id;
+                templateProduct.OrderItemId = orderItem.Id;
                // templateProduct.OrderItems.Add(orderItem);
                 await _templateProductService.UpdateAsync(templateProduct);
             }

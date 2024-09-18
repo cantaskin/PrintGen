@@ -1,6 +1,8 @@
-﻿namespace Domain.DTO;
+﻿using NArchitecture.Core.Application.Dtos;
 
-public class LayerDto
+namespace Domain.DTO;
+
+public class LayerDto : IDto
 {
     public string type { get; set; } // Katman tipi (ör. dosya, metin)
     public string url { get; set; } // Katman dosya URL'si (tipi dosya ise)

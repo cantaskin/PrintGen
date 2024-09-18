@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.DTO;
-public class UserForRegisterExtendedDto 
+public class UserForRegisterExtendedDto  : IDto
 {
     public string FirstName { get; set; }
 

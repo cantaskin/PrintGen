@@ -1,6 +1,8 @@
-﻿namespace Domain.DTO;
+﻿using NArchitecture.Core.Application.Dtos;
 
-public class LayerPositionDto
+namespace Domain.DTO;
+
+public class LayerPositionDto : IDto
 {
     public float width { get; set; } // Genişlik inç cinsinden
     public float height { get; set; } // Yükseklik inç cinsinden
