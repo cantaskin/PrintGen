@@ -22,7 +22,7 @@ namespace Infrastructure.Adapters.PrintfulService
     public class PrintfulServiceAdapter : PrintfulServiceBase
     {
         private readonly HttpClient _httpClient;
-        private readonly string accessToken = "2xEfeFgC3NXyv2B3JAOQwRIXU6cq0FptZe4a0BDa";
+        private readonly string accessToken;
         private readonly IOrderService _orderService;
         private readonly string _urlBase;
         private readonly string _storeId;
@@ -33,6 +33,7 @@ namespace Infrastructure.Adapters.PrintfulService
             _httpClient = new HttpClient();
             _urlBase = configuration["Url:UrlBase"];
             _storeId = configuration["PrintfulAccount:StoreId"];
+            accessToken = configuration["PrintfulAccount:Key"];
         }
 
         public async Task<string> GetAsync(string requestUrl,string key = null)

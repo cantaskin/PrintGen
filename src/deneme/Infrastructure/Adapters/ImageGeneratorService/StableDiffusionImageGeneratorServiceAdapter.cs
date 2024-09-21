@@ -2,6 +2,7 @@
 using Application.Services.ImageGeneratorService;
 using Application.Services.ImageService;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using System.Net.Http;
@@ -13,12 +14,14 @@ namespace Infrastructure.Adapters.ImageGeneratorService
 {
     public class StableDiffusionImageGeneratorServiceAdapter : ImageGeneratorServiceBase
     {
-        private readonly string apikey = "sk-kz5BTFAhLbnxjNUBEFcnlwrMjeXpC6FPkAooEI0bGgqopfdt";
+        private readonly string apikey;
+        private readonly string model;
         private readonly string baseurl = "https://api.stability.ai/v2beta/stable-image";
 
-        public StableDiffusionImageGeneratorServiceAdapter(ImageServiceBase _ImageServiceAdapter) : base(_ImageServiceAdapter)
+        public StableDiffusionImageGeneratorServiceAdapter(ImageServiceBase _ImageServiceAdapter, IConfiguration configuration) : base(_ImageServiceAdapter)
         {
-           
+            apikey = configuration["StableDiffusionAccount:Key"];
+            model = configuration["StableDiffusionAccount:Model"];
         }
 
         public override async Task<string> CreateAsync(string prompt)
@@ -39,7 +42,7 @@ namespace Infrastructure.Adapters.ImageGeneratorService
 
                 try
                 {
-                    var response = await client.PostAsync($"{baseurl}/generate/ultra", content);
+                    var response = await client.PostAsync($"{baseurl}/generate/{model}", content);
 
                     if (response.IsSuccessStatusCode)
                     {
