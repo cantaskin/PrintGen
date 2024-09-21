@@ -22,7 +22,7 @@ namespace Infrastructure.Adapters.PrintfulService
     public class PrintfulServiceAdapter : PrintfulServiceBase
     {
         private readonly HttpClient _httpClient;
-        private readonly string accessToken = "4sJCPLEKrXzHHu1ltYUzLEwjYUgkCS38CoeNpv7c";
+        private readonly string accessToken = "2xEfeFgC3NXyv2B3JAOQwRIXU6cq0FptZe4a0BDa";
         private readonly IOrderService _orderService;
         private readonly string _urlBase;
         private readonly string _storeId;

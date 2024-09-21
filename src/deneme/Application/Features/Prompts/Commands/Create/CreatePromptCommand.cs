@@ -76,7 +76,6 @@ public class CreatePromptCommand : MediatR.IRequest<CreatedPromptResponse> , ISe
 
 
             _userService.EnsureAdminOrUserOwnership(request.UserId);
-          
 
             
 

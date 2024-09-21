@@ -24,4 +24,5 @@ public class User : NArchitecture.Core.Security.Entities.User<Guid>
     public virtual ICollection<TemplateProduct> TemplateProducts { get; set; } = default!;
 
     public virtual ICollection<Address> Address { get; set; } = default!;
+
 }
