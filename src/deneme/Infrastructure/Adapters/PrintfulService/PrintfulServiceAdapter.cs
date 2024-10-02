@@ -16,6 +16,8 @@ using MimeKit.Cryptography;
 using Newtonsoft.Json.Linq;
 using NArchitecture.Core.Security.JWT;
 using Newtonsoft.Json;
+using MailKit.Search;
+using Nest;
 
 namespace Infrastructure.Adapters.PrintfulService
 {
@@ -56,6 +58,38 @@ namespace Infrastructure.Adapters.PrintfulService
         {
             var requestUrl = "https://api.printful.com/v2/orders";
 
+            // Get the order details
+            Order? order = await _orderService.GetAsync(o => o.Id == OrderId);
+            if (order == null)
+            {
+                throw new Exception($"Order with ID {OrderId} not found.");
+            }
+
+            // Convert order to DTO
+            OrderDto orderDto = await GetOrderDto(order);
+            
+            // Send POST request with order DTO
+            var responseContent = await SendPostRequestAsync(requestUrl, orderDto);
+            
+            // Update the order with the API response data
+            order.OrderApiIp = ExtractContent(responseContent, "id");
+            await _orderService.UpdateAsync(order);
+
+            return responseContent;
+        }
+
+        public override async Task<string> CreateMockupAsync(MockupDto mockup)
+        {
+            var requestUrl = "https://api.printful.com/v2/mockup-tasks";
+
+            // Send POST request with mockup DTO
+
+            var response = await SendPostRequestAsync(requestUrl, mockup);
+            return ExtractContent(ModifyResponseContent(response), null);
+        }
+
+        private async Task<string> SendPostRequestAsync<T>(string requestUrl, T contentObject)
+        {
             // Set up authorization header
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
@@ -67,18 +101,8 @@ namespace Infrastructure.Adapters.PrintfulService
 
             try
             {
-                // Get the order details
-                Order? order = await _orderService.GetAsync(o => o.Id == OrderId);
-                if (order == null)
-                {
-                    throw new Exception($"Order with ID {OrderId} not found.");
-                }
-
-                // Convert order to DTO
-                OrderDto orderDto = await GetOrderDto(order);
-
-                // Serialize order data to JSON
-                var jsonData = JsonConvert.SerializeObject(orderDto, Formatting.Indented); // Indented formatting for readability
+                // Serialize content object to JSON
+                var jsonData = JsonConvert.SerializeObject(contentObject, Formatting.Indented); // Indented formatting for readability
                 Console.WriteLine("Serialized JSON Data: " + jsonData); // Log JSON data for debugging
                 var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
@@ -90,20 +114,13 @@ namespace Infrastructure.Adapters.PrintfulService
                 {
                     // Read the response content for more details
                     var errorContent = await response.Content.ReadAsStringAsync();
-                    var errorMessage = $"Failed to create order. Status Code: {response.StatusCode}. " +
-                                       $"Error Content: {errorContent}. Request URL: {requestUrl}. " +
-                                       $"OrderId: {OrderId}.";
+                    var errorMessage = $"Failed to create request. Status Code: {response.StatusCode}. " +
+                                       $"Error Content: {errorContent}. Request URL: {requestUrl}. ";
                     throw new HttpRequestException(errorMessage);
                 }
 
-                // Parse the successful response content
-                var responseContent = await response.Content.ReadAsStringAsync();
-                order.OrderApiIp = ExtractContent(responseContent, "id");
-
-                // Update the order with the API response data
-                await _orderService.UpdateAsync(order);
-
-                return responseContent;
+                // Parse and return the successful response content
+                return await response.Content.ReadAsStringAsync();
             }
             catch (HttpRequestException httpEx)
             {
@@ -114,13 +131,30 @@ namespace Infrastructure.Adapters.PrintfulService
             catch (Exception ex)
             {
                 // Log general exceptions
-                Console.WriteLine($"An error occurred while creating the order: {ex.Message}");
+                Console.WriteLine($"An error occurred while processing the request: {ex.Message}");
                 throw;
             }
         }
 
 
+        public override async Task<string> GetMockupAsync(string MockupId)
+        {
+            var requestUrl = $"https://api.printful.com/v2/mockup-tasks?id={MockupId}";
+            var response = await GetAsync(requestUrl);
+            return ExtractContent(ModifyResponseContent(response),null);
+        }
 
+        public override Task<string> GetOrderAsync(Guid OrderId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override async Task<string> CreateShippingRateAsync(ShippingRateDto _shippingRateDto)
+        {
+           var requestUrl = "https://api.printful.com/v2/shipping-rates";
+           var response = await SendPostRequestAsync(requestUrl,_shippingRateDto);
+           return ExtractContent(ModifyResponseContent(response), null);
+        }
 
 
         private async Task<OrderDto> GetOrderDto(Order order)

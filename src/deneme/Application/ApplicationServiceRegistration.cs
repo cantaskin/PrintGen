@@ -91,8 +91,6 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IPositionService, PositionManager>();
         services.AddScoped<IRetailCostService, RetailCostManager>();
         services.AddScoped<ICustomizationService, CustomizationManager>();
-        services.AddScoped<ICustomizationService, CustomizationManager>();
-        services.AddScoped<IPackingSlipService, PackingSlipManager>();
         services.AddScoped<IOptionService, OptionManager>();
         services.AddScoped<IUserOperationClaimService, UserUserOperationClaimManager>();
         services.AddScoped<ITemplateProductService, TemplateProductManager>();

@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.DTO;
-public class OptionStringDto : IDto
+public class OptionDto : IDto
 {
     public string name { get; set; }
 
-    public string value { get; set; }
+    public object value { get; set; }
 }

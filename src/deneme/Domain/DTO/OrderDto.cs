@@ -19,7 +19,7 @@ public class OrderDto : IDto
     {
         return new OrderDto
         {
-            //external_id = order.Id.ToString(), // Entity ID'si API'nin external_id alanına
+            external_id = "@" + order.Id.ToString(), // Entity ID'si API'nin external_id alanına
             shipping = order.Shipping ?? "STANDARD", // Varsayılan değer olarak "STANDARD"
             recipient = new AddressDto
             {
